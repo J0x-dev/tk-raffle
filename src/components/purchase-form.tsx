@@ -32,13 +32,13 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const formSchema = z.object({
-  fullName: z.string().min(2, { message: "Full name must be at least 2 characters." }),
+  fullName: z.string().min(1, { message: "Full name is required." }),
   mobileNumber: z.string().min(1, { message: "Mobile number is required." }).regex(/^\+?[1-9]\d{9,14}$/, { message: "Please enter a valid mobile number." }),
   email: z.string().min(1, { message: "Email is required." }).email({ message: "Please enter a valid email address." }),
   birthdate: z.date({ required_error: "A date of birth is required." }),
-  residentialAddress: z.string().min(10, { message: "Address must be at least 10 characters." }),
+  residentialAddress: z.string().min(1, { message: "Residential address is required." }),
   dateOfPurchase: z.date({ required_error: "A date of purchase is required." }),
-  purchaseAmount: z.coerce.number().positive({ message: "Purchase amount must be a positive number." }),
+  purchaseAmount: z.coerce.number({required_error: "Purchase amount is required."}).positive({ message: "Purchase amount must be a positive number." }),
   receiptNumber: z.string().min(1, { message: "Receipt number is required." }),
   branch: z.string({ required_error: "Please select a branch." }).min(1, {message: "Please select a branch."}),
   receiptUpload: z.any()
