@@ -156,20 +156,22 @@ export function PurchaseForm() {
                     </FormItem>
                   )}
                 />
+                 <div className="md:col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="residentialAddress"
+                      render={({ field }) => (
+                          <FormItem>
+                          <FormLabel>Residential Address</FormLabel>
+                          <FormControl>
+                              <Textarea placeholder="123 Main St, Anytown, USA" {...field} className="bg-white" />
+                          </FormControl>
+                          <FormMessage />
+                          </FormItem>
+                      )}
+                    />
+                </div>
               </div>
-              <FormField
-                  control={form.control}
-                  name="residentialAddress"
-                  render={({ field }) => (
-                      <FormItem>
-                      <FormLabel>Residential Address</FormLabel>
-                      <FormControl>
-                          <Textarea placeholder="123 Main St, Anytown, USA" {...field} className="bg-white" />
-                      </FormControl>
-                      <FormMessage />
-                      </FormItem>
-                  )}
-              />
             </div>
 
             <Separator />
@@ -181,7 +183,7 @@ export function PurchaseForm() {
                     control={form.control}
                     name="dateOfPurchase"
                     render={({ field }) => (
-                        <FormItem className="flex flex-col">
+                        <FormItem>
                         <FormLabel>Date of Purchase</FormLabel>
                         <Popover>
                             <PopoverTrigger asChild>
@@ -225,8 +227,6 @@ export function PurchaseForm() {
                         </FormItem>
                     )}
                     />
-                </div>
-                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
                     name="receiptNumber"
