@@ -27,7 +27,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Separator } from "./ui/separator";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -102,7 +101,7 @@ export function PurchaseForm() {
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
       <CardHeader>
         <CardTitle className="font-headline font-bold text-[28px] text-left text-[#8a2a2b]">Form</CardTitle>
-        <CardDescription className="text-[#8a2a2b]">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
+        <CardDescription className="text-[#8a2a2b]">change to form test</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -400,5 +399,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
