@@ -29,6 +29,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import { ScrollArea } from "./ui/scroll-area";
+import { Checkbox } from "./ui/checkbox";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -51,6 +52,9 @@ const formSchema = z.object({
       (files) => Array.from(files).every((file: any) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       "Only .jpg, .jpeg, .png and .webp formats are supported."
     ),
+  agreeToTerms: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the terms and conditions.",
+  }),
 });
 
 export function PurchaseForm() {
@@ -69,10 +73,12 @@ export function PurchaseForm() {
       purchaseAmount: undefined,
       receiptNumber: "",
       branch: "",
+      agreeToTerms: false,
     },
   });
 
   const receiptFileRef = form.watch("receiptUpload");
+  const agreeToTermsValue = form.watch("agreeToTerms");
 
   React.useEffect(() => {
     if (receiptFileRef && receiptFileRef.length > 0) {
@@ -436,7 +442,28 @@ export function PurchaseForm() {
               .
             </div>
 
-            <Button type="submit" className="w-full text-lg py-6">Submit</Button>
+            <FormField
+              control={form.control}
+              name="agreeToTerms"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Agree and Continue
+                    </FormLabel>
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" className="w-full text-lg py-6" disabled={!agreeToTermsValue}>Submit</Button>
           </form>
         </Form>
       </CardContent>
