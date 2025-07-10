@@ -72,7 +72,7 @@ export function PurchaseForm() {
   return (
     <Card className="w-full max-w-4xl shadow-2xl">
       <CardHeader>
-        <CardTitle className="font-headline text-3xl text-center text-primary">FormFlow</CardTitle>
+        <CardTitle className="font-headline text-3xl text-center text-primary">Sample Form</CardTitle>
         <CardDescription className="text-center">Please fill out the form below to register your purchase.</CardDescription>
       </CardHeader>
       <CardContent>
