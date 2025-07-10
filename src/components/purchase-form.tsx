@@ -114,11 +114,13 @@ export function PurchaseForm() {
                         <Input 
                           {...field} 
                           required
+                          maxLength={11}
                           onChange={(e) => {
-                            if (!e.target.value.startsWith('09')) {
+                            const value = e.target.value;
+                            if (!value.startsWith('09')) {
                               field.onChange('09');
-                            } else {
-                              field.onChange(e.target.value);
+                            } else if (value.length <= 11) {
+                              field.onChange(value);
                             }
                           }}
                         />
@@ -152,7 +154,7 @@ export function PurchaseForm() {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                                "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -171,6 +173,7 @@ export function PurchaseForm() {
                             onSelect={field.onChange}
                             disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
                             initialFocus
+                            required
                           />
                         </PopoverContent>
                       </Popover>
@@ -213,7 +216,7 @@ export function PurchaseForm() {
                                 <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                                    "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
@@ -229,6 +232,7 @@ export function PurchaseForm() {
                                 onSelect={field.onChange}
                                 disabled={(date) => date > new Date()}
                                 initialFocus
+                                required
                             />
                             </PopoverContent>
                         </Popover>
@@ -327,7 +331,7 @@ export function PurchaseForm() {
                       )}
                   />
                   <div>
-                    <p className="text-lg text-[#8a2a2b] font-bold mb-2">Sample Receipt</p>
+                    <p className="text-lg text-[#8a2a2b] font-bold mb-2">Sample Receipt*</p>
                     <Image
                         src="https://placehold.co/400x200.png"
                         alt="Sample Receipt"
