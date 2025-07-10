@@ -109,19 +109,56 @@ export function PurchaseForm() {
                   )}
                 />
               </div>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address</FormLabel>
-                    <FormControl>
-                      <Input placeholder="john.doe@example.com" {...field} className="bg-white" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email Address</FormLabel>
+                      <FormControl>
+                        <Input placeholder="john.doe@example.com" {...field} className="bg-white" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="birthdate"
+                  render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                      <FormLabel>Birthdate</FormLabel>
+                      <Popover>
+                          <PopoverTrigger asChild>
+                          <FormControl>
+                              <Button
+                              variant={"outline"}
+                              className={cn(
+                                  "w-full pl-3 text-left font-normal bg-white",
+                                  !field.value && "text-muted-foreground"
+                              )}
+                              >
+                              {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                          </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+                              initialFocus
+                          />
+                          </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                      </FormItem>
+                  )}
+                  />
+              </div>
             </div>
 
             <Separator />
@@ -129,41 +166,6 @@ export function PurchaseForm() {
             <div className="space-y-4">
                <h3 className="text-lg font-semibold text-primary/80">Purchase Information</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <FormField
-                    control={form.control}
-                    name="birthdate"
-                    render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                        <FormLabel>Birthdate</FormLabel>
-                        <Popover>
-                            <PopoverTrigger asChild>
-                            <FormControl>
-                                <Button
-                                variant={"outline"}
-                                className={cn(
-                                    "w-full pl-3 text-left font-normal bg-white",
-                                    !field.value && "text-muted-foreground"
-                                )}
-                                >
-                                {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                </Button>
-                            </FormControl>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
-                                initialFocus
-                            />
-                            </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
                     <FormField
                     control={form.control}
                     name="dateOfPurchase"
@@ -199,6 +201,19 @@ export function PurchaseForm() {
                         </FormItem>
                     )}
                     />
+                    <FormField
+                    control={form.control}
+                    name="purchaseAmount"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Purchase Amount</FormLabel>
+                        <FormControl>
+                            <Input type="number" placeholder="100.00" {...field} className="bg-white" />
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
                 </div>
                 <FormField
                     control={form.control}
@@ -216,19 +231,6 @@ export function PurchaseForm() {
                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
-                    name="purchaseAmount"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Purchase Amount</FormLabel>
-                        <FormControl>
-                            <Input type="number" placeholder="100.00" {...field} className="bg-white" />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <FormField
-                    control={form.control}
                     name="receiptNumber"
                     render={({ field }) => (
                         <FormItem>
@@ -240,29 +242,29 @@ export function PurchaseForm() {
                         </FormItem>
                     )}
                     />
+                     <FormField
+                        control={form.control}
+                        name="receiptUpload"
+                        render={({ field: { onChange, ...fieldProps } }) => (
+                            <FormItem>
+                            <FormLabel>Upload Receipt</FormLabel>
+                            <FormControl>
+                                <Input 
+                                type="file" 
+                                {...fieldProps} 
+                                onChange={(event) => onChange(event.target.files)} 
+                                className="bg-white file:text-primary file:font-semibold"
+                                accept="image/png, image/jpeg, image/jpg, image/webp"
+                                />
+                            </FormControl>
+                            <FormDescription>
+                                Max file size: 5MB. Accepted formats: JPG, PNG, WEBP.
+                            </FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
                 </div>
-                 <FormField
-                    control={form.control}
-                    name="receiptUpload"
-                    render={({ field: { onChange, ...fieldProps } }) => (
-                        <FormItem>
-                        <FormLabel>Upload Receipt</FormLabel>
-                        <FormControl>
-                            <Input 
-                            type="file" 
-                            {...fieldProps} 
-                            onChange={(event) => onChange(event.target.files)} 
-                            className="bg-white file:text-primary file:font-semibold"
-                            accept="image/png, image/jpeg, image/jpg, image/webp"
-                            />
-                        </FormControl>
-                        <FormDescription>
-                            Max file size: 5MB. Accepted formats: JPG, PNG, WEBP.
-                        </FormDescription>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
             </div>
             
             <Button type="submit" className="w-full text-lg py-6">Submit</Button>
