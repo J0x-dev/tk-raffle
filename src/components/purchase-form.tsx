@@ -406,8 +406,8 @@ export function PurchaseForm() {
                 <DialogTrigger asChild>
                   <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Privacy Policy</Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl h-screen p-0">
-                  <DialogHeader className="p-6">
+                <DialogContent className="max-w-4xl max-h-[90vh] h-full flex flex-col p-0">
+                  <DialogHeader className="p-6 pb-2 sticky top-0 bg-background z-10">
                     <DialogTitle>Privacy Policy</DialogTitle>
                     <DialogDescription>
                       This is where the privacy policy content will go.
@@ -425,8 +425,8 @@ export function PurchaseForm() {
                 <DialogTrigger asChild>
                   <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Terms and Conditions</Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl h-screen p-0">
-                   <DialogHeader className="p-6">
+                <DialogContent className="max-w-4xl max-h-[90vh] h-full flex flex-col p-0">
+                   <DialogHeader className="p-6 pb-2 sticky top-0 bg-background z-10">
                     <DialogTitle>Terms and Conditions</DialogTitle>
                     <DialogDescription>
                       This is where the terms and conditions content will go.
