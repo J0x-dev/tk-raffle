@@ -103,7 +103,7 @@ export function PurchaseForm() {
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
       <CardHeader>
         <CardTitle className="font-headline font-bold text-[28px] text-left text-[#8a2a2b]">1</CardTitle>
-        <CardDescription className="text-[#8a2a2b]">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
+        <CardDescription className="text-[#8a2a2b]">1</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -394,6 +394,48 @@ export function PurchaseForm() {
               </div>
             </div>
             
+            <div className="mt-4 text-center text-sm text-gray-600">
+              Read our{" "}
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Privacy Policy</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl h-screen p-0">
+                  <DialogHeader className="p-6">
+                    <DialogTitle>Privacy Policy</DialogTitle>
+                    <DialogDescription>
+                      This is where the privacy policy content will go.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <ScrollArea className="h-full">
+                    <div className="px-6 pb-6">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
+                    </div>
+                  </ScrollArea>
+                </DialogContent>
+              </Dialog>
+              . Tap "Agree & Continue" to accept the{" "}
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Terms and Conditions</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl h-screen p-0">
+                   <DialogHeader className="p-6">
+                    <DialogTitle>Terms and Conditions</DialogTitle>
+                    <DialogDescription>
+                      This is where the terms and conditions content will go.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <ScrollArea className="h-full">
+                    <div className="px-6 pb-6">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
+                    </div>
+                  </ScrollArea>
+                </DialogContent>
+              </Dialog>
+              .
+            </div>
+
             <Button type="submit" className="w-full text-lg py-6">Submit</Button>
           </form>
         </Form>
