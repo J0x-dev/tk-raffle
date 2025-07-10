@@ -79,7 +79,7 @@ export function PurchaseForm() {
   const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
 
   return (
-    <Card className="w-full max-w-4xl shadow-2xl bg-[#ece5d2]">
+    <Card className="w-full max-w-4xl shadow-2xl bg-[#ede5d2]">
       <CardHeader>
         <CardTitle className="font-headline text-[32px] text-center text-[#8a2a2b]">Sample Form</CardTitle>
       </CardHeader>
