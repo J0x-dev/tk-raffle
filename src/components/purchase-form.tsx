@@ -291,7 +291,7 @@ export function PurchaseForm() {
                         <FormLabel className="text-lg text-[#8a2a2b] font-bold">Receipt/Invoice Number*</FormLabel>
                         <FormControl>
                             <Input
-                              type="number"
+                              type="text"
                               {...field}
                               required
                             />
@@ -392,49 +392,6 @@ export function PurchaseForm() {
                     </div>
                   </div>
               </div>
-            </div>
-
-            <div className="space-y-4 text-center text-sm text-[#8a2a2b]">
-              <p>
-                Read our{' '}
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Privacy Policy</Button>
-                  </DialogTrigger>
-                  <DialogContent className="w-screen h-screen max-w-full flex flex-col">
-                    <DialogHeader>
-                      <DialogTitle>Privacy Policy</DialogTitle>
-                      <DialogDescription>
-                        This is the privacy policy.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <ScrollArea className="flex-grow">
-                      <div className="prose p-4">
-                        <p>Placeholder content for Privacy Policy...</p>
-                      </div>
-                    </ScrollArea>
-                  </DialogContent>
-                </Dialog>
-                . Tap &quot;Submit&quot; to accept the{' '}
-                 <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Terms and Conditions</Button>
-                  </DialogTrigger>
-                  <DialogContent className="w-screen h-screen max-w-full flex flex-col">
-                    <DialogHeader>
-                      <DialogTitle>Terms and Conditions</DialogTitle>
-                      <DialogDescription>
-                       These are the terms and conditions.
-                      </DialogDescription>
-                    </DialogHeader>
-                     <ScrollArea className="flex-grow">
-                        <div className="prose p-4">
-                            <p>Placeholder content for Terms and Conditions...</p>
-                        </div>
-                    </ScrollArea>
-                  </DialogContent>
-                </Dialog>.
-              </p>
             </div>
             
             <Button type="submit" className="w-full text-lg py-6">Submit</Button>
