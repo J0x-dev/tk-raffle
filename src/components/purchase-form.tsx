@@ -27,13 +27,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "./ui/separator";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const formSchema = z.object({
   fullName: z.string().min(1, { message: "Full name is required." }),
-  mobileNumber: z.string().regex(/^09\d{9}$/, { message: "Please enter a valid 11-digit mobile number starting with 09." }),
+  mobileNumber: z.string().regex(/^09\d{9}$/, { message: "Please enter a valid mobile number starting with 09." }),
   email: z.string().min(1, { message: "Email is required." }).email({ message: "Please enter a valid email address." }),
   birthdate: z.date({ required_error: "A date of birth is required." }),
   residentialAddress: z.string().min(1, { message: "Residential address is required." }),
@@ -100,8 +101,8 @@ export function PurchaseForm() {
   return (
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
       <CardHeader>
-        <CardTitle className="font-headline font-bold text-[26px] text-left text-[#8a2a2b]">Sample Form</CardTitle>
-        <CardDescription className="text-[#8a2a2b]">Please fill out the form below to register your purchase.</CardDescription>
+        <CardTitle className="font-headline font-bold text-[28px] text-left text-[#8a2a2b]">Form</CardTitle>
+        <CardDescription className="text-[#8a2a2b]">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -364,7 +365,7 @@ export function PurchaseForm() {
                     />
                   </div>
                   <div className="space-y-2">
-                     {imagePreviews.length > 0 && (
+                     {imagePreviews.length > 0 ? (
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                             {imagePreviews.map((src, index) => (
                                 <div key={index} className="relative aspect-video">
@@ -377,6 +378,16 @@ export function PurchaseForm() {
                                 </div>
                             ))}
                         </div>
+                    ) : (
+                       <div className="relative aspect-video">
+                        <Image
+                            src="https://placehold.co/600x400.png"
+                            alt="Sample Receipt"
+                            fill
+                            className="rounded-md object-cover"
+                            data-ai-hint="receipt"
+                        />
+                    </div>
                     )}
                   </div>
               </div>
@@ -389,3 +400,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
