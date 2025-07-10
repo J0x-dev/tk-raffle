@@ -82,7 +82,7 @@ export function PurchaseForm() {
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
       <CardHeader>
         <CardTitle className="font-headline font-bold text-[26px] text-left text-[#8a2a2b]">Sample Form</CardTitle>
-        <CardDescription className="text-input">Please fill out the form below to register your purchase.</CardDescription>
+        <CardDescription className="text-[#8a2a2b]">Please fill out the form below to register your purchase.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
