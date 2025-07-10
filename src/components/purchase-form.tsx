@@ -28,7 +28,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "./ui/separator";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const formSchema = z.object({
@@ -42,10 +42,11 @@ const formSchema = z.object({
   receiptNumber: z.string().min(1, { message: "Receipt number is required." }),
   branch: z.string({ required_error: "Please select a branch." }),
   receiptUpload: z.any()
-    .refine((files) => files?.length === 1, "Receipt image is required.")
-    .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
+    .refine((files) => files?.length >= 1, "At least one receipt image is required.")
+    .refine((files) => files?.length <= 5, "You can upload a maximum of 5 files.")
+    .refine((files) => Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE), `Max file size is 10MB per file.`)
     .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      (files) => Array.from(files).every((file: any) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       "Only .jpg, .jpeg, .png and .webp formats are supported."
     ),
 });
@@ -75,7 +76,7 @@ export function PurchaseForm() {
   }
   
   const receiptFileRef = form.watch("receiptUpload");
-  const receiptFileName = receiptFileRef?.[0]?.name;
+  const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
 
   return (
     <Card className="w-full max-w-4xl shadow-2xl bg-[#ece5d2]">
@@ -86,6 +87,60 @@ export function PurchaseForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                    <div>
+                      <FormField
+                          control={form.control}
+                          name="receiptUpload"
+                          render={({ field: { onChange, value, ...fieldProps } }) => (
+                              <FormItem>
+                                  <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt</FormLabel>
+                                  <FormControl>
+                                      <div className="relative">
+                                          <label htmlFor="receipt-upload" className={cn(
+                                              "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                          )}>
+                                              <span className="truncate text-muted-foreground">
+                                                  {receiptFileNames || ""}
+                                              </span>
+                                              <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
+                                          </label>
+                                          <Input
+                                              id="receipt-upload"
+                                              type="file"
+                                              className="sr-only"
+                                              {...fieldProps}
+                                              multiple
+                                              onChange={(event) => onChange(event.target.files)}
+                                              accept="image/png, image/jpeg, image/jpg, image/webp"
+                                          />
+                                      </div>
+                                  </FormControl>
+                                  <FormDescription>
+                                      Max 5 files. Max file size: 10MB. Accepted formats: JPG, PNG, WEBP.
+                                  </FormDescription>
+                                  <FormMessage />
+                              </FormItem>
+                          )}
+                      />
+                   </div>
+                    <div>
+                      <p className="text-lg text-[#8a2a2b] font-bold mb-2">Sample Receipt</p>
+                      <Image
+                          src="https://placehold.co/400x200.png"
+                          alt="Sample Receipt"
+                          width={400}
+                          height={200}
+                          className="rounded-md object-cover"
+                          data-ai-hint="receipt"
+                      />
+                  </div>
+              </div>
+            </div>
+
+            <Separator />
+
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-[#8a2a2b] text-24px">Contact Details</h3>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -269,54 +324,6 @@ export function PurchaseForm() {
                           </FormItem>
                         )}
                       />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
-                      <div>
-                        <FormField
-                            control={form.control}
-                            name="receiptUpload"
-                            render={({ field: { onChange, value, ...fieldProps } }) => (
-                                <FormItem>
-                                    <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt</FormLabel>
-                                    <FormControl>
-                                        <div className="relative">
-                                            <label htmlFor="receipt-upload" className={cn(
-                                                "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                                            )}>
-                                                <span className="truncate text-muted-foreground">
-                                                    {receiptFileName || ""}
-                                                </span>
-                                                <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
-                                            </label>
-                                            <Input
-                                                id="receipt-upload"
-                                                type="file"
-                                                className="sr-only"
-                                                {...fieldProps}
-                                                onChange={(event) => onChange(event.target.files)}
-                                                accept="image/png, image/jpeg, image/jpg, image/webp"
-                                            />
-                                        </div>
-                                    </FormControl>
-                                    <FormDescription>
-                                        Max file size: 5MB. Accepted formats: JPG, PNG, WEBP.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                     </div>
-                      <div>
-                        <p className="text-lg text-[#8a2a2b] font-bold mb-2">Sample Receipt</p>
-                        <Image
-                            src="https://placehold.co/400x200.png"
-                            alt="Sample Receipt"
-                            width={400}
-                            height={200}
-                            className="rounded-md object-cover"
-                            data-ai-hint="receipt"
-                        />
-                    </div>
                 </div>
             </div>
             
