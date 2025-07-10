@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { format } from "date-fns";
 import { CalendarIcon, UploadCloud } from "lucide-react";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -268,7 +269,9 @@ export function PurchaseForm() {
                           </FormItem>
                         )}
                       />
-                     <div className="md:col-span-2">
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                      <div>
                         <FormField
                             control={form.control}
                             name="receiptUpload"
@@ -303,6 +306,17 @@ export function PurchaseForm() {
                             )}
                         />
                      </div>
+                      <div>
+                        <p className="text-lg text-[#8a2a2b] font-bold mb-2">Sample Receipt</p>
+                        <Image
+                            src="https://placehold.co/400x200.png"
+                            alt="Sample Receipt"
+                            width={400}
+                            height={200}
+                            className="rounded-md object-cover"
+                            data-ai-hint="receipt"
+                        />
+                    </div>
                 </div>
             </div>
             
