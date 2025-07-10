@@ -9,7 +9,7 @@
 
 ## Style Guidelines:
 
-- Background color: #ECE5D2 (light grayish-beige).
+- Background color: #EDE5D2 (light grayish-beige).
 - Input background color: White (#FFFFFF).
 - Input border color: #AE7900 (muted gold).
 - Input focus color: #E5B9A5 (dusty rose).

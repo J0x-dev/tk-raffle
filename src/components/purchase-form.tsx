@@ -79,7 +79,7 @@ export function PurchaseForm() {
   const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
 
   return (
-    <Card className="w-full max-w-4xl shadow-2xl bg-[#ede5d2]">
+    <Card className="w-full max-w-4xl bg-[#ede5d2] !border-none">
       <CardHeader>
         <CardTitle className="font-headline text-[32px] text-center text-[#8a2a2b]">Sample Form</CardTitle>
       </CardHeader>
@@ -88,7 +88,7 @@ export function PurchaseForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-[#8a2a2b] text-24px">Contact Details</h3>
+              <h3 className="text-2xl font-bold text-[#8a2a2b] text-24px text-center">Contact Details</h3>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -185,7 +185,7 @@ export function PurchaseForm() {
             <Separator />
             
             <div className="space-y-4">
-               <h3 className="text-2xl font-bold text-[#8a2a2b] text-24px">Purchase Information</h3>
+               <h3 className="text-2xl font-bold text-[#8a2a2b] text-24px text-center">Purchase Information</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
