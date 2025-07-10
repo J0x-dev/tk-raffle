@@ -87,7 +87,7 @@ export function PurchaseForm() {
                   name="fullName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg text-[#8a2a2b]">Full Name</FormLabel>
+                      <FormLabel className="text-lg text-[#8a2a2b] font-bold">Full Name</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -100,7 +100,7 @@ export function PurchaseForm() {
                   name="mobileNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg text-[#8a2a2b]">Mobile Number</FormLabel>
+                      <FormLabel className="text-lg text-[#8a2a2b] font-bold">Mobile Number</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -113,7 +113,7 @@ export function PurchaseForm() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg text-[#8a2a2b]">Email Address</FormLabel>
+                      <FormLabel className="text-lg text-[#8a2a2b] font-bold">Email Address</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -126,7 +126,7 @@ export function PurchaseForm() {
                   name="birthdate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg text-[#8a2a2b]">Birthdate</FormLabel>
+                      <FormLabel className="text-lg text-[#8a2a2b] font-bold">Birthdate</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -162,7 +162,7 @@ export function PurchaseForm() {
                       name="residentialAddress"
                       render={({ field }) => (
                           <FormItem>
-                          <FormLabel className="text-lg text-[#8a2a2b]">Residential Address</FormLabel>
+                          <FormLabel className="text-lg text-[#8a2a2b] font-bold">Residential Address</FormLabel>
                           <FormControl>
                               <Textarea {...field} />
                           </FormControl>
@@ -184,7 +184,7 @@ export function PurchaseForm() {
                     name="dateOfPurchase"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel className="text-lg text-[#8a2a2b]">Date of Purchase</FormLabel>
+                        <FormLabel className="text-lg text-[#8a2a2b] font-bold">Date of Purchase</FormLabel>
                         <Popover>
                             <PopoverTrigger asChild>
                             <FormControl>
@@ -219,7 +219,7 @@ export function PurchaseForm() {
                     name="purchaseAmount"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel className="text-lg text-[#8a2a2b]">Purchase Amount</FormLabel>
+                        <FormLabel className="text-lg text-[#8a2a2b] font-bold">Purchase Amount</FormLabel>
                         <FormControl>
                             <Input type="number" {...field} value={field.value ?? ""} />
                         </FormControl>
@@ -232,7 +232,7 @@ export function PurchaseForm() {
                     name="receiptNumber"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel className="text-lg text-[#8a2a2b]">Receipt/Invoice Number</FormLabel>
+                        <FormLabel className="text-lg text-[#8a2a2b] font-bold">Receipt/Invoice Number</FormLabel>
                         <FormControl>
                             <Input {...field} />
                         </FormControl>
@@ -245,7 +245,7 @@ export function PurchaseForm() {
                         name="receiptUpload"
                         render={({ field: { onChange, value, ...fieldProps } }) => (
                             <FormItem>
-                            <FormLabel className="text-lg text-[#8a2a2b]">Upload Receipt</FormLabel>
+                            <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt</FormLabel>
                             <FormControl>
                                 <Input 
                                 type="file" 
