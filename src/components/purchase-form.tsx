@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,7 +10,7 @@ import { CalendarIcon, UploadCloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -135,12 +136,13 @@ export function PurchaseForm() {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "w-full h-10 justify-start text-left font-normal",
+                                "flex h-10 w-full rounded-md border border-[#b47e00] bg-white/50 px-2.5 py-2 text-base text-[rgb(138,42,43)] caret-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e5b9a5] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                                "shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px] justify-start text-left font-normal",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
                               <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
-                              {field.value ? format(field.value, "PPP") : null}
+                              {field.value ? format(field.value, "PPP") : <span></span>}
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
@@ -193,11 +195,12 @@ export function PurchaseForm() {
                                 <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "w-full h-10 justify-start text-left font-normal",
+                                    "flex h-10 w-full rounded-md border border-[#b47e00] bg-white/50 px-2.5 py-2 text-base text-[rgb(138,42,43)] caret-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e5b9a5] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                                    "shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px] justify-start text-left font-normal",
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
-                                {field.value ? format(field.value, "PPP") : null}
+                                {field.value ? format(field.value, "PPP") : <span></span>}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                 </Button>
                             </FormControl>
@@ -251,11 +254,11 @@ export function PurchaseForm() {
                                 <FormControl>
                                     <div className="relative">
                                         <label htmlFor="receipt-upload" className={cn(
-                                            "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-2.5 py-2 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                                            "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-2.5 py-2 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                                             "shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px]"
                                         )}>
                                             <span className="truncate text-muted-foreground">
-                                                {receiptFileName || "Select a file..."}
+                                                {receiptFileName || ""}
                                             </span>
                                             <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
                                         </label>
@@ -286,3 +289,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
