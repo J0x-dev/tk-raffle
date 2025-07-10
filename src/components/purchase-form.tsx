@@ -27,6 +27,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "./ui/separator";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -378,15 +379,18 @@ export function PurchaseForm() {
                             ))}
                         </div>
                     ) : (
-                       <div className="relative aspect-video">
-                        <Image
-                            src="https://placehold.co/600x400.png"
-                            alt="Sample Receipt"
-                            fill
-                            className="rounded-md object-cover"
-                            data-ai-hint="receipt"
-                        />
-                    </div>
+                      <div className="space-y-2">
+                        <p className="text-sm text-center text-[#8a2a2b] font-medium">Sample Receipt</p>
+                        <div className="relative aspect-video">
+                          <Image
+                              src="https://placehold.co/600x400.png"
+                              alt="Sample Receipt"
+                              fill
+                              className="rounded-md object-cover"
+                              data-ai-hint="receipt"
+                          />
+                        </div>
+                      </div>
                     )}
                   </div>
               </div>
@@ -399,5 +403,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
