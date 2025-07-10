@@ -251,7 +251,7 @@ export function PurchaseForm() {
                             <Calendar
                                 mode="single"
                                 captionLayout="dropdown-buttons"
-                                fromYear={2000}
+                                fromYear={new Date().getFullYear() - 10}
                                 toYear={new Date().getFullYear()}
                                 selected={field.value}
                                 onSelect={(date) => {
@@ -362,35 +362,32 @@ export function PurchaseForm() {
                             </FormItem>
                         )}
                     />
+                      {imagePreviews.length > 0 && (
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                              {imagePreviews.map((src, index) => (
+                                  <div key={index} className="relative aspect-video">
+                                      <Image
+                                          src={src}
+                                          alt={`Receipt preview ${index + 1}`}
+                                          fill
+                                          className="rounded-md object-cover"
+                                      />
+                                  </div>
+                              ))}
+                          </div>
+                      )}
                   </div>
                   <div className="space-y-2">
-                     {imagePreviews.length > 0 ? (
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                            {imagePreviews.map((src, index) => (
-                                <div key={index} className="relative aspect-video">
-                                    <Image
-                                        src={src}
-                                        alt={`Receipt preview ${index + 1}`}
-                                        fill
-                                        className="rounded-md object-cover"
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                      <div className="space-y-2">
-                        <p className="text-lg text-[#8a2a2b] font-bold">Sample Receipt</p>
-                        <div className="relative aspect-video">
-                          <Image
-                              src="https://placehold.co/600x400.png"
-                              alt="Sample Receipt"
-                              fill
-                              className="rounded-md object-cover"
-                              data-ai-hint="receipt"
-                          />
-                        </div>
-                      </div>
-                    )}
+                    <p className="text-lg text-[#8a2a2b] font-bold">Sample Receipt</p>
+                    <div className="relative aspect-video">
+                      <Image
+                          src="https://placehold.co/600x400.png"
+                          alt="Sample Receipt"
+                          fill
+                          className="rounded-md object-cover"
+                          data-ai-hint="receipt"
+                      />
+                    </div>
                   </div>
               </div>
             </div>
@@ -402,3 +399,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
