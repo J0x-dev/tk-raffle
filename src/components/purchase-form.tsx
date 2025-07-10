@@ -25,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
@@ -55,6 +56,7 @@ export function PurchaseForm() {
   const { toast } = useToast();
   const [isBirthdateOpen, setIsBirthdateOpen] = React.useState(false);
   const [isPurchaseDateOpen, setIsPurchaseDateOpen] = React.useState(false);
+  const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -69,6 +71,22 @@ export function PurchaseForm() {
     },
   });
 
+  const receiptFileRef = form.watch("receiptUpload");
+
+  React.useEffect(() => {
+    if (receiptFileRef && receiptFileRef.length > 0) {
+      const fileArray = Array.from(receiptFileRef);
+      const newPreviews = fileArray.map((file) => URL.createObjectURL(file as Blob));
+      setImagePreviews(newPreviews);
+
+      return () => {
+        newPreviews.forEach((url) => URL.revokeObjectURL(url));
+      };
+    } else {
+      setImagePreviews([]);
+    }
+  }, [receiptFileRef]);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     toast({
@@ -78,7 +96,6 @@ export function PurchaseForm() {
     form.reset();
   }
   
-  const receiptFileRef = form.watch("receiptUpload");
   const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
 
   return (
@@ -310,41 +327,57 @@ export function PurchaseForm() {
 
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                      control={form.control}
-                      name="receiptUpload"
-                      render={({ field: { onChange, value, ...fieldProps } }) => (
-                          <FormItem>
-                              <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt*</FormLabel>
-                              <FormControl>
-                                  <div className="relative">
-                                      <label htmlFor="receipt-upload" className={cn(
-                                          "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                                      )}>
-                                          <span className="truncate text-muted-foreground">
-                                              {receiptFileNames || ""}
-                                          </span>
-                                          <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
-                                      </label>
-                                      <Input
-                                          id="receipt-upload"
-                                          type="file"
-                                          className="sr-only"
-                                          {...fieldProps}
-                                          multiple
-                                          onChange={(event) => onChange(event.target.files)}
-                                          accept="image/png, image/jpeg, image/jpg, image/webp"
-                                          required
-                                      />
-                                  </div>
-                              </FormControl>
-                              <FormDescription>
-                                  Max 5 files. Max file size: 10MB. Accepted formats: JPG, PNG, WEBP.
-                              </FormDescription>
-                              <FormMessage />
-                          </FormItem>
-                      )}
-                  />
+                  <div className="space-y-2">
+                    <FormField
+                        control={form.control}
+                        name="receiptUpload"
+                        render={({ field: { onChange, value, ...fieldProps } }) => (
+                            <FormItem>
+                                <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt*</FormLabel>
+                                <FormControl>
+                                    <div className="relative">
+                                        <label htmlFor="receipt-upload" className={cn(
+                                            "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                        )}>
+                                            <span className="truncate text-muted-foreground">
+                                                {receiptFileNames || "Select file(s)"}
+                                            </span>
+                                            <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
+                                        </label>
+                                        <Input
+                                            id="receipt-upload"
+                                            type="file"
+                                            className="sr-only"
+                                            {...fieldProps}
+                                            multiple
+                                            onChange={(event) => onChange(event.target.files)}
+                                            accept="image/png, image/jpeg, image/jpg, image/webp"
+                                            required
+                                        />
+                                    </div>
+                                </FormControl>
+                                <FormDescription>
+                                    Max 5 files. Max file size: 10MB. Accepted formats: JPG, PNG, WEBP.
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                     {imagePreviews.length > 0 && (
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                            {imagePreviews.map((src, index) => (
+                                <div key={index} className="relative aspect-video">
+                                    <Image
+                                        src={src}
+                                        alt={`Receipt preview ${index + 1}`}
+                                        fill
+                                        className="rounded-md object-cover"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                  </div>
                   <div>
                     <p className="text-lg text-[#8a2a2b] font-bold mb-2">Sample Receipt*</p>
                     <Image
