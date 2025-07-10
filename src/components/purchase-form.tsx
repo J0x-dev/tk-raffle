@@ -33,14 +33,14 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/web
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Full name must be at least 2 characters." }),
-  mobileNumber: z.string().regex(/^\+?[1-9]\d{9,14}$/, { message: "Please enter a valid mobile number." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
+  mobileNumber: z.string().min(1, { message: "Mobile number is required." }).regex(/^\+?[1-9]\d{9,14}$/, { message: "Please enter a valid mobile number." }),
+  email: z.string().min(1, { message: "Email is required." }).email({ message: "Please enter a valid email address." }),
   birthdate: z.date({ required_error: "A date of birth is required." }),
   residentialAddress: z.string().min(10, { message: "Address must be at least 10 characters." }),
   dateOfPurchase: z.date({ required_error: "A date of purchase is required." }),
   purchaseAmount: z.coerce.number().positive({ message: "Purchase amount must be a positive number." }),
   receiptNumber: z.string().min(1, { message: "Receipt number is required." }),
-  branch: z.string({ required_error: "Please select a branch." }),
+  branch: z.string({ required_error: "Please select a branch." }).min(1, {message: "Please select a branch."}),
   receiptUpload: z.any()
     .refine((files) => files?.length >= 1, "At least one receipt image is required.")
     .refine((files) => files?.length <= 5, "You can upload a maximum of 5 files.")
@@ -79,10 +79,10 @@ export function PurchaseForm() {
   const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
 
   return (
-    <Card className="w-full max-w-4xl bg-[#ede5d2] !border-none">
+    <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
       <CardHeader>
         <CardTitle className="font-headline font-bold text-[26px] text-left text-[#8a2a2b]">Sample Form</CardTitle>
-        <CardDescription className="text-[#8a2a2b]">Please fill out the form below to register your purchase.</CardDescription>
+        <CardDescription className="text-input">Please fill out the form below to register your purchase.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -142,7 +142,7 @@ export function PurchaseForm() {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "flex h-10 w-full justify-start text-left font-normal",
+                                "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -200,7 +200,7 @@ export function PurchaseForm() {
                                 <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "flex h-10 w-full justify-start text-left font-normal",
+                                    "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
