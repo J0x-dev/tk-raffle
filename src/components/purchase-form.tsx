@@ -70,7 +70,7 @@ export function PurchaseForm() {
   }
 
   return (
-    <Card className="w-full max-w-4xl shadow-2xl">
+    <Card className="w-full max-w-4xl shadow-2xl bg-[#ece5d2]">
       <CardHeader>
         <CardTitle className="font-headline text-3xl text-center text-primary">Sample Form</CardTitle>
         <CardDescription className="text-center">Please fill out the form below to register your purchase.</CardDescription>
@@ -125,7 +125,7 @@ export function PurchaseForm() {
                   control={form.control}
                   name="birthdate"
                   render={({ field }) => (
-                      <FormItem className="flex flex-col">
+                      <FormItem>
                       <FormLabel>Birthdate</FormLabel>
                       <Popover>
                           <PopoverTrigger asChild>
@@ -133,12 +133,12 @@ export function PurchaseForm() {
                               <Button
                               variant={"outline"}
                               className={cn(
-                                  "w-full pl-3 text-left font-normal bg-white",
+                                  "w-full pl-3 text-left font-normal bg-white justify-start",
                                   !field.value && "text-muted-foreground"
                               )}
                               >
+                              <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
                               {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                               </Button>
                           </FormControl>
                           </PopoverTrigger>
