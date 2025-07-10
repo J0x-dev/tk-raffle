@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { format } from "date-fns";
-import { CalendarIcon, UploadCloud } from "lucide-react";
+import { CalendarIcon, UploadCloud, X } from "lucide-react";
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
@@ -27,7 +27,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "./ui/scroll-area";
 import { Checkbox } from "./ui/checkbox";
 import { Separator } from "./ui/separator";
@@ -408,18 +408,22 @@ export function PurchaseForm() {
                 <DialogTrigger asChild>
                   <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Privacy Policy</Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[90vh] h-full flex flex-col p-0">
-                  <DialogHeader className="p-6 pb-2 sticky top-0 bg-background z-10">
+                <DialogContent className="max-w-4xl max-h-[90vh] h-full flex flex-col p-6 sm:p-8 border-none">
+                  <DialogHeader>
                     <DialogTitle>Privacy Policy</DialogTitle>
                     <DialogDescription>
                       This is where the privacy policy content will go.
                     </DialogDescription>
                   </DialogHeader>
-                  <ScrollArea className="h-full">
-                    <div className="px-6 pb-6">
+                  <ScrollArea className="h-full -mx-6 sm:-mx-8 pr-4">
+                    <div className="px-6 sm:px-8 pb-6">
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
                     </div>
                   </ScrollArea>
+                   <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                  </DialogClose>
                 </DialogContent>
               </Dialog>
               . Tap "Agree & Continue" to accept the{" "}
@@ -427,18 +431,22 @@ export function PurchaseForm() {
                 <DialogTrigger asChild>
                   <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Terms and Conditions</Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[90vh] h-full flex flex-col p-0">
-                   <DialogHeader className="p-6 pb-2 sticky top-0 bg-background z-10">
+                <DialogContent className="max-w-4xl max-h-[90vh] h-full flex flex-col p-6 sm:p-8 border-none">
+                   <DialogHeader>
                     <DialogTitle>Terms and Conditions</DialogTitle>
                     <DialogDescription>
                       This is where the terms and conditions content will go.
                     </DialogDescription>
                   </DialogHeader>
-                  <ScrollArea className="h-full">
-                    <div className="px-6 pb-6">
+                  <ScrollArea className="h-full -mx-6 sm:-mx-8 pr-4">
+                    <div className="px-6 sm:px-8 pb-6">
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
                     </div>
                   </ScrollArea>
+                  <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                  </DialogClose>
                 </DialogContent>
               </Dialog>
               .
