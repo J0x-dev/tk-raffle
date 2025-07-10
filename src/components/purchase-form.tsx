@@ -25,7 +25,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
@@ -180,7 +179,7 @@ export function PurchaseForm() {
                               )}
                             >
                               <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
-                              {field.value ? format(field.value, "PPP") : <span></span>}
+                              {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
@@ -244,7 +243,7 @@ export function PurchaseForm() {
                                 )}
                                 >
                                 <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
-                                {field.value ? format(field.value, "PPP") : <span></span>}
+                                {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                                 </Button>
                             </FormControl>
                             </PopoverTrigger>
@@ -363,6 +362,8 @@ export function PurchaseForm() {
                             </FormItem>
                         )}
                     />
+                  </div>
+                  <div className="space-y-2">
                      {imagePreviews.length > 0 && (
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                             {imagePreviews.map((src, index) => (
@@ -377,17 +378,6 @@ export function PurchaseForm() {
                             ))}
                         </div>
                     )}
-                  </div>
-                  <div>
-                    <p className="text-lg text-[#8a2a2b] font-bold mb-2">Sample Receipt*</p>
-                    <Image
-                        src="https://placehold.co/400x200.png"
-                        alt="Sample Receipt"
-                        width={400}
-                        height={200}
-                        className="rounded-md object-cover"
-                        data-ai-hint="receipt"
-                    />
                   </div>
               </div>
             </div>
