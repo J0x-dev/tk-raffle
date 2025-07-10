@@ -108,8 +108,6 @@ export function PurchaseForm() {
                     </FormItem>
                   )}
                 />
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="email"
@@ -165,6 +163,19 @@ export function PurchaseForm() {
             
             <div className="space-y-4">
                <h3 className="text-lg font-semibold text-primary/80">Purchase Information</h3>
+                <FormField
+                    control={form.control}
+                    name="residentialAddress"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Residential Address</FormLabel>
+                        <FormControl>
+                            <Textarea placeholder="123 Main St, Anytown, USA" {...field} className="bg-white" />
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                />
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
@@ -215,19 +226,6 @@ export function PurchaseForm() {
                     )}
                     />
                 </div>
-                <FormField
-                    control={form.control}
-                    name="residentialAddress"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Residential Address</FormLabel>
-                        <FormControl>
-                            <Textarea placeholder="123 Main St, Anytown, USA" {...field} className="bg-white" />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
