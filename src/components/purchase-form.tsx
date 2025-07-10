@@ -112,6 +112,7 @@ export function PurchaseForm() {
                       <FormLabel className="text-lg text-[#8a2a2b] font-bold">Mobile Number*</FormLabel>
                       <FormControl>
                         <Input 
+                          type="number"
                           {...field} 
                           required
                           maxLength={11}
@@ -119,7 +120,7 @@ export function PurchaseForm() {
                             const value = e.target.value;
                             if (!value.startsWith('09')) {
                               field.onChange('09');
-                            } else if (value.length <= 11 && /^\d*$/.test(value)) {
+                            } else if (value.length <= 11) {
                               field.onChange(value);
                             }
                           }}
