@@ -261,14 +261,9 @@ export function PurchaseForm() {
                         <FormLabel className="text-lg text-[#8a2a2b] font-bold">Receipt/Invoice Number*</FormLabel>
                         <FormControl>
                             <Input
+                              type="number"
                               {...field}
                               required
-                              onChange={(e) => {
-                                const { value } = e.target;
-                                if (/^\d*$/.test(value)) {
-                                  field.onChange(value);
-                                }
-                              }}
                             />
                         </FormControl>
                         <FormMessage />
