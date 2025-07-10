@@ -98,7 +98,7 @@ export function PurchaseForm() {
                     <FormItem>
                       <FormLabel className="text-lg text-[#8a2a2b] font-bold">Full Name</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} required/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -111,7 +111,7 @@ export function PurchaseForm() {
                     <FormItem>
                       <FormLabel className="text-lg text-[#8a2a2b] font-bold">Mobile Number</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} required/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -124,7 +124,7 @@ export function PurchaseForm() {
                     <FormItem>
                       <FormLabel className="text-lg text-[#8a2a2b] font-bold">Email Address</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} required/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -154,6 +154,9 @@ export function PurchaseForm() {
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
+                            captionLayout="dropdown-buttons"
+                            fromYear={1900}
+                            toYear={new Date().getFullYear()}
                             selected={field.value}
                             onSelect={field.onChange}
                             disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
@@ -173,7 +176,7 @@ export function PurchaseForm() {
                           <FormItem>
                           <FormLabel className="text-lg text-[#8a2a2b] font-bold">Residential Address</FormLabel>
                           <FormControl>
-                              <Textarea {...field} />
+                              <Textarea {...field} required/>
                           </FormControl>
                           <FormMessage />
                           </FormItem>
@@ -230,7 +233,7 @@ export function PurchaseForm() {
                         <FormItem>
                         <FormLabel className="text-lg text-[#8a2a2b] font-bold">Purchase Amount</FormLabel>
                         <FormControl>
-                            <Input type="number" {...field} value={field.value ?? ""} />
+                            <Input type="number" {...field} value={field.value ?? ""} required/>
                         </FormControl>
                         <FormMessage />
                         </FormItem>
@@ -243,7 +246,7 @@ export function PurchaseForm() {
                         <FormItem>
                         <FormLabel className="text-lg text-[#8a2a2b] font-bold">Receipt/Invoice Number</FormLabel>
                         <FormControl>
-                            <Input {...field} />
+                            <Input {...field} required/>
                         </FormControl>
                         <FormMessage />
                         </FormItem>
@@ -255,7 +258,7 @@ export function PurchaseForm() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-lg text-[#8a2a2b] font-bold">Branch</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select onValueChange={field.onChange} defaultValue={field.value} required>
                               <FormControl>
                                 <SelectTrigger>
                                   <SelectValue placeholder="Select Branch" />
@@ -302,6 +305,7 @@ export function PurchaseForm() {
                                           multiple
                                           onChange={(event) => onChange(event.target.files)}
                                           accept="image/png, image/jpeg, image/jpg, image/webp"
+                                          required
                                       />
                                   </div>
                               </FormControl>
