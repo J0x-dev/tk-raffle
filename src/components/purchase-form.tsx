@@ -420,6 +420,11 @@ export function PurchaseForm() {
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
                     </div>
                   </ScrollArea>
+                   <DialogClose asChild>
+                    <Button type="button" variant="secondary" className="mt-4">
+                      Close
+                    </Button>
+                  </DialogClose>
                 </DialogContent>
               </Dialog>
               . Tap "Agree & Continue" to accept the{" "}
@@ -439,6 +444,11 @@ export function PurchaseForm() {
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
                     </div>
                   </ScrollArea>
+                   <DialogClose asChild>
+                    <Button type="button" variant="secondary" className="mt-4">
+                      Close
+                    </Button>
+                  </DialogClose>
                 </DialogContent>
               </Dialog>
               .
