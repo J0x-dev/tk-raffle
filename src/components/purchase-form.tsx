@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "./ui/separator";
@@ -38,6 +39,7 @@ const formSchema = z.object({
   dateOfPurchase: z.date({ required_error: "A date of purchase is required." }),
   purchaseAmount: z.coerce.number().positive({ message: "Purchase amount must be a positive number." }),
   receiptNumber: z.string().min(1, { message: "Receipt number is required." }),
+  branch: z.string({ required_error: "Please select a branch." }),
   receiptUpload: z.any()
     .refine((files) => files?.length === 1, "Receipt image is required.")
     .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
@@ -58,6 +60,7 @@ export function PurchaseForm() {
       residentialAddress: "",
       purchaseAmount: undefined,
       receiptNumber: "",
+      branch: "",
     },
   });
 
@@ -136,8 +139,7 @@ export function PurchaseForm() {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "flex h-10 w-full rounded-md border border-[#b47e00] bg-white/50 px-2.5 py-2 text-base text-[rgb(138,42,43)] caret-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e5b9a5] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-                                "shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px] justify-start text-left font-normal",
+                                "flex h-10 w-full justify-start text-left font-normal",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -195,8 +197,7 @@ export function PurchaseForm() {
                                 <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "flex h-10 w-full rounded-md border border-[#b47e00] bg-white/50 px-2.5 py-2 text-base text-[rgb(138,42,43)] caret-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e5b9a5] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-                                    "shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px] justify-start text-left font-normal",
+                                    "flex h-10 w-full justify-start text-left font-normal",
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
@@ -247,38 +248,61 @@ export function PurchaseForm() {
                     />
                      <FormField
                         control={form.control}
-                        name="receiptUpload"
-                        render={({ field: { onChange, value, ...fieldProps } }) => (
-                            <FormItem>
-                                <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt</FormLabel>
-                                <FormControl>
-                                    <div className="relative">
-                                        <label htmlFor="receipt-upload" className={cn(
-                                            "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-2.5 py-2 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-                                            "shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px]"
-                                        )}>
-                                            <span className="truncate text-muted-foreground">
-                                                {receiptFileName || ""}
-                                            </span>
-                                            <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
-                                        </label>
-                                        <Input
-                                            id="receipt-upload"
-                                            type="file"
-                                            className="sr-only"
-                                            {...fieldProps}
-                                            onChange={(event) => onChange(event.target.files)}
-                                            accept="image/png, image/jpeg, image/jpg, image/webp"
-                                        />
-                                    </div>
-                                </FormControl>
-                                <FormDescription>
-                                    Max file size: 5MB. Accepted formats: JPG, PNG, WEBP.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
+                        name="branch"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-lg text-[#8a2a2b] font-bold">Branch</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select Branch" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="Branch A">Branch A</SelectItem>
+                                <SelectItem value="Branch B">Branch B</SelectItem>
+                                <SelectItem value="Branch C">Branch C</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
                         )}
-                    />
+                      />
+                     <div className="md:col-span-2">
+                        <FormField
+                            control={form.control}
+                            name="receiptUpload"
+                            render={({ field: { onChange, value, ...fieldProps } }) => (
+                                <FormItem>
+                                    <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt</FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <label htmlFor="receipt-upload" className={cn(
+                                                "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                            )}>
+                                                <span className="truncate text-muted-foreground">
+                                                    {receiptFileName || ""}
+                                                </span>
+                                                <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
+                                            </label>
+                                            <Input
+                                                id="receipt-upload"
+                                                type="file"
+                                                className="sr-only"
+                                                {...fieldProps}
+                                                onChange={(event) => onChange(event.target.files)}
+                                                accept="image/png, image/jpeg, image/jpg, image/webp"
+                                            />
+                                        </div>
+                                    </FormControl>
+                                    <FormDescription>
+                                        Max file size: 5MB. Accepted formats: JPG, PNG, WEBP.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                     </div>
                 </div>
             </div>
             
