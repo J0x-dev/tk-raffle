@@ -11,7 +11,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -82,6 +82,7 @@ export function PurchaseForm() {
     <Card className="w-full max-w-4xl bg-[#ede5d2] !border-none">
       <CardHeader>
         <CardTitle className="font-headline font-bold text-[26px] text-left text-[#8a2a2b]">Sample Form</CardTitle>
+        <CardDescription>Please fill out the form below to register your purchase.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
