@@ -27,6 +27,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import { ScrollArea } from "./ui/scroll-area";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -363,7 +365,7 @@ export function PurchaseForm() {
                         )}
                     />
                       {imagePreviews.length > 0 && (
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
                               {imagePreviews.map((src, index) => (
                                   <div key={index} className="relative aspect-video">
                                       <Image
@@ -391,6 +393,49 @@ export function PurchaseForm() {
                   </div>
               </div>
             </div>
+
+            <div className="space-y-4 text-center text-sm text-[#8a2a2b]">
+              <p>
+                Read our{' '}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Privacy Policy</Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-screen h-screen max-w-full flex flex-col">
+                    <DialogHeader>
+                      <DialogTitle>Privacy Policy</DialogTitle>
+                      <DialogDescription>
+                        This is the privacy policy.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <ScrollArea className="flex-grow">
+                      <div className="prose p-4">
+                        <p>Placeholder content for Privacy Policy...</p>
+                      </div>
+                    </ScrollArea>
+                  </DialogContent>
+                </Dialog>
+                . Tap &quot;Submit&quot; to accept the{' '}
+                 <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Terms and Conditions</Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-screen h-screen max-w-full flex flex-col">
+                    <DialogHeader>
+                      <DialogTitle>Terms and Conditions</DialogTitle>
+                      <DialogDescription>
+                       These are the terms and conditions.
+                      </DialogDescription>
+                    </DialogHeader>
+                     <ScrollArea className="flex-grow">
+                        <div className="prose p-4">
+                            <p>Placeholder content for Terms and Conditions...</p>
+                        </div>
+                    </ScrollArea>
+                  </DialogContent>
+                </Dialog>.
+              </p>
+            </div>
             
             <Button type="submit" className="w-full text-lg py-6">Submit</Button>
           </form>
@@ -399,5 +444,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
