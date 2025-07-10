@@ -60,6 +60,19 @@ const formSchema = z.object({
   }),
 });
 
+const branches = [
+    "A.T. Yuchengco Centre", "Aseana Parañaque", "Avida Paco", "Avire Tower", "Ayala Harbor Point",
+    "Ayala Malls Serin", "Ayala Malls Vermosa", "BF Aguirre", "Boni Ave. Mandaluyong", "Boracay",
+    "California Garden Square", "Caloocan Commercial Complex", "Caltex Balintawak", "Caltex SLEX",
+    "Cardinal Santos Medical Center", "Chinese General Hospital and Medical Center", "Clean Fuel",
+    "E. Rodriguez", "Eton Centris", "Ilagan", "Jupiter Makati", "L&Y Plaza Pasig", "Lakeshore",
+    "Lucena", "MCU Monumento", "Market! Market!", "NAIA Terminal 3", "PITX", "Petron Katipunan",
+    "Petron NLEX Marilao", "Pio Del Pilar Makati", "Pioneer Pasig", "Quiapo", "RCBC Plaza - Makati",
+    "Robinsons Galleria South", "San Lorenzo Place Makati", "Santana Grove Parañaque",
+    "Starmall EDSA Shaw", "Taft", "The Outlets at LIMA", "Tomas Morato", "Total NLEX", "Total SLEX",
+    "UST", "Ulticare Medical Center", "Versailles Town Plaza", "WalterMart Antipolo"
+];
+
 export function PurchaseForm() {
   const { toast } = useToast();
   const router = useRouter();
@@ -322,9 +335,9 @@ export function PurchaseForm() {
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                <SelectItem value="Branch A">Branch A</SelectItem>
-                                <SelectItem value="Branch B">Branch B</SelectItem>
-                                <SelectItem value="Branch C">Branch C</SelectItem>
+                                {branches.map((branch) => (
+                                    <SelectItem key={branch} value={branch}>{branch}</SelectItem>
+                                ))}
                               </SelectContent>
                             </Select>
                             <FormMessage />
