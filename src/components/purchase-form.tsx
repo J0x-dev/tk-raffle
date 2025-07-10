@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, UploadCloud } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -68,6 +68,9 @@ export function PurchaseForm() {
     });
     form.reset();
   }
+  
+  const receiptFileRef = form.watch("receiptUpload");
+  const receiptFileName = receiptFileRef?.[0]?.name;
 
   return (
     <Card className="w-full max-w-4xl shadow-2xl bg-[#ece5d2]">
@@ -79,7 +82,7 @@ export function PurchaseForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-[#8a2a2b]">Contact Details</h3>
+              <h3 className="text-2xl font-bold text-[#8a2a2b] text-24px">Contact Details</h3>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -176,7 +179,7 @@ export function PurchaseForm() {
             <Separator />
             
             <div className="space-y-4">
-               <h3 className="text-2xl font-bold text-[#8a2a2b]">Purchase Information</h3>
+               <h3 className="text-2xl font-bold text-[#8a2a2b] text-24px">Purchase Information</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
@@ -244,22 +247,35 @@ export function PurchaseForm() {
                         name="receiptUpload"
                         render={({ field: { onChange, value, ...fieldProps } }) => (
                             <FormItem>
-                            <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt</FormLabel>
-                            <FormControl>
-                                <Input 
-                                type="file" 
-                                {...fieldProps} 
-                                onChange={(event) => onChange(event.target.files)}
-                                accept="image/png, image/jpeg, image/jpg, image/webp"
-                                />
-                            </FormControl>
-                            <FormDescription>
-                                Max file size: 5MB. Accepted formats: JPG, PNG, WEBP.
-                            </FormDescription>
-                            <FormMessage />
+                                <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt</FormLabel>
+                                <FormControl>
+                                    <div className="relative">
+                                        <label htmlFor="receipt-upload" className={cn(
+                                            "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-2.5 py-2 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                                            "shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px]"
+                                        )}>
+                                            <span className="truncate text-muted-foreground">
+                                                {receiptFileName || "Select a file..."}
+                                            </span>
+                                            <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
+                                        </label>
+                                        <Input
+                                            id="receipt-upload"
+                                            type="file"
+                                            className="sr-only"
+                                            {...fieldProps}
+                                            onChange={(event) => onChange(event.target.files)}
+                                            accept="image/png, image/jpeg, image/jpg, image/webp"
+                                        />
+                                    </div>
+                                </FormControl>
+                                <FormDescription>
+                                    Max file size: 5MB. Accepted formats: JPG, PNG, WEBP.
+                                </FormDescription>
+                                <FormMessage />
                             </FormItem>
                         )}
-                        />
+                    />
                 </div>
             </div>
             
