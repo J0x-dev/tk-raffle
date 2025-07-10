@@ -1,6 +1,7 @@
 
 "use client";
 
+import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -53,6 +54,9 @@ const formSchema = z.object({
 
 export function PurchaseForm() {
   const { toast } = useToast();
+  const [isBirthdateOpen, setIsBirthdateOpen] = React.useState(false);
+  const [isPurchaseDateOpen, setIsPurchaseDateOpen] = React.useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -149,7 +153,7 @@ export function PurchaseForm() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-lg text-[#8a2a2b] font-bold">Birthdate*</FormLabel>
-                      <Popover>
+                      <Popover open={isBirthdateOpen} onOpenChange={setIsBirthdateOpen}>
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
@@ -171,7 +175,10 @@ export function PurchaseForm() {
                             fromYear={1900}
                             toYear={new Date().getFullYear()}
                             selected={field.value}
-                            onSelect={field.onChange}
+                            onSelect={(date) => {
+                              field.onChange(date);
+                              setIsBirthdateOpen(false);
+                            }}
                             disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
                             initialFocus
                             required
@@ -211,7 +218,7 @@ export function PurchaseForm() {
                     render={({ field }) => (
                         <FormItem>
                         <FormLabel className="text-lg text-[#8a2a2b] font-bold">Date of Purchase*</FormLabel>
-                        <Popover>
+                        <Popover open={isPurchaseDateOpen} onOpenChange={setIsPurchaseDateOpen}>
                             <PopoverTrigger asChild>
                             <FormControl>
                                 <Button
@@ -230,7 +237,10 @@ export function PurchaseForm() {
                             <Calendar
                                 mode="single"
                                 selected={field.value}
-                                onSelect={field.onChange}
+                                onSelect={(date) => {
+                                  field.onChange(date);
+                                  setIsPurchaseDateOpen(false);
+                                }}
                                 disabled={(date) => date > new Date()}
                                 initialFocus
                                 required
