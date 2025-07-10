@@ -119,7 +119,7 @@ export function PurchaseForm() {
                             const value = e.target.value;
                             if (!value.startsWith('09')) {
                               field.onChange('09');
-                            } else if (value.length <= 11) {
+                            } else if (value.length <= 11 && /^\d*$/.test(value)) {
                               field.onChange(value);
                             }
                           }}
@@ -154,7 +154,7 @@ export function PurchaseForm() {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                                "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -216,7 +216,7 @@ export function PurchaseForm() {
                                 <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                                    "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
@@ -260,7 +260,16 @@ export function PurchaseForm() {
                         <FormItem>
                         <FormLabel className="text-lg text-[#8a2a2b] font-bold">Receipt/Invoice Number*</FormLabel>
                         <FormControl>
-                            <Input {...field} required/>
+                            <Input
+                              {...field}
+                              required
+                              onChange={(e) => {
+                                const { value } = e.target;
+                                if (/^\d*$/.test(value)) {
+                                  field.onChange(value);
+                                }
+                              }}
+                            />
                         </FormControl>
                         <FormMessage />
                         </FormItem>
