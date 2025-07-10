@@ -87,7 +87,7 @@ export function PurchaseForm() {
                   name="fullName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Full Name</FormLabel>
+                      <FormLabel className="text-lg text-[#8a2a2b]">Full Name</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -100,7 +100,7 @@ export function PurchaseForm() {
                   name="mobileNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Mobile Number</FormLabel>
+                      <FormLabel className="text-lg text-[#8a2a2b]">Mobile Number</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -113,7 +113,7 @@ export function PurchaseForm() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email Address</FormLabel>
+                      <FormLabel className="text-lg text-[#8a2a2b]">Email Address</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -126,7 +126,7 @@ export function PurchaseForm() {
                   name="birthdate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Birthdate</FormLabel>
+                      <FormLabel className="text-lg text-[#8a2a2b]">Birthdate</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -138,7 +138,7 @@ export function PurchaseForm() {
                               )}
                             >
                               <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
-                              {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                              {field.value ? format(field.value, "PPP") : null}
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
@@ -162,7 +162,7 @@ export function PurchaseForm() {
                       name="residentialAddress"
                       render={({ field }) => (
                           <FormItem>
-                          <FormLabel>Residential Address</FormLabel>
+                          <FormLabel className="text-lg text-[#8a2a2b]">Residential Address</FormLabel>
                           <FormControl>
                               <Textarea {...field} />
                           </FormControl>
@@ -184,7 +184,7 @@ export function PurchaseForm() {
                     name="dateOfPurchase"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>Date of Purchase</FormLabel>
+                        <FormLabel className="text-lg text-[#8a2a2b]">Date of Purchase</FormLabel>
                         <Popover>
                             <PopoverTrigger asChild>
                             <FormControl>
@@ -195,7 +195,7 @@ export function PurchaseForm() {
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
-                                {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                                {field.value ? format(field.value, "PPP") : null}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                 </Button>
                             </FormControl>
@@ -219,9 +219,9 @@ export function PurchaseForm() {
                     name="purchaseAmount"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>Purchase Amount</FormLabel>
+                        <FormLabel className="text-lg text-[#8a2a2b]">Purchase Amount</FormLabel>
                         <FormControl>
-                            <Input type="number" {...field} />
+                            <Input type="number" {...field} value={field.value ?? ""} />
                         </FormControl>
                         <FormMessage />
                         </FormItem>
@@ -232,7 +232,7 @@ export function PurchaseForm() {
                     name="receiptNumber"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>Receipt/Invoice Number</FormLabel>
+                        <FormLabel className="text-lg text-[#8a2a2b]">Receipt/Invoice Number</FormLabel>
                         <FormControl>
                             <Input {...field} />
                         </FormControl>
@@ -243,9 +243,9 @@ export function PurchaseForm() {
                      <FormField
                         control={form.control}
                         name="receiptUpload"
-                        render={({ field: { onChange, ...fieldProps } }) => (
+                        render={({ field: { onChange, value, ...fieldProps } }) => (
                             <FormItem>
-                            <FormLabel>Upload Receipt</FormLabel>
+                            <FormLabel className="text-lg text-[#8a2a2b]">Upload Receipt</FormLabel>
                             <FormControl>
                                 <Input 
                                 type="file" 
