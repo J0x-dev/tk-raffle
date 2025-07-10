@@ -86,58 +86,6 @@ export function PurchaseForm() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                      control={form.control}
-                      name="receiptUpload"
-                      render={({ field: { onChange, value, ...fieldProps } }) => (
-                          <FormItem>
-                              <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt</FormLabel>
-                              <FormControl>
-                                  <div className="relative">
-                                      <label htmlFor="receipt-upload" className={cn(
-                                          "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                                      )}>
-                                          <span className="truncate text-muted-foreground">
-                                              {receiptFileNames || ""}
-                                          </span>
-                                          <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
-                                      </label>
-                                      <Input
-                                          id="receipt-upload"
-                                          type="file"
-                                          className="sr-only"
-                                          {...fieldProps}
-                                          multiple
-                                          onChange={(event) => onChange(event.target.files)}
-                                          accept="image/png, image/jpeg, image/jpg, image/webp"
-                                      />
-                                  </div>
-                              </FormControl>
-                              <FormDescription>
-                                  Max 5 files. Max file size: 10MB. Accepted formats: JPG, PNG, WEBP.
-                              </FormDescription>
-                              <FormMessage />
-                          </FormItem>
-                      )}
-                  />
-                  <div>
-                    <p className="text-lg text-[#8a2a2b] font-bold mb-2">Sample Receipt</p>
-                    <Image
-                        src="https://placehold.co/400x200.png"
-                        alt="Sample Receipt"
-                        width={400}
-                        height={200}
-                        className="rounded-md object-cover"
-                        data-ai-hint="receipt"
-                    />
-                  </div>
-              </div>
-            </div>
-
-            <Separator />
 
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-[#8a2a2b] text-24px">Contact Details</h3>
@@ -323,6 +271,58 @@ export function PurchaseForm() {
                         )}
                       />
                 </div>
+            </div>
+
+            <Separator />
+
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                      control={form.control}
+                      name="receiptUpload"
+                      render={({ field: { onChange, value, ...fieldProps } }) => (
+                          <FormItem>
+                              <FormLabel className="text-lg text-[#8a2a2b] font-bold">Upload Receipt</FormLabel>
+                              <FormControl>
+                                  <div className="relative">
+                                      <label htmlFor="receipt-upload" className={cn(
+                                          "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                      )}>
+                                          <span className="truncate text-muted-foreground">
+                                              {receiptFileNames || ""}
+                                          </span>
+                                          <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
+                                      </label>
+                                      <Input
+                                          id="receipt-upload"
+                                          type="file"
+                                          className="sr-only"
+                                          {...fieldProps}
+                                          multiple
+                                          onChange={(event) => onChange(event.target.files)}
+                                          accept="image/png, image/jpeg, image/jpg, image/webp"
+                                      />
+                                  </div>
+                              </FormControl>
+                              <FormDescription>
+                                  Max 5 files. Max file size: 10MB. Accepted formats: JPG, PNG, WEBP.
+                              </FormDescription>
+                              <FormMessage />
+                          </FormItem>
+                      )}
+                  />
+                  <div>
+                    <p className="text-lg text-[#8a2a2b] font-bold mb-2">Sample Receipt</p>
+                    <Image
+                        src="https://placehold.co/400x200.png"
+                        alt="Sample Receipt"
+                        width={400}
+                        height={200}
+                        className="rounded-md object-cover"
+                        data-ai-hint="receipt"
+                    />
+                  </div>
+              </div>
             </div>
             
             <Button type="submit" className="w-full text-lg py-6">Submit</Button>
