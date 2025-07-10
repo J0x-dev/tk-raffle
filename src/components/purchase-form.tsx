@@ -80,7 +80,7 @@ export function PurchaseForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-primary/80">Contact Details</h3>
+              <h3 className="text-lg font-bold text-[#8a2a2b]">Contact Details</h3>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -133,7 +133,7 @@ export function PurchaseForm() {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "w-full h-10 justify-start text-left font-normal border-[#b47e00] bg-white/50 rounded-md text-[rgb(138,42,43)] shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px]",
+                                "w-full h-10 justify-start text-left font-normal",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -177,7 +177,7 @@ export function PurchaseForm() {
             <Separator />
             
             <div className="space-y-4">
-               <h3 className="text-lg font-semibold text-primary/80">Purchase Information</h3>
+               <h3 className="text-lg font-bold text-[#8a2a2b]">Purchase Information</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
@@ -191,7 +191,7 @@ export function PurchaseForm() {
                                 <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "w-full h-10 justify-start text-left font-normal border-[#b47e00] bg-white/50 rounded-md text-[rgb(138,42,43)] shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px]",
+                                    "w-full h-10 justify-start text-left font-normal",
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
