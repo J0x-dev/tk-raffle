@@ -89,7 +89,7 @@ export function PurchaseForm() {
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} />
+                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -102,7 +102,7 @@ export function PurchaseForm() {
                     <FormItem>
                       <FormLabel>Mobile Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="+1234567890" {...field} />
+                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -115,7 +115,7 @@ export function PurchaseForm() {
                     <FormItem>
                       <FormLabel>Email Address</FormLabel>
                       <FormControl>
-                        <Input placeholder="john.doe@example.com" {...field} />
+                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -133,7 +133,7 @@ export function PurchaseForm() {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "w-full justify-start text-left font-normal h-9 rounded-sm border-0 bg-white/50 px-2.5 py-0 text-base text-[rgb(138,42,43)] caret-[rgb(138,42,43)] shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgb(180,126,0)_0px_0px_0px_1px,rgba(180,126,0,0.25)_0px_2px_5px_0px] hover:text-[rgb(138,42,43)]",
+                                "w-full justify-start text-left font-normal",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -164,7 +164,7 @@ export function PurchaseForm() {
                           <FormItem>
                           <FormLabel>Residential Address</FormLabel>
                           <FormControl>
-                              <Textarea placeholder="123 Main St, Anytown, USA" {...field} />
+                              <Textarea {...field} />
                           </FormControl>
                           <FormMessage />
                           </FormItem>
@@ -191,7 +191,7 @@ export function PurchaseForm() {
                                 <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "w-full justify-start text-left font-normal h-9 rounded-sm border-0 bg-white/50 px-2.5 py-0 text-base text-[rgb(138,42,43)] caret-[rgb(138,42,43)] shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgb(180,126,0)_0px_0px_0px_1px,rgba(180,126,0,0.25)_0px_2px_5px_0px] hover:text-[rgb(138,42,43)]",
+                                    "w-full justify-start text-left font-normal",
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
@@ -221,7 +221,7 @@ export function PurchaseForm() {
                         <FormItem>
                         <FormLabel>Purchase Amount</FormLabel>
                         <FormControl>
-                            <Input type="number" placeholder="100.00" {...field} />
+                            <Input type="number" {...field} />
                         </FormControl>
                         <FormMessage />
                         </FormItem>
@@ -234,7 +234,7 @@ export function PurchaseForm() {
                         <FormItem>
                         <FormLabel>Receipt/Invoice Number</FormLabel>
                         <FormControl>
-                            <Input placeholder="INV-12345" {...field} />
+                            <Input {...field} />
                         </FormControl>
                         <FormMessage />
                         </FormItem>
@@ -250,8 +250,7 @@ export function PurchaseForm() {
                                 <Input 
                                 type="file" 
                                 {...fieldProps} 
-                                onChange={(event) => onChange(event.target.files)} 
-                                className="bg-white file:text-primary file:font-semibold"
+                                onChange={(event) => onChange(event.target.files)}
                                 accept="image/png, image/jpeg, image/jpg, image/webp"
                                 />
                             </FormControl>
