@@ -30,6 +30,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import { ScrollArea } from "./ui/scroll-area";
 import { Checkbox } from "./ui/checkbox";
+import { Separator } from "./ui/separator";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -231,7 +232,8 @@ export function PurchaseForm() {
             </div>
 
             
-            <div className="space-y-4">
+            <div className="space-y-4 pt-6">
+               <Separator className="bg-[#b47e00]"/>
                <h3 className="font-bold text-[#8a2a2b] text-[20px] text-center">Purchase Information</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
