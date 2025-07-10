@@ -8,6 +8,8 @@ import * as z from "zod";
 import { format } from "date-fns";
 import { CalendarIcon, UploadCloud, X } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
+
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -60,6 +62,7 @@ const formSchema = z.object({
 
 export function PurchaseForm() {
   const { toast } = useToast();
+  const router = useRouter();
   const [isBirthdateOpen, setIsBirthdateOpen] = React.useState(false);
   const [isPurchaseDateOpen, setIsPurchaseDateOpen] = React.useState(false);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
@@ -97,10 +100,8 @@ export function PurchaseForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    toast({
-      title: "Form Submitted!",
-      description: "Your details have been successfully recorded.",
-    });
+    const raffleEntries = Math.floor(values.purchaseAmount / 750);
+    router.push(`/success?name=${encodeURIComponent(values.fullName)}&amount=${values.purchaseAmount}&entries=${raffleEntries}`);
     form.reset();
   }
   
