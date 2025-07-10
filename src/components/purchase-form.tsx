@@ -133,7 +133,7 @@ export function PurchaseForm() {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "w-full justify-start text-left font-normal",
+                                "w-full justify-start text-left font-normal border-[#b47e00] bg-white/50 rounded-md text-[rgb(138,42,43)] shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px]",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -191,7 +191,7 @@ export function PurchaseForm() {
                                 <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "w-full justify-start text-left font-normal",
+                                    "w-full justify-start text-left font-normal border-[#b47e00] bg-white/50 rounded-md text-[rgb(138,42,43)] shadow-[rgba(0,0,0,0.12)_0px_1px_1px_0px,rgba(180,126,0,0.25)_0px_2px_5px_0px]",
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
