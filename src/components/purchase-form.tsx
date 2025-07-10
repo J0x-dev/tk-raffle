@@ -38,7 +38,7 @@ const formSchema = z.object({
   birthdate: z.date({ required_error: "A date of birth is required." }),
   residentialAddress: z.string().min(1, { message: "Residential address is required." }),
   dateOfPurchase: z.date({ required_error: "A date of purchase is required." }),
-  purchaseAmount: z.coerce.number({required_error: "Purchase amount is required."}).positive({ message: "Purchase amount must be a positive number." }),
+  purchaseAmount: z.coerce.number({required_error: "Purchase amount is required."}).positive({ message: "Purchase amount must be a positive number." }).min(750, { message: "Purchase amount must be at least ₱750." }),
   receiptNumber: z.string().min(1, { message: "Receipt number is required." }),
   branch: z.string({ required_error: "Please select a branch." }).min(1, {message: "Please select a branch."}),
   receiptUpload: z.any()
