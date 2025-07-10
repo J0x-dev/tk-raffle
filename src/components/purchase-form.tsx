@@ -33,7 +33,7 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/web
 
 const formSchema = z.object({
   fullName: z.string().min(1, { message: "Full name is required." }),
-  mobileNumber: z.string().min(1, { message: "Mobile number is required." }).regex(/^\+?[1-9]\d{9,14}$/, { message: "Please enter a valid mobile number." }),
+  mobileNumber: z.string().regex(/^09\d{9}$/, { message: "Please enter a valid 11-digit mobile number starting with 09." }),
   email: z.string().min(1, { message: "Email is required." }).email({ message: "Please enter a valid email address." }),
   birthdate: z.date({ required_error: "A date of birth is required." }),
   residentialAddress: z.string().min(1, { message: "Residential address is required." }),
@@ -57,7 +57,7 @@ export function PurchaseForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: "",
-      mobileNumber: "",
+      mobileNumber: "09",
       email: "",
       residentialAddress: "",
       purchaseAmount: undefined,
@@ -111,7 +111,17 @@ export function PurchaseForm() {
                     <FormItem>
                       <FormLabel className="text-lg text-[#8a2a2b] font-bold">Mobile Number*</FormLabel>
                       <FormControl>
-                        <Input {...field} required/>
+                        <Input 
+                          {...field} 
+                          required
+                          onChange={(e) => {
+                            if (!e.target.value.startsWith('09')) {
+                              field.onChange('09');
+                            } else {
+                              field.onChange(e.target.value);
+                            }
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
