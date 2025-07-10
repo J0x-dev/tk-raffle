@@ -125,57 +125,57 @@ export function PurchaseForm() {
                   control={form.control}
                   name="birthdate"
                   render={({ field }) => (
-                      <FormItem>
+                    <FormItem>
                       <FormLabel>Birthdate</FormLabel>
                       <Popover>
-                          <PopoverTrigger asChild>
+                        <PopoverTrigger asChild>
                           <FormControl>
-                              <Button
+                            <Button
                               variant={"outline"}
                               className={cn(
-                                  "w-full pl-3 text-left font-normal bg-white justify-start",
-                                  !field.value && "text-muted-foreground"
+                                "w-full pl-3 text-left font-normal bg-white justify-start",
+                                !field.value && "text-muted-foreground"
                               )}
-                              >
+                            >
                               <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
                               {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                              </Button>
+                            </Button>
                           </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
-                              initialFocus
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+                            initialFocus
                           />
-                          </PopoverContent>
+                        </PopoverContent>
                       </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                  control={form.control}
+                  name="residentialAddress"
+                  render={({ field }) => (
+                      <FormItem>
+                      <FormLabel>Residential Address</FormLabel>
+                      <FormControl>
+                          <Textarea placeholder="123 Main St, Anytown, USA" {...field} className="bg-white" />
+                      </FormControl>
                       <FormMessage />
                       </FormItem>
                   )}
-                  />
-              </div>
+              />
             </div>
 
             <Separator />
             
             <div className="space-y-4">
                <h3 className="text-lg font-semibold text-primary/80">Purchase Information</h3>
-                <FormField
-                    control={form.control}
-                    name="residentialAddress"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Residential Address</FormLabel>
-                        <FormControl>
-                            <Textarea placeholder="123 Main St, Anytown, USA" {...field} className="bg-white" />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
