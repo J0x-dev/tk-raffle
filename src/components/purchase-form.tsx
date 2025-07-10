@@ -232,9 +232,9 @@ export function PurchaseForm() {
             </div>
 
             
-            <div className="space-y-4 pt-6">
+            <div className="space-y-4 pt-2">
                <Separator className="bg-[#b47e00]"/>
-               <h3 className="font-bold text-[#8a2a2b] text-[20px] text-center">Purchase Information</h3>
+               <h3 className="font-bold text-[#8a2a2b] text-[20px] text-center pt-2">Purchase Information</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
