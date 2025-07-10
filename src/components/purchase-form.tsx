@@ -27,7 +27,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "./ui/scroll-area";
 import { Checkbox } from "./ui/checkbox";
 import { Separator } from "./ui/separator";
@@ -420,11 +420,6 @@ export function PurchaseForm() {
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
                     </div>
                   </ScrollArea>
-                   <DialogClose asChild>
-                    <Button type="button" variant="secondary" className="mt-4">
-                      Close
-                    </Button>
-                  </DialogClose>
                 </DialogContent>
               </Dialog>
               . Tap "Agree & Continue" to accept the{" "}
@@ -444,11 +439,6 @@ export function PurchaseForm() {
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
                     </div>
                   </ScrollArea>
-                   <DialogClose asChild>
-                    <Button type="button" variant="secondary" className="mt-4">
-                      Close
-                    </Button>
-                  </DialogClose>
                 </DialogContent>
               </Dialog>
               .
