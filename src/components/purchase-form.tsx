@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { CalendarIcon, UploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
+import emailjs from '@emailjs/browser';
 
 
 import { cn } from "@/lib/utils";
@@ -111,11 +112,41 @@ export function PurchaseForm() {
     }
   }, [receiptFileRef]);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const raffleEntries = Math.floor(values.purchaseAmount / 750);
-    router.push(`/success?name=${encodeURIComponent(values.fullName)}&amount=${values.purchaseAmount}&entries=${raffleEntries}`);
-    form.reset();
+    
+    // IMPORTANT: Replace with your actual EmailJS credentials
+    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
+    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+    
+    const receiptFileNames = values.receiptUpload ? Array.from(values.receiptUpload).map((file: any) => file.name).join(', ') : 'No files uploaded';
+
+    const templateParams = {
+        ...values,
+        birthdate: format(values.birthdate, "PPP"),
+        dateOfPurchase: format(values.dateOfPurchase, "PPP"),
+        raffleEntries: raffleEntries,
+        receiptUpload: receiptFileNames,
+    };
+
+    try {
+        await emailjs.send(serviceID, templateID, templateParams, publicKey);
+        toast({
+          title: "Email Sent!",
+          description: "Your submission has been sent successfully.",
+        });
+        router.push(`/success?name=${encodeURIComponent(values.fullName)}&amount=${values.purchaseAmount}&entries=${raffleEntries}`);
+        form.reset();
+        setImagePreviews([]);
+    } catch (error) {
+        console.error('EmailJS error:', error);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem sending your submission. Please try again.",
+        });
+    }
   }
   
   const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
@@ -248,7 +279,7 @@ export function PurchaseForm() {
             
             <div className="space-y-4 pt-2">
                <Separator className="bg-[#b47e00]"/>
-               <h3 className="font-bold text-[#8a2a2b] text-[20px] text-center pt-2">Purchase Information</h3>
+               <h3 className="font-bold text-[#8a2b2b] text-[20px] text-center pt-2">Purchase Information</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <FormField
                     control={form.control}
