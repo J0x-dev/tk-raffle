@@ -407,8 +407,7 @@ export function PurchaseForm() {
             </div>
 
             <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2 flex flex-col">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                         control={form.control}
                         name="receiptUpload"
@@ -458,22 +457,21 @@ export function PurchaseForm() {
                             </FormItem>
                         )}
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <FormLabel className="text-base text-[#8a2a2b] font-bold">Sample Receipt</FormLabel>
-                    <div className="relative w-full aspect-auto rounded-md overflow-hidden">
-                        <Image
-                            src="/imgs/sample-receipt.jpg"
-                            alt="Sample Receipt"
-                            width={500}
-                            height={625}
-                            className="object-contain w-full h-auto"
-                            priority
-                            data-ai-hint="sample receipt"
-                        />
+                    <div className="space-y-2">
+                        <FormLabel className="text-base text-[#8a2a2b] font-bold">Sample Receipt</FormLabel>
+                        <div className="relative w-full aspect-auto rounded-md overflow-hidden">
+                            <Image
+                                src="/imgs/sample-receipt.jpg"
+                                alt="Sample Receipt"
+                                width={500}
+                                height={625}
+                                className="object-contain w-full h-auto"
+                                priority
+                                data-ai-hint="sample receipt"
+                            />
+                        </div>
                     </div>
-                  </div>
-              </div>
+                </div>
             </div>
             
             <div className="mt-4 text-center text-sm text-gray-600">
