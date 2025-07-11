@@ -21,12 +21,12 @@ function SuccessContent() {
   useEffect(() => {
     const storedData = sessionStorage.getItem('submissionData');
     if (storedData) {
-      setData(JSON.parse(storedData));
-      // Optional: remove the data from sessionStorage after reading it
-      // sessionStorage.removeItem('submissionData'); 
+      try {
+        setData(JSON.parse(storedData));
+      } catch (error) {
+        console.error("Failed to parse submission data from session storage:", error);
+      }
     } else {
-      // Handle case where there is no data, maybe redirect to home
-      // For now, we'll just show default values or a message
       console.warn("No submission data found in session storage.");
     }
   }, []);
@@ -40,22 +40,6 @@ function SuccessContent() {
     style: 'currency',
     currency: 'PHP',
   }).format(amount);
-  
-  if (!data) {
-     return (
-        <Card className="w-full max-w-md text-center shadow-lg">
-            <CardHeader>
-                <CardTitle>Loading...</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p>Looking for your submission details.</p>
-                 <Button asChild className="w-full mt-4">
-                  <Link href="/">Back to Form</Link>
-                </Button>
-            </CardContent>
-        </Card>
-     )
-  }
 
   return (
     <Card className="w-full max-w-md text-center shadow-lg">
