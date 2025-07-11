@@ -153,20 +153,19 @@ export function PurchaseForm() {
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
     
     emailjs.send(serviceID, templateID, params, publicKey)
-      .then(async () => {
-        form.reset();
-        setImagePreviews([]);
-        setIsSubmitting(false);    
-
+      .then(async () => {    
         router.push(`/success`);
         console.log("Email sent successfully!");
-    
-        await new Promise((resolve) => setTimeout(resolve, 200));
-      
+          
         toast({
           title: "Email Sent!",
           description: "Your submission has been sent successfully.",
         });
+      })
+      .finally(() => {
+        form.reset();
+        setImagePreviews([]);
+        setIsSubmitting(false);
       })
       .catch((error) => {
         console.error('EmailJS error:', error);
@@ -490,12 +489,12 @@ export function PurchaseForm() {
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
                     <div className="relative aspect-[2/3]">
                       <Image
-                          src="/imgs/sample-receipt.jpg"
-                          alt="Sample Receipt"
-                          fill
-                          sizes="100%"
-                          className="rounded-md object-cover"
-                          data-ai-hint="receipt"
+                        src="/imgs/sample-receipt.jpg"
+                        alt="Sample Receipt"
+                        fill
+                        sizes="100%"
+                        className="rounded-md object-cover"
+                        data-ai-hint="receipt"
                       />
                     </div>
                   </div>
