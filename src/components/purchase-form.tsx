@@ -187,7 +187,7 @@ export function PurchaseForm() {
       <CardHeader>
         <div className="flex justify-center mb-4">
             <Image
-                src="/imgs/tk-logo.png"
+                src="/favicon.jpg"
                 alt="Tapa King Logo"
                 width={200}
                 height={150}
@@ -699,5 +699,7 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
 
     
