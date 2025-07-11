@@ -142,10 +142,7 @@ export function PurchaseForm() {
     
     emailjs.send(serviceID, templateID, params, publicKey)
       .then(() => {
-          toast({
-            title: "Email Sent!",
-            description: "Your submission has been sent successfully.",
-          });
+          console.log("Email sent successfully!");
       })
       .catch((error) => {
         console.error('EmailJS error:', error);
@@ -160,9 +157,18 @@ export function PurchaseForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
+    // Immediately navigate and then send email in the background.
+    const raffleEntries = Math.floor(values.purchaseAmount / 750);
+    sessionStorage.setItem('submissionData', JSON.stringify({
+      name: values.fullName,
+      amount: values.purchaseAmount,
+      entries: raffleEntries,
+    }));
+    router.push(`/success`);
+
+    // Artificial delay for UX
     await new Promise(resolve => setTimeout(resolve, 2000));
     
-    const raffleEntries = Math.floor(values.purchaseAmount / 750);
     const formattedAmount = new Intl.NumberFormat('en-PH', {
       style: 'currency',
       currency: 'PHP',
@@ -180,13 +186,6 @@ export function PurchaseForm() {
         receiptUpload: receiptFileNames,
     };
     
-    sessionStorage.setItem('submissionData', JSON.stringify({
-      name: values.fullName,
-      amount: values.purchaseAmount,
-      entries: raffleEntries,
-    }));
-    router.push(`/success`);
-
     sendEmail(templateParams);
     
     form.reset();
@@ -503,7 +502,7 @@ export function PurchaseForm() {
                     </DialogDescription>
                   </DialogHeader>
                   <ScrollArea className="h-full -mx-6 sm:-mx-8 pr-4">
-                    <div className="px-6 sm:px-8 pb-6 space-y-2 text-sm text-left">
+                    <div className="px-6 sm:px-8 pb-6 space-y-4 text-sm text-left">
                       <p>TAPA KING, INC. (Tapa King) is committed to protecting and safeguarding your privacy when you visit and access our website using any electronic device. This Privacy Policy set forth how we collect, use, and store your information.</p>
                       <p>This Policy applies to information shared and collected from visitors of Tapa King’s official website. It is not applicable to any information collected offline or via channels other than this website.</p>
                       
@@ -588,7 +587,7 @@ export function PurchaseForm() {
                     </DialogDescription>
                   </DialogHeader>
                   <ScrollArea className="h-full -mx-6 sm:-mx-8 pr-4">
-                    <div className="px-6 sm:px-8 pb-6 space-y-2 text-sm text-left">
+                    <div className="px-6 sm:px-8 pb-6 space-y-4 text-sm text-left">
                       <p>
                         <strong>Promo Period:</strong> July 23, 2025 to October 31, 2025<br />
                         <strong>DTI Fair Trade Permit No.:</strong> [To be added]
@@ -711,3 +710,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
