@@ -406,7 +406,6 @@ export function PurchaseForm() {
                 </div>
             </div>
 
-
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2 flex flex-col">
@@ -459,6 +458,19 @@ export function PurchaseForm() {
                               ))}
                           </div>
                       )}
+                  </div>
+                  <div className="space-y-2">
+                    <FormLabel className="text-base text-[#8a2a2b] font-bold">Sample Receipt</FormLabel>
+                    <div className="relative w-full aspect-[200/250] rounded-md overflow-hidden">
+                        <Image
+                            src="https://storage.googleapis.com/aai-web-samples/54534f4d-4d7a-4284-8898-385a81e9564f.png"
+                            alt="Sample Receipt"
+                            fill
+                            className="object-contain"
+                            priority
+                            data-ai-hint="sample receipt"
+                        />
+                    </div>
                   </div>
               </div>
             </div>
@@ -686,8 +698,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
-
-    
-
