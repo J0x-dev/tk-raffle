@@ -453,9 +453,9 @@ export function PurchaseForm() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
-                    <div className="relative aspect-[4/5]">
+                    <div className="relative aspect-[2/3]">
                       <Image
-                          src="https://placehold.co/200x250.png"
+                          src="https://placehold.co/200x300.png"
                           alt="Sample Receipt"
                           fill
                           className="rounded-md object-cover"
@@ -553,7 +553,7 @@ export function PurchaseForm() {
                   </DialogClose>
                 </DialogContent>
               </Dialog>
-              . Tap "Agree & Continue" to accept the{" "}
+              . Tap &quot;Agree &amp; Continue&quot; to accept the{" "}
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Terms and Conditions</Button>
@@ -616,3 +616,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
