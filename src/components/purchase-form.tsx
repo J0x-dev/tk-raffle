@@ -60,9 +60,7 @@ const formSchema = z.object({
       (files) => !files || Array.from(files).every((file: any) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       "Only .jpg, .jpeg, .png and .webp formats are supported."
     ),
-  agreeToTerms: z.boolean().refine((val) => val === true, {
-    message: "You must agree to the terms and conditions.",
-  }),
+  agreeToTerms: z.boolean(),
 });
 
 const branches = [
@@ -174,13 +172,13 @@ export function PurchaseForm() {
     const receiptFileNames = values.receiptUpload ? Array.from(values.receiptUpload).map((file: any) => file.name).join(', ') : 'No files uploaded';
 
     const templateParams = {
-        ...values,
         fullName: values.fullName,
         birthdate: format(values.birthdate, "PPP"),
         dateOfPurchase: format(values.dateOfPurchase, "PPP"),
         purchaseAmount: formattedAmount,
         raffleEntries: raffleEntries,
         receiptUpload: receiptFileNames,
+        ...values,
     };
     
     // Navigate immediately and send email in the background
