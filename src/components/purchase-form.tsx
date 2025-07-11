@@ -461,12 +461,13 @@ export function PurchaseForm() {
                   </div>
                   <div className="space-y-2">
                     <FormLabel className="text-base text-[#8a2a2b] font-bold">Sample Receipt</FormLabel>
-                    <div className="relative w-full aspect-[200/250] rounded-md overflow-hidden">
+                    <div className="relative w-full aspect-auto rounded-md overflow-hidden">
                         <Image
-                            src="https://storage.googleapis.com/aai-web-samples/54534f4d-4d7a-4284-8898-385a81e9564f.png"
+                            src="/imgs/sample-receipt.jpg"
                             alt="Sample Receipt"
-                            fill
-                            className="object-contain"
+                            width={500}
+                            height={625}
+                            className="object-contain w-full h-auto"
                             priority
                             data-ai-hint="sample receipt"
                         />
@@ -698,3 +699,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
