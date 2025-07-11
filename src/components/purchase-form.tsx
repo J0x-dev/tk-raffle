@@ -154,7 +154,6 @@ export function PurchaseForm() {
     try {
         await emailjs.send(serviceID, templateID, templateParams, publicKey);
         
-        // Store data in sessionStorage
         sessionStorage.setItem('submissionData', JSON.stringify({
           name: values.fullName,
           amount: values.purchaseAmount,
@@ -453,13 +452,13 @@ export function PurchaseForm() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
-                    <div className="relative aspect-[2/2.5]">
+                    <div className="relative aspect-[2/3]">
                       <Image
-                          src="https://placehold.co/200x250.png"
+                          src="https://storage.googleapis.com/aai-web-samples/54534f4d-4d7a-4284-8898-385a81e9564f.png"
                           alt="Sample Receipt"
                           fill
                           className="rounded-md object-cover"
-                          data-ai-hint="receipt"
+                          data-ai-hint="receipt guide"
                       />
                     </div>
                   </div>
