@@ -39,10 +39,6 @@ function SuccessContent() {
             <p className="mb-2">🛒 Total Spent: <span className="font-bold">{formattedAmount}</span></p>
             <p>🎟️ Raffle Entries Earned: <span className="font-bold">{entries}</span></p>
         </div>
-        <p className="text-sm text-gray-600 mb-4">
-          You’re now one step closer to winning an amazing vacation getaway!<br/>
-          Good luck, and happy winning! 🍀
-        </p>
         <p className="text-sm text-gray-600 mb-6">
           Winners will be announced after the raffle draw. Good luck!
         </p>
