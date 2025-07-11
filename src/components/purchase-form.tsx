@@ -142,6 +142,10 @@ export function PurchaseForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
+    
+    // Artificial delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     const raffleEntries = Math.floor(values.purchaseAmount / 750);
 
     // --- Optimization Start ---
