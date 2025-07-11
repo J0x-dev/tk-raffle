@@ -121,7 +121,7 @@ export function PurchaseForm() {
 
   React.useEffect(() => {
     if (receiptFileRef && receiptFileRef.length > 0) {
-      const fileArray = Array.from(receiptFileRef);
+      const fileArray = Array.from(receiptFileRef).slice(0, 6);
       const newPreviews = fileArray.map((file) => URL.createObjectURL(file as Blob));
       setImagePreviews(newPreviews);
 
@@ -154,7 +154,6 @@ export function PurchaseForm() {
     try {
         await emailjs.send(serviceID, templateID, templateParams, publicKey);
         
-        // Store data in sessionStorage
         sessionStorage.setItem('submissionData', JSON.stringify({
           name: values.fullName,
           amount: values.purchaseAmount,
@@ -197,7 +196,7 @@ export function PurchaseForm() {
           />
         </div>
         <CardTitle className="font-headline font-extrabold text-[28px] text-center text-[#8a2a2b]">Join Tapa King Royal Escape 38th Anniversary Vacation Raffle</CardTitle>
-        <CardDescription className="text-[#8a2a2b] text-center text-base">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
+        <CardDescription className="text-[#8a2b2b] text-center text-base">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
