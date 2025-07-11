@@ -34,6 +34,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, Di
 import { ScrollArea } from "./ui/scroll-area";
 import { Checkbox } from "./ui/checkbox";
 import { Separator } from "./ui/separator";
+import Link from "next/link";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -543,6 +544,7 @@ export function PurchaseForm() {
 
                       <h3 className="font-bold">How to Contact Us</h3>
                       <p>For questions or more information about our Privacy Policy, you may contact us through our email: mktg@tapakinginc.com.</p>
+                      <p>Reference: <Link href="https://www.tapaking.com.ph/pages/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">https://www.tapaking.com.ph/pages/privacy-policy</Link></p>
                     </div>
                   </ScrollArea>
                    <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
