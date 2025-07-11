@@ -11,8 +11,10 @@ import { Suspense } from "react";
 function SuccessContent() {
   const searchParams = useSearchParams();
   const name = searchParams.get('name') || 'Customer';
-  const amount = searchParams.get('amount') || '0';
+  const amountParam = searchParams.get('amount') || '0';
   const entries = searchParams.get('entries') || '0';
+
+  const amount = parseFloat(amountParam).toFixed(2);
 
   return (
     <Card className="w-full max-w-md text-center shadow-lg">
