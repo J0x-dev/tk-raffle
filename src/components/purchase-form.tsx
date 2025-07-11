@@ -454,7 +454,7 @@ export function PurchaseForm() {
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
                     <div className="flex justify-center">
                       <Image
-                          src="/assets/imgs/sample-receipt.png"
+                          src="/sample-receipt.png"
                           alt="Sample Receipt"
                           width={200}
                           height={250}
@@ -689,5 +689,7 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
 
     
