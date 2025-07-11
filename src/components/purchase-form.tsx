@@ -173,7 +173,12 @@ export function PurchaseForm() {
         }).format(values.purchaseAmount);
 
         const templateParams = {
-            ...values,
+            fullName: values.fullName,
+            mobileNumber: values.mobileNumber,
+            email: values.email,
+            residentialAddress: values.residentialAddress,
+            receiptNumber: values.receiptNumber,
+            branch: values.branch,
             birthdate: format(values.birthdate, "PPP"),
             dateOfPurchase: format(values.dateOfPurchase, "PPP"),
             purchaseAmount: formattedAmount,
@@ -718,7 +723,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
-
-    
