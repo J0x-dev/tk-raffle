@@ -60,7 +60,9 @@ const formSchema = z.object({
       (files) => !files || Array.from(files).every((file: any) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       "Only .jpg, .jpeg, .png and .webp formats are supported."
     ),
-  agreeToTerms: z.boolean(),
+    agreeToTerms: z.boolean().refine((val) => val === true, {
+      message: "You must agree to the terms and conditions.",
+    }),
 });
 
 const branches = [
@@ -504,7 +506,7 @@ export function PurchaseForm() {
                       <p>TAPA KING, INC. (Tapa King) is committed to protecting and safeguarding your privacy when you visit and access our website using any electronic device. This Privacy Policy set forth how we collect, use, and store your information.</p>
                       <p>This Policy applies to information shared and collected from visitors of Tapa King’s official website. It is not applicable to any information collected offline or via channels other than this website.</p>
                       
-                      <h3 className="font-bold pt-2">Information we collect</h3>
+                      <h3 className="font-bold mb-2">Information we collect</h3>
                       <p>In order to facilitate your transaction, request, or access to our products or services, there will be instances when we will be requesting you to provide Personal Data, such as your:</p>
                       <ul className="list-disc pl-6 space-y-1">
                           <li>Full name;</li>
@@ -520,13 +522,13 @@ export function PurchaseForm() {
                           <li>Any other information material to the product/s or service/s that you are availing or when it is necessary under the laws.</li>
                       </ul>
 
-                      <h3 className="font-bold pt-2">Consent</h3>
+                      <h3 className="font-bold mb-2">Consent</h3>
                       <p>By using our website and providing us your Personal Data to avail our products and services or in any transaction with us where your Personal Data is required, you are consenting to the collection, use, access, transfer, storage, and processing of your Personal Data as described in this Privacy Policy. Thus, we encourage you to READ our Privacy Policy.</p>
 
-                      <h3 className="font-bold pt-2">How we collect information</h3>
+                      <h3 className="font-bold mb-2">How we collect information</h3>
                       <p>We collect Personal Data and other information through (i) automated means; (ii) by providing it to us, and those that we gathered from other sources.</p>
 
-                      <h3 className="font-bold pt-2">Use and sharing of information</h3>
+                      <h3 className="font-bold mb-2">Use and sharing of information</h3>
                       <p>We use the information we collect in various ways, including the following purposes:</p>
                       <ul className="list-disc pl-6 space-y-1">
                           <li>Carry out your requests, fulfilling orders, processing payments, and providing delivery services;</li>
@@ -541,28 +543,28 @@ export function PurchaseForm() {
                       <p>Tapa King may ask you to receive marketing materials from our business partners. If you agree to receive such materials, Tapa King will send you mail or e-mail on behalf of the partners.</p>
                       <p>Tapa King reserves the right to use or disclose any information to comply with any law, regulation or legal request, or to cooperate in any law enforcement investigation.</p>
 
-                      <h3 className="font-bold pt-2">Protection and Security of Personal Data</h3>
+                      <h3 className="font-bold mb-2">Protection and Security of Personal Data</h3>
                       <p>To ensure the security of your Personal Data, Tapa King utilizes industry standard encryption software and technologies in the processing of visitors’ data. We implement appropriate security measures that protect against loss, misuse, or alteration of your Personal Data. Despite these measures, you understand that there may be circumstances beyond Tapa King’s reasonable control that may render these security measures insufficient and under such circumstance, you agree that, Tapa King shall not be responsible or liable for any unauthorized use, transfer, alteration, loss, or damage to any information that Tapa King may have gathered from you.</p>
 
-                      <h3 className="font-bold pt-2">Retention of data</h3>
+                      <h3 className="font-bold mb-2">Retention of data</h3>
                       <p>Unless otherwise required by law or other lawful orders, Tapa King will only retain Personal Data for such period necessary to serve the purpose/s for which they were collected, or a period no longer than 13 months after the purposes for which the Personal Data was collected have ceased.</p>
 
-                      <h3 className="font-bold pt-2">Access</h3>
+                      <h3 className="font-bold mb-2">Access</h3>
                       <p>You are in control of the Personal Data you provide us. You can access, modify, correct, update, or withdraw your Personal Data by contacting us through the Contact information provided below.</p>
 
-                      <h3 className="font-bold pt-2">Cookies</h3>
+                      <h3 className="font-bold mb-2">Cookies</h3>
                       <p>Tapa King uses ‘cookies'. Cookies are used to store information including visitors' preference, and the pages on the website that the visitor accessed or visited. The information are used to optimize your experience by customizing our web page content based on visitors' browser type and/or other information.</p>
                       
-                      <h4 className="font-semibold pt-2">Cookie description</h4>
+                      <h4 className="font-semibold mb-2">Cookie description</h4>
                       <p>Tapa King uses analytics cookie, a first party browser-based cookie which allows the site to measure audience behavior. There is no personally identifiable information, including your IP address stored in these cookies.</p>
 
-                      <h3 className="font-bold pt-2">Links to other sites</h3>
+                      <h3 className="font-bold mb-2">Links to other sites</h3>
                       <p>Our website may contain links to other sites of interest, including a third-party online ordering service that you may be directed to. These sites are outside Tapa King’s domain and they have their own privacy policy. Once you used these links to leave our site, we do not have any control over your information. We will not be responsible for the protection and privacy of any information which you provide whilst visiting such sites.</p>
 
-                      <h3 className="font-bold pt-2">Updates to our Privacy Policy</h3>
+                      <h3 className="font-bold mb-2">Updates to our Privacy Policy</h3>
                       <p>This Privacy Policy is effective as of January 1, 2021. It may be necessary for TKI to update this Privacy Policy periodically. Revised policy will be posted here. ‍</p>
 
-                      <h3 className="font-bold pt-2">How to Contact Us</h3>
+                      <h3 className="font-bold mb-2">How to Contact Us</h3>
                       <p>For questions or more information about our Privacy Policy, you may contact us through our email: mktg@tapakinginc.com.</p>
                     </div>
                   </ScrollArea>
@@ -592,17 +594,17 @@ export function PurchaseForm() {
                       </p>
                       <p>These Terms of Use (&quot;Terms&quot;) govern your access and participation in Tapa King&apos;s Royal Escape Raffle Promo (&quot;Promo&quot;) through the official E-Raffle Management System (&quot;System&quot;). By joining the promo and submitting an entry via the System, you agree to abide by these Terms.</p>
                       
-                      <h3 className="font-bold pt-2">1. Eligibility</h3>
+                      <h3 className="font-bold mb-2">1. Eligibility</h3>
                       <p>1.1 The Promo is open to all customers of Tapa King nationwide who meet the minimum purchase requirement as stated in the official mechanics.</p>
                       <p>1.2 Employees of Tapa King, its affiliates, advertising and promo agencies, and their relatives up to the second degree of consanguinity or affinity are not eligible to join.</p>
                       <p>1.3 Participants must be at least 18 years old and residents of the Philippines.</p>
                       
-                      <h3 className="font-bold pt-2">2. Promo Mechanics</h3>
+                      <h3 className="font-bold mb-2">2. Promo Mechanics</h3>
                       <p>2.1 For every P750 dine-in purchase on a single receipt from any participating Tapa King branch, the customer is entitled to one (1) raffle entry.</p>
                       <p>2.2 Entries must be submitted via the official E-Raffle System at tk38royalescaperaffle.com.</p>
                       <p>2.3 All entries must be submitted on or before October 31, 2025. Late or incomplete entries will not be accepted.</p>
 
-                      <h3 className="font-bold pt-2">3. Prizes</h3>
+                      <h3 className="font-bold mb-2">3. Prizes</h3>
                       <ul className="list-disc pl-6 space-y-1">
                         <li><strong>Major Prizes – One (1) Winner per Destination:</strong>
                           <ul className="list-circle pl-6">
@@ -621,13 +623,13 @@ export function PurchaseForm() {
                         </li>
                       </ul>
                       
-                      <h3 className="font-bold pt-2">4. Winner Selection</h3>
+                      <h3 className="font-bold mb-2">4. Winner Selection</h3>
                       <p>4.1 Winners will be drawn electronically via the System on November 7, 2025 under the supervision of a DTI representative.</p>
                       <p>4.2 All winners will be notified via registered email, phone call, and/or official social media pages.</p>
                       <p>4.3 A valid ID must be presented when claiming prizes.</p>
                       <p>4.4 The list of winners will be posted on the official Tapa King social media pages.</p>
 
-                      <h3 className="font-bold pt-2">5. Claiming of Prizes</h3>
+                      <h3 className="font-bold mb-2">5. Claiming of Prizes</h3>
                       <p><strong>Requirements:</strong></p>
                       <ul className="list-disc pl-6 space-y-1">
                         <li>Letter of notification from Tapa King</li>
@@ -641,24 +643,24 @@ export function PurchaseForm() {
                         <li>Provincial winners may claim their prize at a Tapa King branch within their area</li>
                       </ul>
 
-                      <h3 className="font-bold pt-2">6. Data Privacy & Consent</h3>
+                      <h3 className="font-bold mb-2">6. Data Privacy & Consent</h3>
                       <p>6.1 By entering the Promo, participants consent to the collection and processing of personal information including name, mobile number, email, and purchase details.</p>
                       <p>6.2 All data collected will be used solely for raffle administration, winner verification, and DTI audit purposes.</p>
                       <p>6.3 Tapa King adheres to the Data Privacy Act of 2012 and ensures the protection of personal data.</p>
 
-                      <h3 className="font-bold pt-2">7. System Usage & Limitations</h3>
+                      <h3 className="font-bold mb-2">7. System Usage & Limitations</h3>
                       <p>7.1 The E-Raffle System is the only official channel for entry submissions.</p>
                       <p>7.2 Participants agree not to tamper, hack, or abuse the system.</p>
                       <p>7.3 Tapa King is not liable for system outages, entry errors, or internet connectivity issues that may affect submission.</p>
 
-                      <h3 className="font-bold pt-2">8. Disqualification & Forfeiture</h3>
+                      <h3 className="font-bold mb-2">8. Disqualification & Forfeiture</h3>
                       <p>8.1 Tapa King reserves the right to disqualify entries that are fraudulent, incomplete, duplicated, or violate any promo rules.</p>
                       <p>8.2 Prizes unclaimed after 60 days from receipt of notification will be forfeited in favor of Tapa King with prior DTI approval.</p>
                       
-                      <h3 className="font-bold pt-2">9. Liability Limitation</h3>
+                      <h3 className="font-bold mb-2">9. Liability Limitation</h3>
                       <p>Tapa King and its partners will not be held liable for any damages, loss, or injury incurred during participation in the promo or the use of prizes awarded.</p>
 
-                      <h3 className="font-bold pt-2">10. Governing Law</h3>
+                      <h3 className="font-bold mb-2">10. Governing Law</h3>
                       <p>These Terms are governed by the laws of the Republic of the Philippines, and disputes arising in connection with the promo shall be resolved under Philippine jurisdiction.</p>
                     </div>
                   </ScrollArea>
@@ -708,3 +710,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
