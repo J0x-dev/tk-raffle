@@ -123,7 +123,7 @@ export function PurchaseForm() {
   return (
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
       <CardHeader>
-        <CardTitle className="font-headline font-bold text-[28px] text-center text-[#8a2a2b]">Join Tapa King Royal Escape 38th Anniversary Vacation Raffle</CardTitle>
+        <CardTitle className="font-headline font-extrabold text-[28px] text-center text-[#8a2a2b]">Join Tapa King Royal Escape 38th Anniversary Vacation Raffle</CardTitle>
         <CardDescription className="text-[#8a2a2b] text-center">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
       </CardHeader>
       <CardContent>
