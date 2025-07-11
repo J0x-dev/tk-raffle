@@ -121,8 +121,8 @@ export function PurchaseForm() {
 
   React.useEffect(() => {
     if (receiptFileRef && receiptFileRef.length > 0) {
-      const fileArray = Array.from(receiptFileRef);
-      const newPreviews = fileArray.map((file) => URL.createObjectURL(file as Blob));
+      const fileArray = Array.from(receiptFileRef) as File[];
+      const newPreviews = fileArray.map((file) => URL.createObjectURL(file));
       setImagePreviews(newPreviews);
 
       return () => {
@@ -187,7 +187,7 @@ export function PurchaseForm() {
       <CardHeader>
         <div className="flex justify-center mb-4">
             <Image
-                src="/imgs/tk-logo.png"
+                src="/favicon.jpg"
                 alt="Tapa King Logo"
                 width={200}
                 height={150}
