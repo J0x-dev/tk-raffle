@@ -454,7 +454,7 @@ export function PurchaseForm() {
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
                     <div className="flex justify-center">
                       <Image
-                          src="https://placehold.co/200x250.png"
+                          src="/imgs/sample-receipt.jpg"
                           alt="Sample Receipt"
                           width={200}
                           height={250}
