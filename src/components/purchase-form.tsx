@@ -187,10 +187,10 @@ export function PurchaseForm() {
       <CardHeader>
         <div className="flex justify-center mb-4">
             <Image
-                src="/favicon.jpg"
+                src="/imgs/tk-logo.png"
                 alt="Tapa King Logo"
                 width={200}
-                height={200}
+                height={150}
                 className="h-auto"
                 priority
             />
