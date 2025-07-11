@@ -157,10 +157,16 @@ export function PurchaseForm() {
         
         const receiptFileNames = values.receiptUpload ? Array.from(values.receiptUpload).map((file: any) => file.name).join(', ') : 'No files uploaded';
 
+        const formattedAmount = new Intl.NumberFormat('en-PH', {
+            style: 'currency',
+            currency: 'PHP',
+        }).format(values.purchaseAmount);
+
         const templateParams = {
             ...values,
             birthdate: format(values.birthdate, "PPP"),
             dateOfPurchase: format(values.dateOfPurchase, "PPP"),
+            purchaseAmount: formattedAmount,
             raffleEntries: raffleEntries,
             receiptUpload: receiptFileNames,
         };
@@ -185,7 +191,7 @@ export function PurchaseForm() {
     sendEmail();
   }
   
-  const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
+  const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).slice(0, 6).map((file: any) => file.name).join(', ') : '';
 
   return (
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
