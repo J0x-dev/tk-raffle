@@ -52,15 +52,9 @@ const formSchema = z.object({
   receiptUpload: z.any()
     .refine((files) => files?.length >= 1, "At least one receipt image is required.")
     .refine((files) => files?.length <= 6, "You can upload a maximum of 6 files.")
-    .refine((files) => {
-        if (!files) return false;
-        return Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE)
-    }, `Max file size is 10MB per file.`)
+    .refine((files) => Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE), `Max file size is 10MB per file.`)
     .refine(
-      (files) => {
-        if (!files) return false;
-        return Array.from(files).every((file: any) => ACCEPTED_IMAGE_TYPES.includes(file.type))
-      },
+      (files) => Array.from(files).every((file: any) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       "Only .jpg, .jpeg, .png and .webp formats are supported."
     ),
   agreeToTerms: z.boolean().refine((val) => val === true, {
@@ -142,71 +136,52 @@ export function PurchaseForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    
-    // Artificial delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
     const raffleEntries = Math.floor(values.purchaseAmount / 750);
-
-    // --- Optimization Start ---
-    // 1. Store data and navigate immediately
-    sessionStorage.setItem('submissionData', JSON.stringify({
-      name: values.fullName,
-      amount: values.purchaseAmount,
-      entries: raffleEntries,
-    }));
     
-    router.push(`/success`);
-    // --- Optimization End ---
+    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+    
+    const receiptFileNames = values.receiptUpload ? Array.from(values.receiptUpload).map((file: any) => file.name).join(', ') : 'No files uploaded';
 
-    // 2. Send the email in the background
-    const sendEmail = async () => {
-        const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
-        const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
-        const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
-        
-        const receiptFileNames = values.receiptUpload ? Array.from(values.receiptUpload).map((file: any) => file.name).join(', ') : 'No files uploaded';
-
-        const formattedAmount = new Intl.NumberFormat('en-PH', {
-            style: 'currency',
-            currency: 'PHP',
-        }).format(values.purchaseAmount);
-
-        const templateParams = {
-            fullName: values.fullName,
-            mobileNumber: values.mobileNumber,
-            email: values.email,
-            residentialAddress: values.residentialAddress,
-            receiptNumber: values.receiptNumber,
-            branch: values.branch,
-            birthdate: format(values.birthdate, "PPP"),
-            dateOfPurchase: format(values.dateOfPurchase, "PPP"),
-            purchaseAmount: formattedAmount,
-            raffleEntries: raffleEntries,
-            receiptUpload: receiptFileNames,
-        };
-
-        try {
-            await emailjs.send(serviceID, templateID, templateParams, publicKey);
-            console.log("Email sent successfully in the background.");
-            // Optionally show a non-blocking toast
-            // toast({ title: "Submission processing." }); 
-        } catch (error) {
-            console.error('EmailJS background error:', error);
-            // Handle background failure, e.g., log to a monitoring service
-            // A toast here might be confusing as the user is on the success page
-        } finally {
-            // This now runs after the email is sent, not blocking the UI
-            setIsSubmitting(false); 
-            form.reset();
-            setImagePreviews([]);
-        }
+    const templateParams = {
+        ...values,
+        birthdate: format(values.birthdate, "PPP"),
+        dateOfPurchase: format(values.dateOfPurchase, "PPP"),
+        raffleEntries: raffleEntries,
+        receiptUpload: receiptFileNames,
     };
 
-    sendEmail();
+    try {
+        await emailjs.send(serviceID, templateID, templateParams, publicKey);
+        
+        sessionStorage.setItem('submissionData', JSON.stringify({
+          name: values.fullName,
+          amount: values.purchaseAmount,
+          entries: raffleEntries,
+        }));
+
+        toast({
+          title: "Email Sent!",
+          description: "Your submission has been sent successfully.",
+        });
+        
+        router.push(`/success`);
+        form.reset();
+        setImagePreviews([]);
+    } catch (error) {
+        console.error('EmailJS error:', error);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem sending your submission. Please try again.",
+        });
+    } finally {
+        setIsSubmitting(false);
+    }
   }
   
-  const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).slice(0, 6).map((file: any) => file.name).join(', ') : '';
+  const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
 
   return (
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
@@ -222,7 +197,7 @@ export function PurchaseForm() {
           />
         </div>
         <CardTitle className="font-headline font-extrabold text-[28px] text-center text-[#8a2a2b]">Join Tapa King Royal Escape 38th Anniversary Vacation Raffle</CardTitle>
-        <CardDescription className="text-[#8a2b2b] text-center text-sm">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
+        <CardDescription className="text-[#8a2b2b] text-center text-base">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
