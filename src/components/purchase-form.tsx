@@ -108,15 +108,25 @@ export function PurchaseForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
+    // defaultValues: {
+    //   fullName: "",
+    //   mobileNumber: "09",
+    //   email: "",
+    //   residentialAddress: "",
+    //   purchaseAmount: undefined,
+    //   receiptNumber: "",
+    //   branch: "",
+    //   agreeToTerms: false,
+    // },
     defaultValues: {
-      fullName: "",
-      mobileNumber: "09",
-      email: "",
-      residentialAddress: "",
-      purchaseAmount: undefined,
-      receiptNumber: "",
-      branch: "",
-      agreeToTerms: false,
+      fullName: "mark",
+      mobileNumber: "09123123123",
+      email: "marktestzxc@gmail.com",
+      residentialAddress: "123",
+      purchaseAmount: 1234,
+      receiptNumber: "123",
+      branch: "Avida Paco",
+      agreeToTerms: !false,
     },
   });
 
@@ -143,8 +153,20 @@ export function PurchaseForm() {
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
     
     emailjs.send(serviceID, templateID, params, publicKey)
-      .then(() => {
-          console.log("Email sent successfully!");
+      .then(async () => {
+        form.reset();
+        setImagePreviews([]);
+        setIsSubmitting(false);    
+
+        router.push(`/success`);
+        console.log("Email sent successfully!");
+    
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      
+        toast({
+          title: "Email Sent!",
+          description: "Your submission has been sent successfully.",
+        });
       })
       .catch((error) => {
         console.error('EmailJS error:', error);
@@ -156,41 +178,32 @@ export function PurchaseForm() {
       });
   }
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    const raffleEntries = Math.floor(values.purchaseAmount / 750);
-    sessionStorage.setItem('submissionData', JSON.stringify({
-      name: values.fullName,
-      amount: values.purchaseAmount,
-      entries: raffleEntries,
-    }));
-    router.push(`/success`);
-
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    const fullName = values.fullName.charAt(0).toUpperCase() + values.fullName.slice(1);
     const formattedAmount = new Intl.NumberFormat('en-PH', {
       style: 'currency',
       currency: 'PHP',
     }).format(values.purchaseAmount);
+    const raffleEntries = Math.floor(values.purchaseAmount / 750);
     
-    const receiptFileNames = values.receiptUpload ? Array.from(values.receiptUpload).map((file: any) => file.name).join(', ') : 'No files uploaded';
-
+    sessionStorage.setItem('submissionData', JSON.stringify({
+      name: fullName,
+      amount: formattedAmount,
+      entries: raffleEntries,
+    }));
+    
     const templateParams = {
-        ...values,
-        fullName: values.fullName,
-        birthdate: format(values.birthdate, "PPP"),
-        dateOfPurchase: format(values.dateOfPurchase, "PPP"),
-        purchaseAmount: formattedAmount,
-        raffleEntries: raffleEntries,
-        receiptUpload: receiptFileNames,
+      email: values.email,
+      fullName: fullName,
+      purchaseAmount: formattedAmount,
+      raffleEntries: raffleEntries,
     };
+   
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     
-    sendEmail(templateParams);
-    
-    form.reset();
-    setImagePreviews([]);
-    setIsSubmitting(false);
+    sendEmail(templateParams);    
   }
   
   const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
@@ -200,12 +213,12 @@ export function PurchaseForm() {
       <CardHeader>
         <div className="flex justify-center mb-4">
           <Image
-              src="/imgs/tk-logo.png"
-              alt="Tapa King Logo"
-              width={200}
-              height={150}
-              className="h-auto"
-              priority
+            src="/imgs/tk-logo.png"
+            alt="Tapa King Logo"
+            width={200}
+            height={50}
+            className="h-auto"
+            priority
           />
         </div>
         <CardTitle className="font-headline font-extrabold text-[28px] text-center text-[#8a2a2b]">Join Tapa King Royal Escape 38th Anniversary Vacation Raffle</CardTitle>
@@ -480,6 +493,7 @@ export function PurchaseForm() {
                           src="/imgs/sample-receipt.jpg"
                           alt="Sample Receipt"
                           fill
+                          sizes="100%"
                           className="rounded-md object-cover"
                           data-ai-hint="receipt"
                       />
