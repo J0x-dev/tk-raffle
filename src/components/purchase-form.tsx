@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, FieldErrors } from "react-hook-form";
 import * as z from "zod";
 import { format } from "date-fns";
 import { CalendarIcon, Loader2, UploadCloud, X } from "lucide-react";
@@ -104,19 +104,12 @@ export function PurchaseForm() {
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
+  const birthdateTriggerRef = React.useRef<HTMLButtonElement>(null);
+  const purchaseDateTriggerRef = React.useRef<HTMLButtonElement>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
-    // defaultValues: {
-    //   fullName: "",
-    //   mobileNumber: "09",
-    //   email: "",
-    //   residentialAddress: "",
-    //   purchaseAmount: undefined,
-    //   receiptNumber: "",
-    //   branch: "",
-    //   agreeToTerms: false,
-    // },
     defaultValues: {
       fullName: "mark",
       mobileNumber: "09123123123",
@@ -203,6 +196,14 @@ export function PurchaseForm() {
     
     sendEmail(templateParams);    
   }
+
+  function onError(errors: FieldErrors<z.infer<typeof formSchema>>) {
+    if (errors.birthdate) {
+      birthdateTriggerRef.current?.focus();
+    } else if (errors.dateOfPurchase) {
+      purchaseDateTriggerRef.current?.focus();
+    }
+  }
   
   const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
 
@@ -224,7 +225,7 @@ export function PurchaseForm() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit, onError)} className="space-y-6">
 
             <div className="space-y-4">
               <h3 className="font-bold text-[#8a2a2b] text-[20px] text-center">Contact Details</h3>
@@ -291,6 +292,7 @@ export function PurchaseForm() {
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
+                              ref={birthdateTriggerRef}
                               variant={"outline"}
                               className={cn(
                                 "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
@@ -343,6 +345,7 @@ export function PurchaseForm() {
                             <PopoverTrigger asChild>
                             <FormControl>
                                 <Button
+                                ref={purchaseDateTriggerRef}
                                 variant={"outline"}
                                 className={cn(
                                     "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
