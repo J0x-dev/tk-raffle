@@ -443,7 +443,7 @@ export function PurchaseForm() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
-                    <div className="relative aspect-[2/5]">
+                    <div className="relative aspect-square">
                       <Image
                           src="https://placehold.co/200x500.png"
                           alt="Sample Receipt"
