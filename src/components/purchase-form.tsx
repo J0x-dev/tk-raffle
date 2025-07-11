@@ -115,10 +115,9 @@ export function PurchaseForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const raffleEntries = Math.floor(values.purchaseAmount / 750);
     
-    // IMPORTANT: Replace with your actual EmailJS credentials
-    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
-    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
     
     const receiptFileNames = values.receiptUpload ? Array.from(values.receiptUpload).map((file: any) => file.name).join(', ') : 'No files uploaded';
 
