@@ -429,7 +429,7 @@ export function PurchaseForm() {
                       {imagePreviews.length > 0 && (
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
                               {imagePreviews.map((src, index) => (
-                                  <div key={index} className="relative aspect-[2/5]">
+                                  <div key={index} className="relative aspect-square">
                                       <Image
                                           src={src}
                                           alt={`Receipt preview ${index + 1}`}
