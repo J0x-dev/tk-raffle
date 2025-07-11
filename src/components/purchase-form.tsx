@@ -60,9 +60,7 @@ const formSchema = z.object({
       (files) => !files || Array.from(files).every((file: any) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       "Only .jpg, .jpeg, .png and .webp formats are supported."
     ),
-    agreeToTerms: z.boolean().refine((val) => val === true, {
-      message: "You must agree to the terms and conditions.",
-    }),
+    agreeToTerms: z.boolean(),
 });
 
 const branches = [
@@ -92,6 +90,7 @@ const MemoizedBirthdateCalendar = React.memo(({ field, setIsBirthdateOpen }: { f
     disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
     initialFocus
     required
+    defaultMonth={new Date(2000, 0)}
   />
 ));
 MemoizedBirthdateCalendar.displayName = 'MemoizedBirthdateCalendar';
@@ -723,5 +722,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
