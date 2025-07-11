@@ -438,7 +438,7 @@ export function PurchaseForm() {
                       {imagePreviews.length > 0 && (
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
                               {imagePreviews.map((src, index) => (
-                                  <div key={index} className="relative aspect-w-2 aspect-h-3">
+                                  <div key={index} className="relative aspect-w-1 aspect-h-1">
                                       <Image
                                           src={src}
                                           alt={`Receipt preview ${index + 1}`}
@@ -452,12 +452,12 @@ export function PurchaseForm() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
-                    <div className="relative aspect-w-2 aspect-h-3">
+                    <div className="relative aspect-w-1 aspect-h-1">
                       <Image
                           src="https://storage.googleapis.com/aai-web-samples/e1d70e4e-862d-45f8-84dc-660c238b05fc.png"
                           alt="Sample Receipt"
                           fill
-                          className="rounded-md object-cover"
+                          className="rounded-md object-contain"
                           data-ai-hint="receipt guide"
                       />
                     </div>
