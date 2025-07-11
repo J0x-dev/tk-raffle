@@ -454,7 +454,7 @@ export function PurchaseForm() {
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
                     <div className="relative aspect-[2/3]">
                       <Image
-                          src="https://placehold.co/200x300.png"
+                          src="https://storage.googleapis.com/aai-web-samples/e1d70e4e-862d-45f8-84dc-660c238b05fc.png"
                           alt="Sample Receipt"
                           fill
                           className="rounded-md object-cover"
