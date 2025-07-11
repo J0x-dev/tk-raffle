@@ -120,18 +120,17 @@ export function PurchaseForm() {
   const agreeToTermsValue = form.watch("agreeToTerms");
 
   React.useEffect(() => {
-    let urls: string[] = [];
     if (receiptFileRef && receiptFileRef.length > 0) {
-      const fileArray = Array.from(receiptFileRef) as File[];
-      urls = fileArray.map((file) => URL.createObjectURL(file));
-      setImagePreviews(urls);
+      const fileArray = Array.from(receiptFileRef);
+      const newPreviews = fileArray.map((file) => URL.createObjectURL(file as Blob));
+      setImagePreviews(newPreviews);
+
+      return () => {
+        newPreviews.forEach((url) => URL.revokeObjectURL(url));
+      };
     } else {
       setImagePreviews([]);
     }
-  
-    return () => {
-      urls.forEach((url) => URL.revokeObjectURL(url));
-    };
   }, [receiptFileRef]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -155,6 +154,7 @@ export function PurchaseForm() {
     try {
         await emailjs.send(serviceID, templateID, templateParams, publicKey);
         
+        // Store data in sessionStorage
         sessionStorage.setItem('submissionData', JSON.stringify({
           name: values.fullName,
           amount: values.purchaseAmount,
@@ -187,14 +187,14 @@ export function PurchaseForm() {
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
       <CardHeader>
         <div className="flex justify-center mb-4">
-            <Image
-                src="/imgs/tk-logo.png"
-                alt="Tapa King Logo"
-                width={200}
-                height={150}
-                className="h-auto"
-                priority
-            />
+          <Image
+              src="/imgs/tk-logo.png"
+              alt="Tapa King Logo"
+              width={200}
+              height={150}
+              className="h-auto"
+              priority
+          />
         </div>
         <CardTitle className="font-headline font-extrabold text-[28px] text-center text-[#8a2a2b]">Join Tapa King Royal Escape 38th Anniversary Vacation Raffle</CardTitle>
         <CardDescription className="text-[#8a2a2b] text-center text-base">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
@@ -407,8 +407,10 @@ export function PurchaseForm() {
                 </div>
             </div>
 
+
             <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2 flex flex-col">
                     <FormField
                         control={form.control}
                         name="receiptUpload"
@@ -441,38 +443,37 @@ export function PurchaseForm() {
                                     Max 5 files. Max file size: 10MB. Accepted formats: JPG, PNG, WEBP.
                                 </FormDescription>
                                 <FormMessage />
-                                {imagePreviews.length > 0 && (
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-                                        {imagePreviews.map((src, index) => (
-                                            <div key={index} className="relative aspect-w-1 aspect-h-1">
-                                                <Image
-                                                    src={src}
-                                                    alt={`Receipt preview ${index + 1}`}
-                                                    fill
-                                                    className="rounded-md object-cover"
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
                             </FormItem>
                         )}
                     />
-                    <div className="space-y-2">
-                        <FormLabel className="text-base text-[#8a2a2b] font-bold">Sample Receipt</FormLabel>
-                        <div className="relative w-full aspect-auto rounded-md overflow-hidden">
-                            <Image
-                                src="/imgs/sample-receipt.jpg"
-                                alt="Sample Receipt"
-                                width={500}
-                                height={625}
-                                className="object-contain w-full h-auto"
-                                priority
-                                data-ai-hint="sample receipt"
-                            />
-                        </div>
+                      {imagePreviews.length > 0 && (
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                              {imagePreviews.map((src, index) => (
+                                  <div key={index} className="relative aspect-[2/3]">
+                                      <Image
+                                          src={src}
+                                          alt={`Receipt preview ${index + 1}`}
+                                          fill
+                                          className="rounded-md object-cover"
+                                      />
+                                  </div>
+                              ))}
+                          </div>
+                      )}
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
+                    <div className="relative aspect-[2/3]">
+                      <Image
+                          src="/imgs/sample-receipt.jpg"
+                          alt="Sample Receipt"
+                          fill
+                          className="rounded-md object-cover"
+                          data-ai-hint="receipt"
+                      />
                     </div>
-                </div>
+                  </div>
+              </div>
             </div>
             
             <div className="mt-4 text-center text-sm text-gray-600">
@@ -553,7 +554,6 @@ export function PurchaseForm() {
 
                       <h3 className="font-bold">How to Contact Us</h3>
                       <p>For questions or more information about our Privacy Policy, you may contact us through our email: mktg@tapakinginc.com.</p>
-                      <p>Reference: <Link href="https://www.tapaking.com.ph/pages/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">https://www.tapaking.com.ph/pages/privacy-policy</Link></p>
                     </div>
                   </ScrollArea>
                    <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
@@ -562,7 +562,7 @@ export function PurchaseForm() {
                   </DialogClose>
                 </DialogContent>
               </Dialog>
-              . By tapping &quot;Agree &amp; Continue&quot;, you accept the{" "}
+              . Tap &quot;Agree &amp; Continue&quot; to accept the{" "}
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="link" className="p-0 h-auto text-[#8a2a2b] underline">Terms and Conditions</Button>
