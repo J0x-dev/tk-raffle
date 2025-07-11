@@ -74,6 +74,25 @@ const branches = [
     "UST", "Ulticare Medical Center", "Versailles Town Plaza", "WalterMart Antipolo"
 ];
 
+const MemoizedBirthdateCalendar = React.memo(({ field, setIsBirthdateOpen }: { field: any, setIsBirthdateOpen: (isOpen: boolean) => void }) => (
+  <Calendar
+    mode="single"
+    captionLayout="dropdown-buttons"
+    fromYear={1900}
+    toYear={new Date().getFullYear()}
+    selected={field.value}
+    onSelect={(date) => {
+      field.onChange(date);
+      setIsBirthdateOpen(false);
+    }}
+    disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+    initialFocus
+    required
+  />
+));
+MemoizedBirthdateCalendar.displayName = 'MemoizedBirthdateCalendar';
+
+
 export function PurchaseForm() {
   const { toast } = useToast();
   const router = useRouter();
@@ -241,20 +260,7 @@ export function PurchaseForm() {
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            captionLayout="dropdown-buttons"
-                            fromYear={1900}
-                            toYear={new Date().getFullYear()}
-                            selected={field.value}
-                            onSelect={(date) => {
-                              field.onChange(date);
-                              setIsBirthdateOpen(false);
-                            }}
-                            disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
-                            initialFocus
-                            required
-                          />
+                           <MemoizedBirthdateCalendar field={field} setIsBirthdateOpen={setIsBirthdateOpen} />
                         </PopoverContent>
                       </Popover>
                       <FormMessage />
