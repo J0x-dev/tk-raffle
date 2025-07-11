@@ -52,9 +52,15 @@ const formSchema = z.object({
   receiptUpload: z.any()
     .refine((files) => files?.length >= 1, "At least one receipt image is required.")
     .refine((files) => files?.length <= 6, "You can upload a maximum of 6 files.")
-    .refine((files) => Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE), `Max file size is 10MB per file.`)
+    .refine((files) => {
+        if (!files) return false;
+        return Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE)
+    }, `Max file size is 10MB per file.`)
     .refine(
-      (files) => Array.from(files).every((file: any) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
+      (files) => {
+        if (!files) return false;
+        return Array.from(files).every((file: any) => ACCEPTED_IMAGE_TYPES.includes(file.type))
+      },
       "Only .jpg, .jpeg, .png and .webp formats are supported."
     ),
   agreeToTerms: z.boolean().refine((val) => val === true, {
@@ -708,5 +714,7 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
 
     
