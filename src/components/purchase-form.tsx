@@ -429,7 +429,7 @@ export function PurchaseForm() {
                       {imagePreviews.length > 0 && (
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
                               {imagePreviews.map((src, index) => (
-                                  <div key={index} className="relative aspect-video">
+                                  <div key={index} className="relative aspect-[2/5]">
                                       <Image
                                           src={src}
                                           alt={`Receipt preview ${index + 1}`}
@@ -443,9 +443,9 @@ export function PurchaseForm() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
-                    <div className="relative aspect-video">
+                    <div className="relative aspect-[2/5]">
                       <Image
-                          src="https://placehold.co/600x400.png"
+                          src="https://placehold.co/200x500.png"
                           alt="Sample Receipt"
                           fill
                           className="rounded-md object-cover"
