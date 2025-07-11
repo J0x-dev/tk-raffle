@@ -390,7 +390,7 @@ export function PurchaseForm() {
 
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
+                  <div className="space-y-2 flex flex-col">
                     <FormField
                         control={form.control}
                         name="receiptUpload"
@@ -427,9 +427,9 @@ export function PurchaseForm() {
                         )}
                     />
                       {imagePreviews.length > 0 && (
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2 flex-1">
                               {imagePreviews.map((src, index) => (
-                                  <div key={index} className="relative aspect-[2/5]">
+                                  <div key={index} className="relative">
                                       <Image
                                           src={src}
                                           alt={`Receipt preview ${index + 1}`}
@@ -443,7 +443,7 @@ export function PurchaseForm() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
-                    <div className="relative aspect-square">
+                    <div className="relative aspect-[2/5]">
                       <Image
                           src="https://placehold.co/200x500.png"
                           alt="Sample Receipt"
