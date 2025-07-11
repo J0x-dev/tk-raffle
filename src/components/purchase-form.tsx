@@ -452,11 +452,12 @@ export function PurchaseForm() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
-                    <div className="relative aspect-w-1 aspect-h-1">
+                    <div className="flex justify-center">
                       <Image
-                          src="https://storage.googleapis.com/aai-web-samples/e1d70e4e-862d-45f8-84dc-660c238b05fc.png"
+                          src="https://placehold.co/200x250.png"
                           alt="Sample Receipt"
-                          fill
+                          width={200}
+                          height={250}
                           className="rounded-md object-contain"
                           data-ai-hint="receipt guide"
                       />
