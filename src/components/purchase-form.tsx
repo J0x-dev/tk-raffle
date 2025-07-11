@@ -185,6 +185,16 @@ export function PurchaseForm() {
   return (
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
       <CardHeader>
+        <div className="flex justify-center mb-4">
+            <Image
+                src="/favicon.jpg"
+                alt="Tapa King Logo"
+                width={200}
+                height={200}
+                className="h-auto"
+                priority
+            />
+        </div>
         <CardTitle className="font-headline font-extrabold text-[28px] text-center text-[#8a2a2b]">Join Tapa King Royal Escape 38th Anniversary Vacation Raffle</CardTitle>
         <CardDescription className="text-[#8a2a2b] text-center text-base">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
       </CardHeader>
@@ -456,9 +466,8 @@ export function PurchaseForm() {
                       <Image
                           src="/imgs/sample-receipt.jpg"
                           alt="Sample Receipt"
-                          width={0}
-                          height={0}
-                          sizes="100vw"
+                          width={200}
+                          height={250}
                           className="w-full h-auto rounded-md object-contain"
                           data-ai-hint="receipt guide"
                       />
