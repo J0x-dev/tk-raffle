@@ -441,23 +441,23 @@ export function PurchaseForm() {
                                     Max 5 files. Max file size: 10MB. Accepted formats: JPG, PNG, WEBP.
                                 </FormDescription>
                                 <FormMessage />
+                                {imagePreviews.length > 0 && (
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                                        {imagePreviews.map((src, index) => (
+                                            <div key={index} className="relative aspect-w-1 aspect-h-1">
+                                                <Image
+                                                    src={src}
+                                                    alt={`Receipt preview ${index + 1}`}
+                                                    fill
+                                                    className="rounded-md object-cover"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </FormItem>
                         )}
                     />
-                      {imagePreviews.length > 0 && (
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-                              {imagePreviews.map((src, index) => (
-                                  <div key={index} className="relative aspect-w-1 aspect-h-1">
-                                      <Image
-                                          src={src}
-                                          alt={`Receipt preview ${index + 1}`}
-                                          fill
-                                          className="rounded-md object-cover"
-                                      />
-                                  </div>
-                              ))}
-                          </div>
-                      )}
                   </div>
                   <div className="space-y-2">
                     <FormLabel className="text-base text-[#8a2a2b] font-bold">Sample Receipt</FormLabel>
@@ -699,7 +699,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
-
-    
