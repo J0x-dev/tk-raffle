@@ -66,7 +66,7 @@ function SuccessContent() {
         <div className="mt-4">
           <CardTitle className="text-2xl font-bold text-[#8a2a2b]">Submission Successful!</CardTitle>
           <CardDescription className="mt-2 text-foreground text-base">
-            Hi {name}, ✨ Congratulations! <br/> Thank you for joining the Tapa King Royal Escape 38th Anniversary Vacation Raffle! Based on your recent purchase of <span className="font-bold">{formattedAmount}</span>, you have earned <span className="font-bold">{entries}</span> raffle entries!
+            Hi <span className="font-bold">{name}</span>, ✨ Congratulations! <br/> Thank you for joining the Tapa King Royal Escape 38th Anniversary Vacation Raffle! Based on your recent purchase of <span className="font-bold">{formattedAmount}</span>, you have earned <span className="font-bold">{entries}</span> raffle entries!
           </CardDescription>
         </div>
       </CardHeader>
