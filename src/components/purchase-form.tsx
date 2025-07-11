@@ -120,17 +120,18 @@ export function PurchaseForm() {
   const agreeToTermsValue = form.watch("agreeToTerms");
 
   React.useEffect(() => {
+    let urls: string[] = [];
     if (receiptFileRef && receiptFileRef.length > 0) {
       const fileArray = Array.from(receiptFileRef) as File[];
-      const newPreviews = fileArray.map((file) => URL.createObjectURL(file));
-      setImagePreviews(newPreviews);
-
-      return () => {
-        newPreviews.forEach((url) => URL.revokeObjectURL(url));
-      };
+      urls = fileArray.map((file) => URL.createObjectURL(file));
+      setImagePreviews(urls);
     } else {
       setImagePreviews([]);
     }
+  
+    return () => {
+      urls.forEach((url) => URL.revokeObjectURL(url));
+    };
   }, [receiptFileRef]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
