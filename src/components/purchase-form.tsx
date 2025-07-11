@@ -460,19 +460,6 @@ export function PurchaseForm() {
                           </div>
                       )}
                   </div>
-                  <div className="space-y-2">
-                    <p className="text-base text-[#8a2a2b] font-bold">Sample Receipt</p>
-                    <div className="w-full">
-                      <Image
-                          src="/imgs/sample-receipt.jpg"
-                          alt="Sample Receipt"
-                          width={200}
-                          height={250}
-                          className="w-full h-auto rounded-md object-contain"
-                          data-ai-hint="receipt guide"
-                      />
-                    </div>
-                  </div>
               </div>
             </div>
             
