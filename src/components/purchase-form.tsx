@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { format } from "date-fns";
-import { CalendarIcon, UploadCloud, X } from "lucide-react";
+import { CalendarIcon, Loader2, UploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import emailjs from '@emailjs/browser';
@@ -80,6 +80,7 @@ export function PurchaseForm() {
   const [isBirthdateOpen, setIsBirthdateOpen] = React.useState(false);
   const [isPurchaseDateOpen, setIsPurchaseDateOpen] = React.useState(false);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -113,6 +114,7 @@ export function PurchaseForm() {
   }, [receiptFileRef]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
     const raffleEntries = Math.floor(values.purchaseAmount / 750);
     
     const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
@@ -145,6 +147,8 @@ export function PurchaseForm() {
           title: "Uh oh! Something went wrong.",
           description: "There was a problem sending your submission. Please try again.",
         });
+    } finally {
+        setIsSubmitting(false);
     }
   }
   
@@ -292,7 +296,7 @@ export function PurchaseForm() {
                                 <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                                    "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
@@ -517,7 +521,16 @@ export function PurchaseForm() {
               )}
             />
 
-            <Button type="submit" className="w-full text-lg py-6" disabled={!agreeToTermsValue}>Submit</Button>
+            <Button type="submit" className="w-full text-lg py-6" disabled={!agreeToTermsValue || isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                "Submit"
+              )}
+            </Button>
           </form>
         </Form>
       </CardContent>
