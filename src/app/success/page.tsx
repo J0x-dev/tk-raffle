@@ -23,11 +23,15 @@ function SuccessContent() {
         <div className="mt-4">
           <CardTitle className="text-2xl font-bold text-[#8a2a2b]">Submission Successful!</CardTitle>
           <CardDescription className="mt-2 text-foreground text-base">
-            Hi {name}, Congratulations! Thank you for joining the Tapa King Royal Escape 38th Anniversary Vacation Raffle! Based on your recent purchase of <span className="font-bold">₱{amount}</span>, you have earned <span className="font-bold">{entries}</span> raffle entries!
+            Hi {name}, ✨ Congratulations! <br/> Thank you for joining the Tapa King Royal Escape 38th Anniversary Vacation Raffle! Based on your recent purchase of <span className="font-bold">₱{amount}</span>, you have earned <span className="font-bold">{entries}</span> raffle entries!
           </CardDescription>
         </div>
       </CardHeader>
       <CardContent className="p-6 pt-0">
+        <div className="mb-6 rounded-lg bg-gray-100 p-4 text-left text-sm">
+            <p className="mb-2">🛒 <span className="font-semibold">Total Spent:</span> ₱{amount}</p>
+            <p>🎟️ <span className="font-semibold">Raffle Entries Earned:</span> {entries}</p>
+        </div>
         <p className="text-sm text-gray-600 mb-6">
           Winners will be announced after the raffle draw. Good luck!
         </p>
