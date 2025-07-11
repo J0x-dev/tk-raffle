@@ -152,11 +152,20 @@ export function PurchaseForm() {
 
     try {
         await emailjs.send(serviceID, templateID, templateParams, publicKey);
+        
+        // Store data in sessionStorage
+        sessionStorage.setItem('submissionData', JSON.stringify({
+          name: values.fullName,
+          amount: values.purchaseAmount,
+          entries: raffleEntries,
+        }));
+
         toast({
           title: "Email Sent!",
           description: "Your submission has been sent successfully.",
         });
-        router.push(`/success?name=${encodeURIComponent(values.fullName)}&amount=${values.purchaseAmount}&entries=${raffleEntries}`);
+        
+        router.push(`/success`);
         form.reset();
         setImagePreviews([]);
     } catch (error) {

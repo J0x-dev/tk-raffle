@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'FormFlow',
+  title: 'Raffle Form',
   description: 'A simple and elegant form for collecting purchase information.',
 };
 

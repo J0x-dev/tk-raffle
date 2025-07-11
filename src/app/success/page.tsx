@@ -5,21 +5,57 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { useSearchParams } from 'next/navigation';
-import { Suspense } from "react";
+import { useRouter } from 'next/navigation';
+import { Suspense, useEffect, useState } from "react";
+
+interface SubmissionData {
+  name: string;
+  amount: number;
+  entries: number;
+}
 
 function SuccessContent() {
-  const searchParams = useSearchParams();
-  const name = searchParams.get('name') || 'Customer';
-  const amountParam = searchParams.get('amount') || '0';
-  const entries = searchParams.get('entries') || '0';
+  const router = useRouter();
+  const [data, setData] = useState<SubmissionData | null>(null);
 
-  const amount = parseFloat(amountParam);
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('submissionData');
+    if (storedData) {
+      setData(JSON.parse(storedData));
+      // Optional: remove the data from sessionStorage after reading it
+      // sessionStorage.removeItem('submissionData'); 
+    } else {
+      // Handle case where there is no data, maybe redirect to home
+      // For now, we'll just show default values or a message
+      console.warn("No submission data found in session storage.");
+    }
+  }, []);
+
+
+  const name = data?.name || 'Customer';
+  const amount = data?.amount || 0;
+  const entries = data?.entries || '0';
 
   const formattedAmount = new Intl.NumberFormat('en-PH', {
     style: 'currency',
     currency: 'PHP',
   }).format(amount);
+  
+  if (!data) {
+     return (
+        <Card className="w-full max-w-md text-center shadow-lg">
+            <CardHeader>
+                <CardTitle>Loading...</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p>Looking for your submission details.</p>
+                 <Button asChild className="w-full mt-4">
+                  <Link href="/">Back to Form</Link>
+                </Button>
+            </CardContent>
+        </Card>
+     )
+  }
 
   return (
     <Card className="w-full max-w-md text-center shadow-lg">
