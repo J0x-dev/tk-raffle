@@ -29,8 +29,8 @@ function SuccessContent() {
       </CardHeader>
       <CardContent className="p-6 pt-0">
         <div className="mb-6 rounded-lg bg-gray-100 p-4 text-left text-sm">
-            <p className="mb-2">🛒 <span className="font-semibold">Total Spent:</span> ₱{amount}</p>
-            <p>🎟️ <span className="font-semibold">Raffle Entries Earned:</span> {entries}</p>
+            <p className="mb-2">🛒 Total Spent: ₱<span className="font-bold">{amount}</span></p>
+            <p>🎟️ Raffle Entries Earned: <span className="font-bold">{entries}</span></p>
         </div>
         <p className="text-sm text-gray-600 mb-6">
           Winners will be announced after the raffle draw. Good luck!
