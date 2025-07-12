@@ -10,7 +10,9 @@ import { CalendarIcon, Loader2, UploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import emailjs from '@emailjs/browser';
-
+import { db, storage } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -160,11 +162,6 @@ export function PurchaseForm() {
           });
         }, 500);
       })
-      .finally(() => {
-        form.reset();
-        setImagePreviews([]);
-        setIsSubmitting(false);
-      })
       .catch((error) => {
         toast({
           variant: "destructive",
@@ -177,27 +174,57 @@ export function PurchaseForm() {
    async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    const fullName = values.fullName.charAt(0).toUpperCase() + values.fullName.slice(1);
-    const formattedAmount = new Intl.NumberFormat('en-PH', {
-      style: 'currency',
-      currency: 'PHP',
-    }).format(values.purchaseAmount);
-    const raffleEntries = Math.floor(values.purchaseAmount / 750);
-    
-    sessionStorage.setItem('submissionData', JSON.stringify({
-      name: fullName,
-      amount: formattedAmount,
-      entries: raffleEntries,
-    }));
-    
-    const templateParams = {
-      email: values.email,
-      fullName: fullName,
-      purchaseAmount: formattedAmount,
-      raffleEntries: raffleEntries,
-    };
-       
-    sendEmail(templateParams);    
+    try {
+      // 1. Upload images to Firebase Storage
+      const receiptUrls = await Promise.all(
+        Array.from(values.receiptUpload).map(async (file: any) => {
+          const storageRef = ref(storage, `receipts/${Date.now()}-${file.name}`);
+          await uploadBytes(storageRef, file);
+          return await getDownloadURL(storageRef);
+        })
+      );
+      
+      const fullName = values.fullName.charAt(0).toUpperCase() + values.fullName.slice(1);
+      const formattedAmount = new Intl.NumberFormat('en-PH', {
+        style: 'currency',
+        currency: 'PHP',
+      }).format(values.purchaseAmount);
+      const raffleEntries = Math.floor(values.purchaseAmount / 750);
+
+      // 2. Save form data to Firestore
+      await addDoc(collection(db, "submissions"), {
+        ...values,
+        birthdate: format(values.birthdate, 'yyyy-MM-dd'),
+        dateOfPurchase: format(values.dateOfPurchase, 'yyyy-MM-dd'),
+        receiptUpload: receiptUrls,
+        raffleEntries: raffleEntries,
+        submittedAt: serverTimestamp(),
+      });
+      
+      sessionStorage.setItem('submissionData', JSON.stringify({
+        name: fullName,
+        amount: formattedAmount,
+        entries: raffleEntries,
+      }));
+      
+      const templateParams = {
+        email: values.email,
+        fullName: fullName,
+        purchaseAmount: formattedAmount,
+        raffleEntries: raffleEntries,
+      };
+         
+      sendEmail(templateParams);    
+
+    } catch (error) {
+      console.error("Error submitting form: ", error);
+      toast({
+        variant: "destructive",
+        title: "Database Error",
+        description: "There was a problem saving your submission to the database.",
+      });
+      setIsSubmitting(false);
+    }
   }
 
   function onError(errors: FieldErrors<z.infer<typeof formSchema>>) {
