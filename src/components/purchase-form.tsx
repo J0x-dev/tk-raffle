@@ -67,6 +67,8 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/png",
   "image/webp",
 ];
+const MAX_FILES = 6;
+
 
 const formSchema = z.object({
   fullName: z.string().min(1, { message: "Full name is required." }),
@@ -92,23 +94,15 @@ const formSchema = z.object({
     .min(1, { message: "Please select a branch." }),
   receiptUpload: z
     .any()
-    .refine(
-      (files) => files?.length >= 1,
-      "At least one receipt image is required."
-    )
-    .refine(
-      (files) => files?.length <= 6,
-      "You can upload a maximum of 6 files."
-    )
+    .refine((files) => files?.length >= 1, "At least one receipt image is required.")
+    .refine((files) => files?.length <= MAX_FILES, `You can upload a maximum of ${MAX_FILES} files.`)
     .refine(
       (files) =>
-        !files ||
         Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE),
       `Max file size is 10MB per file.`
     )
     .refine(
       (files) =>
-        !files ||
         Array.from(files).every((file: any) =>
           ACCEPTED_IMAGE_TYPES.includes(file.type)
         ),
@@ -229,6 +223,7 @@ export function PurchaseForm() {
       receiptNumber: "123",
       branch: "Avida Paco",
       agreeToTerms: true,
+      receiptUpload: undefined,
     },
   });
 
@@ -276,7 +271,7 @@ export function PurchaseForm() {
       );
 
       const dataTransfer = new DataTransfer();
-      updatedFiles.forEach((file) => dataTransfer.items.add(file));
+      updatedFiles.forEach((file) => dataTransfer.items.add(file as File));
 
       form.setValue("receiptUpload", dataTransfer.files, {
         shouldValidate: true,
@@ -398,13 +393,13 @@ export function PurchaseForm() {
           title: "File too large",
           description: `"${file.name}" exceeds the 10MB limit.`,
         });
-      } else if (combinedFiles.length < 6) {
+      } else if (combinedFiles.length < MAX_FILES) {
         combinedFiles.push(file);
       } else {
         toast({
             variant: "destructive",
             title: "Maximum files reached",
-            description: "You can only upload a maximum of 6 files.",
+            description: `You can only upload a maximum of ${MAX_FILES} files.`,
         });
         break;
       }
@@ -421,7 +416,7 @@ export function PurchaseForm() {
   };
 
   const receiptFileNames = receiptFileRef
-    ? Array.from(receiptFileRef)
+    ? Array.from(receiptFileRef as FileList)
         .map((file: any) => file.name)
         .join(", ")
     : "";
@@ -748,7 +743,7 @@ export function PurchaseForm() {
                           </div>
                         </FormControl>
                         <FormDescription>
-                          Max 6 files. Max file size: 10MB. Accepted formats:
+                          Max {MAX_FILES} files. Max file size: 10MB. Accepted formats:
                           JPG, PNG, WEBP.
                         </FormDescription>
                         <FormMessage />
@@ -766,6 +761,7 @@ export function PurchaseForm() {
                                   src={src}
                                   alt={`Receipt preview ${index + 1}`}
                                   fill
+                                  sizes="(max-width: 768px) 50vw, 33vw"
                                   className={cn("rounded-md object-cover", imageLoadStates[index] !== 'loading' ? 'opacity-100' : 'opacity-0')}
                                   onLoad={() => handleImageLoad(index)}
                                   onError={() => handleImageError(index)}
@@ -803,7 +799,7 @@ export function PurchaseForm() {
                       src="/imgs/sample-receipt.jpg"
                       alt="Sample Receipt"
                       fill
-                      sizes="100%"
+                      sizes="(max-width: 768px) 50vw, 33vw"
                       className="rounded-md object-cover"
                       data-ai-hint="receipt"
                       priority
@@ -1319,3 +1315,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
