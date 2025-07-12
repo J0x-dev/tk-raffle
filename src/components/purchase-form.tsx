@@ -526,7 +526,7 @@ export function PurchaseForm() {
                     </DialogDescription>
                   </DialogHeader>
                   <ScrollArea className="h-full -mx-6 sm:-mx-8 pr-4">
-                    <div className="px-6 sm:px-8 pb-6 space-y-4 text-sm text-left">
+                    <div className="px-6 sm:px-8 pb-6 space-y-2 text-sm text-left">
                       <p>TAPA KING, INC. (Tapa King) is committed to protecting and safeguarding your privacy when you visit and access our website using any electronic device. This Privacy Policy set forth how we collect, use, and store your information.</p>
                       <p>This Policy applies to information shared and collected from visitors of Tapa King’s official website. It is not applicable to any information collected offline or via channels other than this website.</p>
                       
@@ -611,13 +611,11 @@ export function PurchaseForm() {
                     </DialogDescription>
                   </DialogHeader>
                   <ScrollArea className="h-full -mx-6 sm:-mx-8 pr-4">
-                    <div className="px-6 sm:px-8 pb-6 space-y-4 text-sm text-left">
+                    <div className="px-6 sm:px-8 pb-6 space-y-2 text-sm text-left">
                       <p>
                         <strong>Promo Period:</strong> July 23, 2025 to October 31, 2025<br />
                         <strong>DTI Fair Trade Permit No.:</strong> XXXX XXXX XXXX
                       </p>
-
-                      <p>These Terms of Use (&quot;Terms&quot;) govern your access and participation in Tapa King&apos;s Royal Escape Raffle Promo (&quot;Promo&quot;) through the official E-Raffle Management System (&quot;System&quot;). By joining the promo and submitting an entry via the System, you agree to abide by these Terms.</p>
 
                       <h3 className="font-bold mb-2 pt-2">1. Eligibility</h3>
                       <p>1.1 The Promo is open to all customers of Tapa King nationwide who meet the minimum purchase requirement as stated in the official mechanics.</p>
