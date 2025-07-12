@@ -330,13 +330,6 @@ export function PurchaseForm() {
 
       console.log("Data saved to Firestore successfully!");
 
-      const templateParams = {
-        email: values.email,
-        fullName: fullName,
-        purchaseAmount: formattedAmount,
-        raffleEntries: raffleEntries,
-      };
-
       sessionStorage.setItem(
         "submissionData",
         JSON.stringify({
@@ -345,10 +338,16 @@ export function PurchaseForm() {
           raffleEntries: raffleEntries,
         })
       );
-      
-      await sendEmail(templateParams);
-      router.push(`/success`);
 
+      const templateParams = {
+        email: values.email,
+        fullName: fullName,
+        purchaseAmount: formattedAmount,
+        raffleEntries: raffleEntries,
+      };
+      
+      sendEmail(templateParams);
+      router.push(`/success`);
     } catch (error) {
       console.error("Error submitting form: ", error);
       toast({
