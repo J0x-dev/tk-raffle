@@ -276,8 +276,7 @@ export function PurchaseForm() {
       form.setValue("receiptUpload", dataTransfer.files, {
         shouldValidate: true,
       });
-
-      // This is the crucial part to allow re-uploading the same file.
+      
       if (receiptInputRef.current) {
         receiptInputRef.current.value = "";
       }
@@ -407,7 +406,7 @@ export function PurchaseForm() {
     }
 
     const dataTransfer = new DataTransfer();
-    combinedFiles.forEach(file => dataTransfer.items.add(file));
+    combinedFiles.forEach(file => dataTransfer.items.add(file as File));
     
     form.setValue("receiptUpload", dataTransfer.files, { shouldValidate: true });
 
@@ -1316,5 +1315,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
