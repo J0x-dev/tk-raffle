@@ -58,6 +58,7 @@ import {
 import { ScrollArea } from "./ui/scroll-area";
 import { Checkbox } from "./ui/checkbox";
 import { Separator } from "./ui/separator";
+import { Skeleton } from "./ui/skeleton";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = [
@@ -115,6 +116,7 @@ const formSchema = z.object({
     ),
   agreeToTerms: z.boolean(),
 });
+
 
 const branches = [
   "A.T. Yuchengco Centre",
@@ -201,6 +203,7 @@ export function PurchaseForm() {
   const [isBirthdateOpen, setIsBirthdateOpen] = React.useState(false);
   const [isPurchaseDateOpen, setIsPurchaseDateOpen] = React.useState(false);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
+  const [imageLoadStates, setImageLoadStates] = React.useState<Record<number, 'loading' | 'loaded' | 'error'>>({});
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [currentYear, setCurrentYear] = React.useState<number | null>(null);
 
@@ -238,15 +241,32 @@ export function PurchaseForm() {
       const newPreviews = fileArray.map((file) =>
         URL.createObjectURL(file as Blob)
       );
+      
+      const newLoadStates: Record<number, 'loading' | 'loaded' | 'error'> = {};
+      newPreviews.forEach((_, index) => {
+          newLoadStates[index] = 'loading';
+      });
+
       setImagePreviews(newPreviews);
+      setImageLoadStates(prev => ({ ...prev, ...newLoadStates }));
+
 
       return () => {
         newPreviews.forEach((url) => URL.revokeObjectURL(url));
       };
     } else {
       setImagePreviews([]);
+      setImageLoadStates({});
     }
   }, [receiptFileRef]);
+
+  const handleImageLoad = (index: number) => {
+    setImageLoadStates(prev => ({ ...prev, [index]: 'loaded' }));
+  };
+
+  const handleImageError = (index: number) => {
+    setImageLoadStates(prev => ({ ...prev, [index]: 'error' }));
+  };
 
   const handleRemoveImage = (indexToRemove: number) => {
     const currentFiles = form.getValues("receiptUpload");
@@ -364,6 +384,41 @@ export function PurchaseForm() {
       });
     }
   }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newFiles = event.target.files ? Array.from(event.target.files) : [];
+    const currentFiles = form.getValues("receiptUpload") ? Array.from(form.getValues("receiptUpload")) : [];
+    
+    let combinedFiles = [...currentFiles];
+    
+    for (const file of newFiles) {
+      if (file.size > MAX_FILE_SIZE) {
+        toast({
+          variant: "destructive",
+          title: "File too large",
+          description: `"${file.name}" exceeds the 10MB limit.`,
+        });
+      } else if (combinedFiles.length < 6) {
+        combinedFiles.push(file);
+      } else {
+        toast({
+            variant: "destructive",
+            title: "Maximum files reached",
+            description: "You can only upload a maximum of 6 files.",
+        });
+        break;
+      }
+    }
+
+    const dataTransfer = new DataTransfer();
+    combinedFiles.forEach(file => dataTransfer.items.add(file));
+    
+    form.setValue("receiptUpload", dataTransfer.files, { shouldValidate: true });
+
+    if(receiptInputRef.current) {
+        receiptInputRef.current.value = "";
+    }
+  };
 
   const receiptFileNames = receiptFileRef
     ? Array.from(receiptFileRef)
@@ -686,7 +741,7 @@ export function PurchaseForm() {
                               ref={receiptInputRef}
                               {...fieldProps}
                               multiple
-                              onChange={(event) => onChange(event.target.files)}
+                              onChange={handleFileChange}
                               accept="image/png, image/jpeg, image/jpg, image/webp"
                               required
                             />
@@ -704,21 +759,33 @@ export function PurchaseForm() {
                                 key={index}
                                 className="relative aspect-[2/3]"
                               >
+                                {imageLoadStates[index] === 'loading' && (
+                                  <Skeleton className="h-full w-full rounded-md" />
+                                )}
                                 <Image
                                   src={src}
                                   alt={`Receipt preview ${index + 1}`}
                                   fill
-                                  className="rounded-md object-cover"
+                                  className={cn("rounded-md object-cover", imageLoadStates[index] !== 'loading' ? 'opacity-100' : 'opacity-0')}
+                                  onLoad={() => handleImageLoad(index)}
+                                  onError={() => handleImageError(index)}
                                 />
-                                <Button
-                                  type="button"
-                                  variant="destructive"
-                                  size="icon"
-                                  className="absolute top-1 right-1 h-6 w-6 rounded-full"
-                                  onClick={() => handleRemoveImage(index)}
-                                >
-                                  <X className="h-4 w-4" />
-                                </Button>
+                                {imageLoadStates[index] === 'loaded' && (
+                                  <Button
+                                    type="button"
+                                    variant="destructive"
+                                    size="icon"
+                                    className="absolute top-1 right-1 h-6 w-6 rounded-full"
+                                    onClick={() => handleRemoveImage(index)}
+                                  >
+                                    <X className="h-4 w-4" />
+                                  </Button>
+                                )}
+                                 {imageLoadStates[index] === 'error' && (
+                                  <div className="absolute inset-0 flex items-center justify-center bg-destructive/20 text-destructive text-xs text-center p-2 rounded-md">
+                                    Error loading image
+                                  </div>
+                                )}
                               </div>
                             ))}
                           </div>
@@ -1252,5 +1319,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
