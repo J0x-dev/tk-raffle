@@ -10,9 +10,8 @@ import { CalendarIcon, Loader2, UploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import emailjs from '@emailjs/browser';
-import { db, storage } from '@/lib/firebase';
+import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -175,15 +174,6 @@ export function PurchaseForm() {
     setIsSubmitting(true);
     
     try {
-      // 1. Upload images to Firebase Storage
-      const receiptUrls = await Promise.all(
-        Array.from(values.receiptUpload).map(async (file: any) => {
-          const storageRef = ref(storage, `receipts/${Date.now()}-${file.name}`);
-          await uploadBytes(storageRef, file);
-          return await getDownloadURL(storageRef);
-        })
-      );
-      
       const fullName = values.fullName.charAt(0).toUpperCase() + values.fullName.slice(1);
       const formattedAmount = new Intl.NumberFormat('en-PH', {
         style: 'currency',
@@ -191,12 +181,18 @@ export function PurchaseForm() {
       }).format(values.purchaseAmount);
       const raffleEntries = Math.floor(values.purchaseAmount / 750);
 
-      // 2. Save form data to Firestore
+      // Save form data to Firestore (without image upload for now)
       await addDoc(collection(db, "submissions"), {
-        ...values,
+        fullName: values.fullName,
+        mobileNumber: values.mobileNumber,
+        email: values.email,
         birthdate: format(values.birthdate, 'yyyy-MM-dd'),
+        residentialAddress: values.residentialAddress,
         dateOfPurchase: format(values.dateOfPurchase, 'yyyy-MM-dd'),
-        receiptUpload: receiptUrls,
+        purchaseAmount: values.purchaseAmount,
+        receiptNumber: values.receiptNumber,
+        branch: values.branch,
+        receiptUpload: "Upload pending", // Placeholder
         raffleEntries: raffleEntries,
         submittedAt: serverTimestamp(),
       });
