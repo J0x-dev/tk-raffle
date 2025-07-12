@@ -106,6 +106,7 @@ export function PurchaseForm() {
 
   const birthdateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const purchaseDateTriggerRef = React.useRef<HTMLButtonElement>(null);
+  const receiptUploadRef = React.useRef<HTMLElement>(null);
 
   React.useEffect(() => {
     setCurrentYear(new Date().getFullYear());
@@ -204,6 +205,8 @@ export function PurchaseForm() {
       birthdateTriggerRef.current?.focus();
     } else if (errors.dateOfPurchase) {
       purchaseDateTriggerRef.current?.focus();
+    } else if (errors.receiptUpload) {
+      receiptUploadRef.current?.focus();
     }
   }
   
@@ -311,7 +314,7 @@ export function PurchaseForm() {
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
-                           <MemoizedBirthdateCalendar field={field} setIsBirthdateOpen={setIsBirthdateOpen} toYear={currentYear} />
+                           <MemoizedBirthdateCalendar field={field} setIsBirthdateOpen={setIsBirthdateOpen} toYear={currentYear!} />
                         </PopoverContent>
                       </Popover>
                       <FormMessage />
@@ -367,8 +370,8 @@ export function PurchaseForm() {
                             <Calendar
                                 mode="single"
                                 captionLayout="dropdown-buttons"
-                                fromYear={currentYear - 10}
-                                toYear={currentYear}
+                                fromYear={currentYear! - 10}
+                                toYear={currentYear!}
                                 selected={field.value}
                                 onSelect={(date) => {
                                   field.onChange(date);
@@ -451,7 +454,7 @@ export function PurchaseForm() {
                           <FormLabel className="text-base text-[#8a2a2b] font-bold">Upload Receipt*</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <label htmlFor="receipt-upload" className={cn(
+                              <label htmlFor="receipt-upload" ref={receiptUploadRef} tabIndex={0} className={cn(
                                 "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                               )}>
                                 <span className="truncate text-muted-foreground">
@@ -613,8 +616,6 @@ export function PurchaseForm() {
                         <strong>Promo Period:</strong> July 23, 2025 to October 31, 2025<br />
                         <strong>DTI Fair Trade Permit No.:</strong> XXXX XXXX XXXX
                       </p>
-                      <p>These Terms of Use (&quot;Terms&quot;) govern your access and participation in Tapa King&apos;s Royal Escape Raffle Promo (&quot;Promo&quot;) through the official E-Raffle Management System (&quot;System&quot;). By joining the promo and submitting an entry via the System, you agree to abide by these Terms.</p>
-                      
                       <h3 className="font-bold mb-2">1. Eligibility</h3>
                       <p>1.1 The Promo is open to all customers of Tapa King nationwide who meet the minimum purchase requirement as stated in the official mechanics.</p>
                       <p>1.2 Employees of Tapa King, its affiliates, advertising and promo agencies, and their relatives up to the second degree of consanguinity or affinity are not eligible to join.</p>
@@ -731,3 +732,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
