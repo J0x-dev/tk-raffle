@@ -124,7 +124,7 @@ export function PurchaseForm() {
       purchaseAmount: 1234,
       receiptNumber: "123",
       branch: "Avida Paco",
-      agreeToTerms: !false,
+      agreeToTerms: true,
     },
   });
 
@@ -150,7 +150,7 @@ export function PurchaseForm() {
     const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
     
-    emailjs.send(serviceID, templateID, params, publicKey)
+    emailjs.send(serviceID, templateID, params, { publicKey })
       .then(async () => {    
         router.push(`/success`);
 
@@ -162,6 +162,7 @@ export function PurchaseForm() {
         }, 500);
       })
       .catch((error) => {
+        console.error("EmailJS Error:", error);
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",
@@ -181,7 +182,6 @@ export function PurchaseForm() {
       }).format(values.purchaseAmount);
       const raffleEntries = Math.floor(values.purchaseAmount / 750);
 
-      // Save form data to Firestore (without image upload for now)
       await addDoc(collection(db, "submissions"), {
         fullName: values.fullName,
         mobileNumber: values.mobileNumber,
@@ -192,7 +192,7 @@ export function PurchaseForm() {
         purchaseAmount: values.purchaseAmount,
         receiptNumber: values.receiptNumber,
         branch: values.branch,
-        receiptUpload: "Upload pending", // Placeholder
+        receiptUpload: "Upload pending",
         raffleEntries: raffleEntries,
         submittedAt: serverTimestamp(),
       });
