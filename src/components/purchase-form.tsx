@@ -616,6 +616,9 @@ export function PurchaseForm() {
                         <strong>Promo Period:</strong> July 23, 2025 to October 31, 2025<br />
                         <strong>DTI Fair Trade Permit No.:</strong> XXXX XXXX XXXX
                       </p>
+
+                      <p>These Terms of Use (&quot;Terms&quot;) govern your access and participation in Tapa King&apos;s Royal Escape Raffle Promo (&quot;Promo&quot;) through the official E-Raffle Management System (&quot;System&quot;). By joining the promo and submitting an entry via the System, you agree to abide by these Terms.</p>
+
                       <h3 className="font-bold mb-2">1. Eligibility</h3>
                       <p>1.1 The Promo is open to all customers of Tapa King nationwide who meet the minimum purchase requirement as stated in the official mechanics.</p>
                       <p>1.2 Employees of Tapa King, its affiliates, advertising and promo agencies, and their relatives up to the second degree of consanguinity or affinity are not eligible to join.</p>
