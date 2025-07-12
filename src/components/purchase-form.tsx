@@ -93,17 +93,17 @@ const formSchema = z.object({
     .string({ required_error: "Please select a branch." })
     .min(1, { message: "Please select a branch." }),
   receiptUpload: z
-    .any()
+    .custom<FileList>()
     .refine((files) => files && files.length > 0, "At least one receipt image is required.")
     .refine((files) => files?.length <= MAX_FILES, `You can upload a maximum of ${MAX_FILES} files.`)
     .refine(
       (files) =>
-        Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE),
+        Array.from(files).every((file) => file.size <= MAX_FILE_SIZE),
       `Max file size is 10MB per file.`
     )
     .refine(
       (files) =>
-        Array.from(files).every((file: any) =>
+        Array.from(files).every((file) =>
           ACCEPTED_IMAGE_TYPES.includes(file.type)
         ),
       "Only .jpg, .jpeg, .png and .webp formats are supported."
@@ -204,7 +204,6 @@ export function PurchaseForm() {
   const birthdateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const purchaseDateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const receiptUploadRef = React.useRef<HTMLLabelElement>(null);
-  const receiptInputRef = React.useRef<HTMLInputElement>(null);
 
 
   React.useEffect(() => {
@@ -277,9 +276,7 @@ export function PurchaseForm() {
         shouldValidate: true,
       });
       
-      if (receiptInputRef.current) {
-        receiptInputRef.current.value = "";
-      }
+      
     }
   };
 
@@ -382,6 +379,8 @@ export function PurchaseForm() {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles = event.target.files ? Array.from(event.target.files) : [];
+    if (newFiles.length === 0) return;
+
     const currentFiles = form.getValues("receiptUpload") ? Array.from(form.getValues("receiptUpload")) : [];
     
     let combinedFiles = [...currentFiles];
@@ -410,9 +409,7 @@ export function PurchaseForm() {
     
     form.setValue("receiptUpload", dataTransfer.files, { shouldValidate: true });
 
-    if(receiptInputRef.current) {
-        receiptInputRef.current.value = "";
-    }
+    
   };
 
   const receiptFileNames = receiptFileRef
@@ -733,7 +730,6 @@ export function PurchaseForm() {
                               id="receipt-upload"
                               type="file"
                               className="sr-only"
-                              ref={receiptInputRef}
                               {...fieldProps}
                               multiple
                               onChange={handleFileChange}
@@ -791,7 +787,7 @@ export function PurchaseForm() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <p className="text-base text-[#8a2a2b] font-bold">
+                  <p className="text-base text-[#8a2b2b] font-bold">
                     Sample Receipt
                   </p>
                   <div className="relative aspect-[2/3]">
