@@ -159,6 +159,7 @@ export function PurchaseForm() {
 
       emailjs.send(serviceID, templateID, params, { publicKey })
         .then(() => {
+          console.log("Email sent successfully!");
           resolve();
         })
         .catch((error) => {
@@ -194,12 +195,8 @@ export function PurchaseForm() {
         submittedAt: serverTimestamp(),
       });
       
-      sessionStorage.setItem('submissionData', JSON.stringify({
-        name: fullName,
-        amount: formattedAmount,
-        entries: raffleEntries,
-      }));
-      
+      console.log("Data saved to Firestore successfully!");
+
       const templateParams = {
         email: values.email,
         fullName: fullName,
@@ -209,12 +206,18 @@ export function PurchaseForm() {
          
       await sendEmail(templateParams);
 
+      sessionStorage.setItem('submissionData', JSON.stringify({
+        name: fullName,
+        amount: formattedAmount,
+        entries: raffleEntries,
+      }));
+      
       router.push(`/success`);
 
       setTimeout(() => {
         toast({
-          title: "Email Sent!",
-          description: "Your submission has been sent successfully.",
+          title: "Submission Successful!",
+          description: "Your entry has been recorded.",
         });
       }, 500);
 
