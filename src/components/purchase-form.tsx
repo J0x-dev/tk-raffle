@@ -214,7 +214,7 @@ export function PurchaseForm() {
   }
 
   return (
-    <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
+    <Card className="w-full max-w-4xl bg-transparent shadow-none">
       <CardHeader>
         <div className="flex justify-center mb-4">
           <Image
@@ -222,11 +222,11 @@ export function PurchaseForm() {
             alt="Tapa King Logo"
             width={200}
             height={50}
-            className="h-auto"
+            className="h-[50px] w-[200px]"
             priority
           />
         </div>
-        <CardTitle className="font-headline font-extrabold text-[28px] text-center text-[#8a2a2b]">Join Tapa King Royal Escape 38th Anniversary Vacation Raffle</CardTitle>
+        <CardTitle className="font-headline font-bold text-[28px] leading-[32px] text-center text-[#8a2a2b]">Join Tapa King Royal Escape 38th Anniversary Vacation Raffle</CardTitle>
         <CardDescription className="text-[#8a2b2b] text-center text-sm">Enjoy your Tapa Favorites and get a chance to win your dream vacation!</CardDescription>
       </CardHeader>
       <CardContent>
