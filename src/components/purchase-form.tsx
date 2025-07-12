@@ -1252,3 +1252,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
