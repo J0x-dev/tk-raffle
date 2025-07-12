@@ -9,6 +9,8 @@ import { CalendarIcon, Loader2, UploadCloud, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import emailjs from "@emailjs/browser";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -220,7 +222,7 @@ export function PurchaseForm() {
       purchaseAmount: 1234,
       receiptNumber: "123",
       branch: "Avida Paco",
-      agreeToTerms: !false,
+      agreeToTerms: true,
     },
   });
 
@@ -243,75 +245,97 @@ export function PurchaseForm() {
     }
   }, [receiptFileRef]);
 
-  const sendEmail = (params: any) => {
-    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
-    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+  const sendEmail = (params: any): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+      const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
-    emailjs
-      .send(serviceID, templateID, params, publicKey)
-      .then(async () => {
-        router.push(`/success`);
-
-        setTimeout(() => {
-          toast({
-            title: "Email Sent!",
-            description: "Your submission has been sent successfully.",
-          });
-        }, 500);
-      })
-      .finally(() => {
-        form.reset();
-        setImagePreviews([]);
-        setIsSubmitting(false);
-      })
-      .catch((error) => {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description:
-            "There was a problem sending your submission. Please try again.",
+      emailjs
+        .send(serviceID, templateID, params, { publicKey })
+        .then(() => {
+          console.log("Email sent successfully!");
+          resolve();
+        })
+        .catch((error) => {
+          console.error("EmailJS Error:", error);
+          reject(error);
         });
-      });
+    });
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
 
-    const fullName =
-      values.fullName.charAt(0).toUpperCase() + values.fullName.slice(1);
-    const formattedAmount = new Intl.NumberFormat("en-PH", {
-      style: "currency",
-      currency: "PHP",
-    }).format(values.purchaseAmount);
-    const raffleEntries = Math.floor(values.purchaseAmount / 750);
+    try {
+      const fullName =
+        values.fullName.charAt(0).toUpperCase() + values.fullName.slice(1);
+      const formattedAmount = new Intl.NumberFormat("en-PH", {
+        style: "currency",
+        currency: "PHP",
+      }).format(values.purchaseAmount);
+      const raffleEntries = Math.floor(values.purchaseAmount / 750);
 
-    sessionStorage.setItem(
-      "submissionData",
-      JSON.stringify({
-        name: fullName,
-        amount: formattedAmount,
-        entries: raffleEntries,
-      })
-    );
+      await addDoc(collection(db, "submissions"), {
+        fullName: fullName,
+        mobileNumber: values.mobileNumber,
+        email: values.email,
+        birthdate: format(values.birthdate, "MM-dd-yyyy"),
+        residentialAddress: values.residentialAddress,
+        dateOfPurchase: format(values.dateOfPurchase, "MM-dd-yyyy"),
+        purchaseAmount: values.purchaseAmount,
+        receiptNumber: values.receiptNumber,
+        branch: values.branch,
+        receiptUpload: "Upload pending",
+        raffleEntries: raffleEntries,
+        submittedAt: serverTimestamp(),
+      });
 
-    const templateParams = {
-      email: values.email,
-      fullName: fullName,
-      purchaseAmount: formattedAmount,
-      raffleEntries: raffleEntries,
-    };
+      console.log("Data saved to Firestore successfully!");
 
-    sendEmail(templateParams);
+      const templateParams = {
+        email: values.email,
+        fullName: fullName,
+        purchaseAmount: formattedAmount,
+        raffleEntries: raffleEntries,
+      };
+
+      sessionStorage.setItem(
+        "submissionData",
+        JSON.stringify({
+          fullName: fullName,
+          purchaseAmount: formattedAmount,
+          raffleEntries: raffleEntries,
+        })
+      );
+
+      router.push(`/success`);
+      sendEmail(templateParams);
+    } catch (error) {
+      console.error("Error submitting form: ", error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description:
+          "There was a problem with your submission. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   function onError(errors: FieldErrors<z.infer<typeof formSchema>>) {
+    console.log("Form errors", errors);
     if (errors.birthdate) {
       birthdateTriggerRef.current?.focus();
     } else if (errors.dateOfPurchase) {
       purchaseDateTriggerRef.current?.focus();
     } else if (errors.receiptUpload) {
       receiptUploadRef.current?.focus();
+      receiptUploadRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
   }
 
