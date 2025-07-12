@@ -94,7 +94,7 @@ const formSchema = z.object({
     .min(1, { message: "Please select a branch." }),
   receiptUpload: z
     .any()
-    .refine((files) => files?.length >= 1, "At least one receipt image is required.")
+    .refine((files) => files && files.length > 0, "At least one receipt image is required.")
     .refine((files) => files?.length <= MAX_FILES, `You can upload a maximum of ${MAX_FILES} files.`)
     .refine(
       (files) =>
@@ -1315,5 +1315,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
