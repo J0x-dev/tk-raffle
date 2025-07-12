@@ -92,18 +92,17 @@ const formSchema = z.object({
   branch: z
     .string({ required_error: "Please select a branch." })
     .min(1, { message: "Please select a branch." }),
-  receiptUpload: z
-    .custom<FileList>()
-    .refine((files) => files && files.length > 0, "At least one receipt image is required.")
+  receiptUpload: z.any()
+    .refine((files) => files && files?.length > 0, "At least one receipt image is required.")
     .refine((files) => files?.length <= MAX_FILES, `You can upload a maximum of ${MAX_FILES} files.`)
     .refine(
       (files) =>
-        Array.from(files).every((file) => file.size <= MAX_FILE_SIZE),
+        !files || Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE),
       `Max file size is 10MB per file.`
     )
     .refine(
       (files) =>
-        Array.from(files).every((file) =>
+        !files || Array.from(files).every((file: any) =>
           ACCEPTED_IMAGE_TYPES.includes(file.type)
         ),
       "Only .jpg, .jpeg, .png and .webp formats are supported."
@@ -204,6 +203,7 @@ export function PurchaseForm() {
   const birthdateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const purchaseDateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const receiptUploadRef = React.useRef<HTMLLabelElement>(null);
+  const receiptInputRef = React.useRef<HTMLInputElement>(null);
 
 
   React.useEffect(() => {
@@ -214,14 +214,14 @@ export function PurchaseForm() {
     resolver: zodResolver(formSchema),
     mode: "onChange",
     defaultValues: {
-      fullName: "mark",
-      mobileNumber: "09123123123",
-      email: "marktestzxc@gmail.com",
-      residentialAddress: "123",
-      purchaseAmount: 1234,
-      receiptNumber: "123",
-      branch: "Avida Paco",
-      agreeToTerms: true,
+      fullName: "",
+      mobileNumber: "09",
+      email: "",
+      residentialAddress: "",
+      purchaseAmount: undefined,
+      receiptNumber: "",
+      branch: "",
+      agreeToTerms: false,
       receiptUpload: undefined,
     },
   });
@@ -231,7 +231,7 @@ export function PurchaseForm() {
 
   React.useEffect(() => {
     if (receiptFileRef && receiptFileRef.length > 0) {
-      const fileArray = Array.from(receiptFileRef).slice(0, 6);
+      const fileArray = Array.from(receiptFileRef as FileList).slice(0, 6);
       const newPreviews = fileArray.map((file) =>
         URL.createObjectURL(file as Blob)
       );
@@ -265,7 +265,7 @@ export function PurchaseForm() {
   const handleRemoveImage = (indexToRemove: number) => {
     const currentFiles = form.getValues("receiptUpload");
     if (currentFiles) {
-      const updatedFiles = Array.from(currentFiles).filter(
+      const updatedFiles = Array.from(currentFiles as FileList).filter(
         (_, index) => index !== indexToRemove
       );
 
@@ -275,8 +275,10 @@ export function PurchaseForm() {
       form.setValue("receiptUpload", dataTransfer.files, {
         shouldValidate: true,
       });
-      
-      
+
+      if (receiptInputRef.current) {
+        receiptInputRef.current.value = "";
+      }
     }
   };
 
@@ -381,7 +383,7 @@ export function PurchaseForm() {
     const newFiles = event.target.files ? Array.from(event.target.files) : [];
     if (newFiles.length === 0) return;
 
-    const currentFiles = form.getValues("receiptUpload") ? Array.from(form.getValues("receiptUpload")) : [];
+    const currentFiles = form.getValues("receiptUpload") ? Array.from(form.getValues("receiptUpload") as FileList) : [];
     
     let combinedFiles = [...currentFiles];
     
@@ -409,7 +411,9 @@ export function PurchaseForm() {
     
     form.setValue("receiptUpload", dataTransfer.files, { shouldValidate: true });
 
-    
+    if (receiptInputRef.current) {
+      receiptInputRef.current.value = "";
+    }
   };
 
   const receiptFileNames = receiptFileRef
@@ -730,6 +734,7 @@ export function PurchaseForm() {
                               id="receipt-upload"
                               type="file"
                               className="sr-only"
+                              ref={receiptInputRef}
                               {...fieldProps}
                               multiple
                               onChange={handleFileChange}
@@ -1311,3 +1316,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
