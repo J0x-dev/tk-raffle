@@ -277,6 +277,7 @@ export function PurchaseForm() {
         shouldValidate: true,
       });
 
+      // This is the crucial part to allow re-uploading the same file.
       if (receiptInputRef.current) {
         receiptInputRef.current.value = "";
       }
@@ -1315,3 +1316,5 @@ export function PurchaseForm() {
     </Card>
   );
 }
+
+    
