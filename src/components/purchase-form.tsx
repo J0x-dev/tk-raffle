@@ -346,7 +346,7 @@ export function PurchaseForm() {
         raffleEntries: raffleEntries,
       };
       
-      sendEmail(templateParams);
+      // sendEmail(templateParams);
       router.push(`/success`);
     } catch (error) {
       console.error("Error submitting form: ", error);
