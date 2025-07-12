@@ -245,6 +245,23 @@ export function PurchaseForm() {
     }
   }, [receiptFileRef]);
 
+  const handleRemoveImage = (indexToRemove: number) => {
+    const currentFiles = form.getValues("receiptUpload");
+    if (currentFiles) {
+      const updatedFiles = Array.from(currentFiles).filter(
+        (_, index) => index !== indexToRemove
+      );
+
+      // To update react-hook-form with a FileList, we need to create a new one
+      const dataTransfer = new DataTransfer();
+      updatedFiles.forEach((file) => dataTransfer.items.add(file));
+
+      form.setValue("receiptUpload", dataTransfer.files, {
+        shouldValidate: true,
+      });
+    }
+  };
+
   const sendEmail = (params: any): Promise<void> => {
     return new Promise((resolve, reject) => {
       const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
@@ -308,9 +325,10 @@ export function PurchaseForm() {
           raffleEntries: raffleEntries,
         })
       );
-
+      
+      await sendEmail(templateParams);
       router.push(`/success`);
-      sendEmail(templateParams);
+
     } catch (error) {
       console.error("Error submitting form: ", error);
       toast({
@@ -326,11 +344,13 @@ export function PurchaseForm() {
 
   function onError(errors: FieldErrors<z.infer<typeof formSchema>>) {
     console.log("Form errors", errors);
-    if (errors.birthdate) {
+    const errorKeys = Object.keys(errors);
+    
+    if (errorKeys.includes("birthdate")) {
       birthdateTriggerRef.current?.focus();
-    } else if (errors.dateOfPurchase) {
+    } else if (errorKeys.includes("dateOfPurchase")) {
       purchaseDateTriggerRef.current?.focus();
-    } else if (errors.receiptUpload) {
+    } else if (errorKeys.includes("receiptUpload")) {
       receiptUploadRef.current?.focus();
       receiptUploadRef.current?.scrollIntoView({
         behavior: "smooth",
@@ -683,6 +703,15 @@ export function PurchaseForm() {
                                   fill
                                   className="rounded-md object-cover"
                                 />
+                                <Button
+                                  type="button"
+                                  variant="destructive"
+                                  size="icon"
+                                  className="absolute top-1 right-1 h-6 w-6 rounded-full"
+                                  onClick={() => handleRemoveImage(index)}
+                                >
+                                  <X className="h-4 w-4" />
+                                </Button>
                               </div>
                             ))}
                           </div>
