@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -206,6 +207,8 @@ export function PurchaseForm() {
   const birthdateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const purchaseDateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const receiptUploadRef = React.useRef<HTMLLabelElement>(null);
+  const receiptInputRef = React.useRef<HTMLInputElement>(null);
+
 
   React.useEffect(() => {
     setCurrentYear(new Date().getFullYear());
@@ -252,13 +255,16 @@ export function PurchaseForm() {
         (_, index) => index !== indexToRemove
       );
 
-      // To update react-hook-form with a FileList, we need to create a new one
       const dataTransfer = new DataTransfer();
       updatedFiles.forEach((file) => dataTransfer.items.add(file));
 
       form.setValue("receiptUpload", dataTransfer.files, {
         shouldValidate: true,
       });
+
+      if (receiptInputRef.current) {
+        receiptInputRef.current.value = "";
+      }
     }
   };
 
@@ -677,6 +683,7 @@ export function PurchaseForm() {
                               id="receipt-upload"
                               type="file"
                               className="sr-only"
+                              ref={receiptInputRef}
                               {...fieldProps}
                               multiple
                               onChange={(event) => onChange(event.target.files)}
