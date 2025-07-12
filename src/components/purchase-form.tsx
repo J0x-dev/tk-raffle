@@ -195,9 +195,7 @@ export function PurchaseForm() {
       purchaseAmount: formattedAmount,
       raffleEntries: raffleEntries,
     };
-   
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    
+       
     sendEmail(templateParams);    
   }
 
@@ -613,7 +611,7 @@ export function PurchaseForm() {
                     <div className="px-6 sm:px-8 pb-6 space-y-4 text-sm text-left">
                       <p>
                         <strong>Promo Period:</strong> July 23, 2025 to October 31, 2025<br />
-                        <strong>DTI Fair Trade Permit No.:</strong> [To be added]
+                        <strong>DTI Fair Trade Permit No.:</strong> XXXX XXXX XXXX
                       </p>
                       <p>These Terms of Use (&quot;Terms&quot;) govern your access and participation in Tapa King&apos;s Royal Escape Raffle Promo (&quot;Promo&quot;) through the official E-Raffle Management System (&quot;System&quot;). By joining the promo and submitting an entry via the System, you agree to abide by these Terms.</p>
                       
