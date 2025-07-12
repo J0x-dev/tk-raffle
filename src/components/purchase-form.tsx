@@ -145,31 +145,28 @@ export function PurchaseForm() {
     }
   }, [receiptFileRef]);
   
-  const sendEmail = (params: any) => {
-    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
-    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
-    
-    emailjs.send(serviceID, templateID, params, { publicKey })
-      .then(async () => {    
-        router.push(`/success`);
+  const sendEmail = (params: any): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-        setTimeout(() => {
-          toast({
-            title: "Email Sent!",
-            description: "Your submission has been sent successfully.",
-          });
-        }, 500);
-      })
-      .catch((error) => {
-        console.error("EmailJS Error:", error);
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: "There was a problem sending your submission. Please try again.",
+      if (!serviceID || !templateID || !publicKey) {
+        console.error("EmailJS environment variables are not set.");
+        reject(new Error("EmailJS configuration is missing."));
+        return;
+      }
+
+      emailjs.send(serviceID, templateID, params, { publicKey })
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          console.error("EmailJS Error:", error);
+          reject(error);
         });
-      });
-  }
+    });
+  };
 
    async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
@@ -210,26 +207,38 @@ export function PurchaseForm() {
         raffleEntries: raffleEntries,
       };
          
-      sendEmail(templateParams);    
+      await sendEmail(templateParams);
+
+      router.push(`/success`);
+
+      setTimeout(() => {
+        toast({
+          title: "Email Sent!",
+          description: "Your submission has been sent successfully.",
+        });
+      }, 500);
 
     } catch (error) {
       console.error("Error submitting form: ", error);
       toast({
         variant: "destructive",
-        title: "Database Error",
-        description: "There was a problem saving your submission to the database.",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your submission. Please try again.",
       });
+    } finally {
       setIsSubmitting(false);
     }
   }
 
   function onError(errors: FieldErrors<z.infer<typeof formSchema>>) {
+    console.log("Form errors", errors);
     if (errors.birthdate) {
       birthdateTriggerRef.current?.focus();
     } else if (errors.dateOfPurchase) {
       purchaseDateTriggerRef.current?.focus();
     } else if (errors.receiptUpload) {
       receiptUploadRef.current?.focus();
+      receiptUploadRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
   
