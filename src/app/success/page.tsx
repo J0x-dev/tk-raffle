@@ -24,16 +24,7 @@ export default function SuccessPage() {
   useEffect(() => {
     const storedData = sessionStorage.getItem("submissionData");
     if (storedData) {
-      try {
-        setData(JSON.parse(storedData));
-      } catch (error) {
-        console.error(
-          "Failed to parse submission data from session storage:",
-          error
-        );
-      }
-    } else {
-      console.warn("No submission data found in session storage.");
+      setData(JSON.parse(storedData));
     }
   }, []);
 
@@ -53,8 +44,7 @@ export default function SuccessPage() {
               Submission Successful!
             </CardTitle>
             <CardDescription className="mt-2 text-foreground text-base">
-              Hi <span className="font-bold">{fullName}</span>, ✨
-              Congratulations! <br /> Thank you for joining the Tapa King Royal
+              Hi <span className="font-bold">{fullName}!</span>, <br /> ✨ Thank you for joining the Tapa King Royal
               Escape 38th Anniversary Vacation Raffle! Based on your recent
               purchase of <span className="font-bold">{purchaseAmount}</span>,
               you have earned <span className="font-bold">{raffleEntries}</span>{" "}
