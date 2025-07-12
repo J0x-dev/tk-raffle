@@ -34,7 +34,6 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, Di
 import { ScrollArea } from "./ui/scroll-area";
 import { Checkbox } from "./ui/checkbox";
 import { Separator } from "./ui/separator";
-import Link from "next/link";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -76,12 +75,12 @@ const branches = [
     "UST", "Ulticare Medical Center", "Versailles Town Plaza", "WalterMart Antipolo"
 ];
 
-const MemoizedBirthdateCalendar = React.memo(({ field, setIsBirthdateOpen }: { field: any, setIsBirthdateOpen: (isOpen: boolean) => void }) => (
+const MemoizedBirthdateCalendar = React.memo(({ field, setIsBirthdateOpen, toYear }: { field: any, setIsBirthdateOpen: (isOpen: boolean) => void, toYear: number }) => (
   <Calendar
     mode="single"
     captionLayout="dropdown-buttons"
     fromYear={1900}
-    toYear={new Date().getFullYear()}
+    toYear={toYear}
     selected={field.value}
     onSelect={(date) => {
       field.onChange(date);
@@ -103,9 +102,14 @@ export function PurchaseForm() {
   const [isPurchaseDateOpen, setIsPurchaseDateOpen] = React.useState(false);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [currentYear, setCurrentYear] = React.useState<number | null>(null);
 
   const birthdateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const purchaseDateTriggerRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -207,6 +211,10 @@ export function PurchaseForm() {
   
   const receiptFileNames = receiptFileRef ? Array.from(receiptFileRef).map((file: any) => file.name).join(', ') : '';
 
+  if (currentYear === null) {
+    return null; // Or a loading spinner
+  }
+
   return (
     <Card className="w-full max-w-4xl bg-transparent !border-none shadow-none">
       <CardHeader>
@@ -305,7 +313,7 @@ export function PurchaseForm() {
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
-                           <MemoizedBirthdateCalendar field={field} setIsBirthdateOpen={setIsBirthdateOpen} />
+                           <MemoizedBirthdateCalendar field={field} setIsBirthdateOpen={setIsBirthdateOpen} toYear={currentYear} />
                         </PopoverContent>
                       </Popover>
                       <FormMessage />
@@ -361,8 +369,8 @@ export function PurchaseForm() {
                             <Calendar
                                 mode="single"
                                 captionLayout="dropdown-buttons"
-                                fromYear={new Date().getFullYear() - 10}
-                                toYear={new Date().getFullYear()}
+                                fromYear={currentYear - 10}
+                                toYear={currentYear}
                                 selected={field.value}
                                 onSelect={(date) => {
                                   field.onChange(date);
