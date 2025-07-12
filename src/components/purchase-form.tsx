@@ -732,5 +732,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
