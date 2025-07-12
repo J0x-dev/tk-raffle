@@ -151,12 +151,13 @@ export function PurchaseForm() {
     emailjs.send(serviceID, templateID, params, publicKey)
       .then(async () => {    
         router.push(`/success`);
-        console.log("Email sent successfully!");
-          
-        toast({
-          title: "Email Sent!",
-          description: "Your submission has been sent successfully.",
-        });
+
+        setTimeout(() => {
+          toast({
+            title: "Email Sent!",
+            description: "Your submission has been sent successfully.",
+          });
+        }, 500);
       })
       .finally(() => {
         form.reset();
@@ -164,11 +165,10 @@ export function PurchaseForm() {
         setIsSubmitting(false);
       })
       .catch((error) => {
-        console.error('EmailJS error:', error);
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",
-          description: "There was a problem sending your submission email. Please try again.",
+          description: "There was a problem sending your submission. Please try again.",
         });
       });
   }
