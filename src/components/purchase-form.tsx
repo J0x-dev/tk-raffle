@@ -106,7 +106,7 @@ export function PurchaseForm() {
 
   const birthdateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const purchaseDateTriggerRef = React.useRef<HTMLButtonElement>(null);
-  const receiptUploadRef = React.useRef<HTMLElement>(null);
+  const receiptUploadRef = React.useRef<HTMLLabelElement>(null);
 
   React.useEffect(() => {
     setCurrentYear(new Date().getFullYear());
@@ -308,7 +308,7 @@ export function PurchaseForm() {
                                 !field.value && "text-muted-foreground"
                               )}
                             >
-                              <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
+                              <CalendarIcon className="mr-1 h-4 w-4 opacity-50" />
                               {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                             </Button>
                           </FormControl>
@@ -361,7 +361,7 @@ export function PurchaseForm() {
                                     !field.value && "text-muted-foreground"
                                 )}
                                 >
-                                <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
+                                <CalendarIcon className="mr-1 h-4 w-4 opacity-50" />
                                 {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                                 </Button>
                             </FormControl>
