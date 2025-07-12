@@ -4,11 +4,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'TK Raffle Form',
-  description: 'A simple and elegant form for collecting purchase information.',
-  icons: {
-    icon: '/favicon.jpg',
-  }
+  title: 'Join Tapa King Royal Escape 38th Anniversary Vacation Raffle',
+  description: 'Enjoy your Tapa Favorites and get a chance to win your dream vacation!',
 };
 
 export default function RootLayout({
