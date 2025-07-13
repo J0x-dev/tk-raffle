@@ -97,10 +97,10 @@ const formSchema = z.object({
     .min(750, { message: 'Purchase amount must be at least ₱750.' }),
   receiptNumber: z
     .string({
-      required_error: 'Receipt number is required.',
-      invalid_type_error: 'Receipt number is required.',
+      required_error: 'Receipt/invoice number is required.',
+      invalid_type_error: 'Receipt/invoice number is required.',
     })
-    .min(1, { message: 'Receipt number is required.' }),
+    .min(1, { message: 'Receipt/invoice number is required.' }),
   branch: z
     .string({ required_error: 'Please select a branch.' })
     .min(1, { message: 'Please select a branch.' }),
@@ -343,7 +343,6 @@ export function PurchaseForm() {
 
     try {
       // Check for duplicate receipt/invoice number
-      // Check localStorage for duplicate invoice number before querying Firestore
       const existing = localStorage.getItem('duplicateInvoiceNumbers');
       let duplicates = existing ? JSON.parse(existing) : [];
       if (duplicates.includes(values.receiptNumber)) {
@@ -359,7 +358,6 @@ export function PurchaseForm() {
 
       let querySnapshot;
       try {
-        // Network error check before Firestore query
         if (!navigator.onLine) {
           throw new Error('offline');
         }
@@ -380,7 +378,6 @@ export function PurchaseForm() {
         return;
       }
       if (!querySnapshot.empty) {
-        // Save the duplicate invoice number to localStorage if not already present
         if (!duplicates.includes(values.receiptNumber)) {
           duplicates.push(values.receiptNumber);
           localStorage.setItem(
@@ -396,6 +393,28 @@ export function PurchaseForm() {
             'This receipt/invoice number has already been used. Please check your entry.',
         });
         return;
+      }
+
+      // Upload images to Firebase Storage
+      let receiptUploadUrls: string[] = [];
+      const files = values.receiptUpload as FileList | undefined;
+      if (files && files.length > 0) {
+        const storageRef = (await import('firebase/storage')).getStorage(
+          db.app
+        );
+        const { ref, uploadBytes, getDownloadURL } = await import(
+          'firebase/storage'
+        );
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          const fileRef = ref(
+            storageRef,
+            `receipts/${values.receiptNumber}_${Date.now()}_${i}_${file.name}`
+          );
+          await uploadBytes(fileRef, file);
+          const url = await getDownloadURL(fileRef);
+          receiptUploadUrls.push(url);
+        }
       }
 
       const fullName =
@@ -424,7 +443,7 @@ export function PurchaseForm() {
         purchaseAmount: values.purchaseAmount,
         receiptNumber: values.receiptNumber,
         branch: values.branch,
-        receiptUpload: 'Upload pending',
+        receiptUpload: receiptUploadUrls,
         raffleEntries: raffleEntries,
         submittedAt: serverTimestamp(),
       });
@@ -432,12 +451,10 @@ export function PurchaseForm() {
       console.log('Data saved to Firestore successfully!');
 
       // sendEmail({ ...userData, email: values.email });
-      // setIsSubmitting(false);
       router.push(`/success`);
     } catch (error) {
       console.error('Error submitting form: ', error);
       setIsSubmitting(false);
-      // Check for network error (slow or no internet)
       const err: any = error;
       if (
         !navigator.onLine ||
@@ -1567,7 +1584,7 @@ export function PurchaseForm() {
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className="h-4 w-4 animate-spin" />
                     Submitting...
                   </>
                 ) : (
