@@ -1412,9 +1412,9 @@ export function PurchaseForm() {
                             </strong>
                             <ul className="list-circle pl-6">
                               <li>10 winners of Gift Box #9</li>
-                              <li>10 winners of P1,000 Gift Certificates</li>
-                              <li>10 winners of P1,500 Gift Certificates</li>
-                              <li>8 winners of P2,000 Gift Certificates</li>
+                              <li>10 winners of ₱1,000 Gift Certificates</li>
+                              <li>10 winners of ₱1,500 Gift Certificates</li>
+                              <li>8 winners of ₱2,000 Gift Certificates</li>
                             </ul>
                           </li>
                         </ul>
