@@ -1,27 +1,26 @@
+'use client';
 
-"use client";
-
-import * as React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FieldErrors } from "react-hook-form";
-import * as z from "zod";
-import { format } from "date-fns";
-import { CalendarIcon, Loader2, UploadCloud, X } from "lucide-react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import emailjs from "@emailjs/browser";
-import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import * as React from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, FieldErrors } from 'react-hook-form';
+import * as z from 'zod';
+import { format } from 'date-fns';
+import { CalendarIcon, Loader2, UploadCloud, X } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import emailjs from '@emailjs/browser';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -30,22 +29,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from '@/components/ui/popover';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 import {
   Dialog,
   DialogClose,
@@ -54,111 +53,118 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { ScrollArea } from "./ui/scroll-area";
-import { Checkbox } from "./ui/checkbox";
-import { Separator } from "./ui/separator";
-import { Skeleton } from "./ui/skeleton";
+} from '@/components/ui/dialog';
+import { ScrollArea } from './ui/scroll-area';
+import { Checkbox } from './ui/checkbox';
+import { Separator } from './ui/separator';
+import { Skeleton } from './ui/skeleton';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
 ];
 const MAX_FILES = 6;
 
-
 const formSchema = z.object({
-  fullName: z.string().min(1, { message: "Full name is required." }),
+  fullName: z.string().min(1, { message: 'Full name is required.' }),
   mobileNumber: z.string().regex(/^09\d{9}$/, {
-    message: "Please enter a valid mobile number starting with 09.",
+    message: 'Please enter a valid mobile number starting with 09.',
   }),
   email: z
     .string()
-    .min(1, { message: "Email is required." })
-    .email({ message: "Please enter a valid email address." }),
-  birthdate: z.date({ required_error: "A date of birth is required." }),
+    .min(1, { message: 'Email is required.' })
+    .email({ message: 'Please enter a valid email address.' }),
+  birthdate: z.date({ required_error: 'A date of birth is required.' }),
   residentialAddress: z
     .string()
-    .min(1, { message: "Residential address is required." }),
-  dateOfPurchase: z.date({ required_error: "A date of purchase is required." }),
+    .min(1, { message: 'Residential address is required.' }),
+  dateOfPurchase: z.date({ required_error: 'A date of purchase is required.' }),
   purchaseAmount: z.coerce
-    .number({ required_error: "Purchase amount is required." })
-    .positive({ message: "Purchase amount must be a positive number." })
-    .min(750, { message: "Purchase amount must be at least ₱750." }),
-  receiptNumber: z.string().min(1, { message: "Receipt number is required." }),
+    .number({ required_error: 'Purchase amount is required.' })
+    .positive({ message: 'Purchase amount must be a positive number.' })
+    .min(750, { message: 'Purchase amount must be at least ₱750.' }),
+  receiptNumber: z.string().min(1, { message: 'Receipt number is required.' }),
   branch: z
-    .string({ required_error: "Please select a branch." })
-    .min(1, { message: "Please select a branch." }),
-  receiptUpload: z.any()
-    .refine((files) => files && files?.length > 0, "At least one receipt image is required.")
-    .refine((files) => files?.length <= MAX_FILES, `You can upload a maximum of ${MAX_FILES} files.`)
+    .string({ required_error: 'Please select a branch.' })
+    .min(1, { message: 'Please select a branch.' }),
+  receiptUpload: z
+    .any()
+    .refine(
+      (files) => files && files?.length > 0,
+      'At least one receipt image is required.'
+    )
+    .refine(
+      (files) => files?.length <= MAX_FILES,
+      `You can upload a maximum of ${MAX_FILES} files.`
+    )
     .refine(
       (files) =>
-        !files || Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE),
+        !files ||
+        Array.from(files).every((file: any) => file.size <= MAX_FILE_SIZE),
       `Max file size is 10MB per file.`
     )
     .refine(
       (files) =>
-        !files || Array.from(files).every((file: any) =>
+        !files ||
+        Array.from(files).every((file: any) =>
           ACCEPTED_IMAGE_TYPES.includes(file.type)
         ),
-      "Only .jpg, .jpeg, .png and .webp formats are supported."
+      'Only .jpg, .jpeg, .png and .webp formats are supported.'
     ),
   agreeToTerms: z.boolean(),
 });
 
-
 const branches = [
-  "A.T. Yuchengco Centre",
-  "Aseana Parañaque",
-  "Avida Paco",
-  "Avire Tower",
-  "Ayala Harbor Point",
-  "Ayala Malls Serin",
-  "Ayala Malls Vermosa",
-  "BF Aguirre",
-  "Boni Ave. Mandaluyong",
-  "Boracay",
-  "California Garden Square",
-  "Caloocan Commercial Complex",
-  "Caltex Balintawak",
-  "Caltex SLEX",
-  "Cardinal Santos Medical Center",
-  "Chinese General Hospital and Medical Center",
-  "Clean Fuel",
-  "E. Rodriguez",
-  "Eton Centris",
-  "Ilagan",
-  "Jupiter Makati",
-  "L&Y Plaza Pasig",
-  "Lakeshore",
-  "Lucena",
-  "MCU Monumento",
-  "Market! Market!",
-  "NAIA Terminal 3",
-  "PITX",
-  "Petron Katipunan",
-  "Petron NLEX Marilao",
-  "Pio Del Pilar Makati",
-  "Pioneer Pasig",
-  "Quiapo",
-  "RCBC Plaza - Makati",
-  "Robinsons Galleria South",
-  "San Lorenzo Place Makati",
-  "Santana Grove Parañaque",
-  "Starmall EDSA Shaw",
-  "Taft",
-  "The Outlets at LIMA",
-  "Tomas Morato",
-  "Total NLEX",
-  "Total SLEX",
-  "UST",
-  "Ulticare Medical Center",
-  "Versailles Town Plaza",
-  "WalterMart Antipolo",
+  'A.T. Yuchengco Centre',
+  'Aseana Parañaque',
+  'Avida Paco',
+  'Avire Tower',
+  'Ayala Harbor Point',
+  'Ayala Malls Serin',
+  'Ayala Malls Vermosa',
+  'BF Aguirre',
+  'Boni Ave. Mandaluyong',
+  'Boracay',
+  'California Garden Square',
+  'Caloocan Commercial Complex',
+  'Caltex Balintawak',
+  'Caltex SLEX',
+  'Cardinal Santos Medical Center',
+  'Chinese General Hospital and Medical Center',
+  'Clean Fuel',
+  'E. Rodriguez',
+  'Eton Centris',
+  'Ilagan',
+  'Jupiter Makati',
+  'L&Y Plaza Pasig',
+  'Lakeshore',
+  'Lucena',
+  'MCU Monumento',
+  'Market! Market!',
+  'NAIA Terminal 3',
+  'PITX',
+  'Petron Katipunan',
+  'Petron NLEX Marilao',
+  'Pio Del Pilar Makati',
+  'Pioneer Pasig',
+  'Quiapo',
+  'RCBC Plaza - Makati',
+  'Robinsons Galleria South',
+  'San Lorenzo Place Makati',
+  'Santana Grove Parañaque',
+  'Starmall EDSA Shaw',
+  'Taft',
+  'The Outlets at LIMA',
+  'Tomas Morato',
+  'Total NLEX',
+  'Total SLEX',
+  'UST',
+  'Ulticare Medical Center',
+  'Versailles Town Plaza',
+  'WalterMart Antipolo',
 ];
 
 const MemoizedBirthdateCalendar = React.memo(
@@ -181,14 +187,14 @@ const MemoizedBirthdateCalendar = React.memo(
         field.onChange(date);
         setIsBirthdateOpen(false);
       }}
-      disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+      disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
       initialFocus
       required
       defaultMonth={new Date(2000, 0)}
     />
   )
 );
-MemoizedBirthdateCalendar.displayName = "MemoizedBirthdateCalendar";
+MemoizedBirthdateCalendar.displayName = 'MemoizedBirthdateCalendar';
 
 export function PurchaseForm() {
   const { toast } = useToast();
@@ -196,15 +202,16 @@ export function PurchaseForm() {
   const [isBirthdateOpen, setIsBirthdateOpen] = React.useState(false);
   const [isPurchaseDateOpen, setIsPurchaseDateOpen] = React.useState(false);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
-  const [imageLoadStates, setImageLoadStates] = React.useState<Record<number, 'loading' | 'loaded' | 'error'>>({});
+  const [imageLoadStates, setImageLoadStates] = React.useState<
+    Record<number, 'loading' | 'loaded' | 'error'>
+  >({});
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [currentYear, setCurrentYear] = React.useState<number | null>(null);
+  const [fileInputKey, setFileInputKey] = React.useState(0);
 
   const birthdateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const purchaseDateTriggerRef = React.useRef<HTMLButtonElement>(null);
   const receiptUploadRef = React.useRef<HTMLLabelElement>(null);
-  const receiptInputRef = React.useRef<HTMLInputElement>(null);
-
 
   React.useEffect(() => {
     setCurrentYear(new Date().getFullYear());
@@ -212,22 +219,24 @@ export function PurchaseForm() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      fullName: "",
-      mobileNumber: "09",
-      email: "",
-      residentialAddress: "",
-      purchaseAmount: undefined,
-      receiptNumber: "",
-      branch: "",
-      agreeToTerms: false,
+      fullName: 'mark',
+      mobileNumber: '09123123123',
+      email: 'mm@gmai.co',
+      residentialAddress: '123',
+      purchaseAmount: 1234,
+      receiptNumber: '1235',
+      branch: 'Avida Paco',
+      agreeToTerms: !false,
       receiptUpload: undefined,
+      birthdate: new Date('2000-01-01'),
+      dateOfPurchase: new Date('2025-07-01'),
     },
   });
 
-  const receiptFileRef = form.watch("receiptUpload");
-  const agreeToTermsValue = form.watch("agreeToTerms");
+  const receiptFileRef = form.watch('receiptUpload');
+  const agreeToTermsValue = form.watch('agreeToTerms');
 
   React.useEffect(() => {
     if (receiptFileRef && receiptFileRef.length > 0) {
@@ -235,15 +244,14 @@ export function PurchaseForm() {
       const newPreviews = fileArray.map((file) =>
         URL.createObjectURL(file as Blob)
       );
-      
+
       const newLoadStates: Record<number, 'loading' | 'loaded' | 'error'> = {};
       newPreviews.forEach((_, index) => {
-          newLoadStates[index] = 'loading';
+        newLoadStates[index] = 'loading';
       });
 
       setImagePreviews(newPreviews);
-      setImageLoadStates(prev => ({ ...prev, ...newLoadStates }));
-
+      setImageLoadStates((prev) => ({ ...prev, ...newLoadStates }));
 
       return () => {
         newPreviews.forEach((url) => URL.revokeObjectURL(url));
@@ -255,29 +263,32 @@ export function PurchaseForm() {
   }, [receiptFileRef]);
 
   const handleImageLoad = (index: number) => {
-    setImageLoadStates(prev => ({ ...prev, [index]: 'loaded' }));
+    setImageLoadStates((prev) => ({ ...prev, [index]: 'loaded' }));
   };
 
   const handleImageError = (index: number) => {
-    setImageLoadStates(prev => ({ ...prev, [index]: 'error' }));
+    setImageLoadStates((prev) => ({ ...prev, [index]: 'error' }));
   };
 
   const handleRemoveImage = (indexToRemove: number) => {
-    const currentFiles = form.getValues("receiptUpload");
+    const currentFiles = form.getValues('receiptUpload');
     if (currentFiles) {
       const updatedFiles = Array.from(currentFiles as FileList).filter(
         (_, index) => index !== indexToRemove
       );
 
-      const dataTransfer = new DataTransfer();
-      updatedFiles.forEach((file) => dataTransfer.items.add(file as File));
-
-      form.setValue("receiptUpload", dataTransfer.files, {
-        shouldValidate: true,
-      });
-
-      if (receiptInputRef.current) {
-        receiptInputRef.current.value = "";
+      if (updatedFiles.length === 0) {
+        setImagePreviews([]);
+        setImageLoadStates({});
+        form.setValue('receiptUpload', undefined, { shouldValidate: true });
+        setFileInputKey((prev) => prev + 1); // force input remount
+      } else {
+        const dataTransfer = new DataTransfer();
+        updatedFiles.forEach((file) => dataTransfer.items.add(file as File));
+        form.setValue('receiptUpload', dataTransfer.files, {
+          shouldValidate: true,
+        });
+        setFileInputKey((prev) => prev + 1); // force input remount
       }
     }
   };
@@ -291,11 +302,11 @@ export function PurchaseForm() {
       emailjs
         .send(serviceID, templateID, params, { publicKey })
         .then(() => {
-          console.log("Email sent successfully!");
+          console.log('Email sent successfully!');
           resolve();
         })
         .catch((error) => {
-          console.error("EmailJS Error:", error);
+          console.error('EmailJS Error:', error);
           reject(error);
         });
     });
@@ -307,31 +318,31 @@ export function PurchaseForm() {
     try {
       const fullName =
         values.fullName.charAt(0).toUpperCase() + values.fullName.slice(1);
-      const formattedAmount = new Intl.NumberFormat("en-PH", {
-        style: "currency",
-        currency: "PHP",
+      const formattedAmount = new Intl.NumberFormat('en-PH', {
+        style: 'currency',
+        currency: 'PHP',
       }).format(values.purchaseAmount);
       const raffleEntries = Math.floor(values.purchaseAmount / 750);
 
-      await addDoc(collection(db, "submissions"), {
+      await addDoc(collection(db, 'submissions'), {
         fullName: fullName,
         mobileNumber: values.mobileNumber,
         email: values.email,
-        birthdate: format(values.birthdate, "MM-dd-yyyy"),
+        birthdate: format(values.birthdate, 'MM-dd-yyyy'),
         residentialAddress: values.residentialAddress,
-        dateOfPurchase: format(values.dateOfPurchase, "MM-dd-yyyy"),
+        dateOfPurchase: format(values.dateOfPurchase, 'MM-dd-yyyy'),
         purchaseAmount: values.purchaseAmount,
         receiptNumber: values.receiptNumber,
         branch: values.branch,
-        receiptUpload: "Upload pending",
+        receiptUpload: 'Upload pending',
         raffleEntries: raffleEntries,
         submittedAt: serverTimestamp(),
       });
 
-      console.log("Data saved to Firestore successfully!");
+      console.log('Data saved to Firestore successfully!');
 
       sessionStorage.setItem(
-        "submissionData",
+        'submissionData',
         JSON.stringify({
           fullName: fullName,
           purchaseAmount: formattedAmount,
@@ -345,16 +356,16 @@ export function PurchaseForm() {
         purchaseAmount: formattedAmount,
         raffleEntries: raffleEntries,
       };
-      
+
       // sendEmail(templateParams);
       router.push(`/success`);
     } catch (error) {
-      console.error("Error submitting form: ", error);
+      console.error('Error submitting form: ', error);
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description:
-          "There was a problem with your submission. Please try again.",
+          'There was a problem with your submission. Please try again.',
       });
     } finally {
       setIsSubmitting(false);
@@ -362,18 +373,18 @@ export function PurchaseForm() {
   }
 
   function onError(errors: FieldErrors<z.infer<typeof formSchema>>) {
-    console.log("Form errors", errors);
+    console.log('Form errors', errors);
     const errorKeys = Object.keys(errors);
-    
-    if (errorKeys.includes("birthdate")) {
+
+    if (errorKeys.includes('birthdate')) {
       birthdateTriggerRef.current?.focus();
-    } else if (errorKeys.includes("dateOfPurchase")) {
+    } else if (errorKeys.includes('dateOfPurchase')) {
       purchaseDateTriggerRef.current?.focus();
-    } else if (errorKeys.includes("receiptUpload")) {
+    } else if (errorKeys.includes('receiptUpload')) {
       receiptUploadRef.current?.focus();
       receiptUploadRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
+        behavior: 'smooth',
+        block: 'center',
       });
     }
   }
@@ -382,44 +393,44 @@ export function PurchaseForm() {
     const newFiles = event.target.files ? Array.from(event.target.files) : [];
     if (newFiles.length === 0) return;
 
-    const currentFiles = form.getValues("receiptUpload") ? Array.from(form.getValues("receiptUpload") as FileList) : [];
-    
+    const currentFiles = form.getValues('receiptUpload')
+      ? Array.from(form.getValues('receiptUpload') as FileList)
+      : [];
+
     let combinedFiles = [...currentFiles];
-    
+
     for (const file of newFiles) {
       if (file.size > MAX_FILE_SIZE) {
         toast({
-          variant: "destructive",
-          title: "File too large",
+          variant: 'destructive',
+          title: 'File too large',
           description: `"${file.name}" exceeds the 10MB limit.`,
         });
       } else if (combinedFiles.length < MAX_FILES) {
         combinedFiles.push(file);
       } else {
         toast({
-            variant: "destructive",
-            title: "Maximum files reached",
-            description: `You can only upload a maximum of ${MAX_FILES} files.`,
+          variant: 'destructive',
+          title: 'Maximum files reached',
+          description: `You can only upload a maximum of ${MAX_FILES} files.`,
         });
         break;
       }
     }
 
     const dataTransfer = new DataTransfer();
-    combinedFiles.forEach(file => dataTransfer.items.add(file as File));
-    
-    form.setValue("receiptUpload", dataTransfer.files, { shouldValidate: true });
+    combinedFiles.forEach((file) => dataTransfer.items.add(file as File));
 
-    if (receiptInputRef.current) {
-      receiptInputRef.current.value = "";
-    }
+    form.setValue('receiptUpload', dataTransfer.files, {
+      shouldValidate: true,
+    });
   };
 
   const receiptFileNames = receiptFileRef
     ? Array.from(receiptFileRef as FileList)
         .map((file: any) => file.name)
-        .join(", ")
-    : "";
+        .join(', ')
+    : '';
 
   if (currentYear === null) {
     return null; // Or a loading spinner
@@ -428,7 +439,7 @@ export function PurchaseForm() {
   return (
     <Card className="w-full max-w-4xl bg-transparent shadow-none">
       <CardHeader>
-        <div className="flex justify-center mb-4">
+        <div className="mb-4 flex justify-center">
           <Image
             src="/imgs/tk-logo.png"
             alt="Tapa King Logo"
@@ -438,10 +449,10 @@ export function PurchaseForm() {
             priority
           />
         </div>
-        <CardTitle className="font-headline font-bold text-[28px] leading-[32px] text-center text-[#8a2a2b]">
+        <CardTitle className="text-center font-headline text-[28px] font-bold leading-[32px] text-[#8a2a2b]">
           Join Tapa King Royal Escape 38th Anniversary Vacation Raffle
         </CardTitle>
-        <CardDescription className="text-[#8a2b2b] text-center text-sm">
+        <CardDescription className="text-center text-sm text-[#8a2b2b]">
           Enjoy your Tapa Favorites and get a chance to win your dream vacation!
         </CardDescription>
       </CardHeader>
@@ -452,7 +463,7 @@ export function PurchaseForm() {
             className="space-y-6"
           >
             <div className="space-y-4">
-              <h3 className="font-bold text-[#8a2a2b] text-[20px] text-center">
+              <h3 className="text-center text-[20px] font-bold text-[#8a2a2b]">
                 Contact Details
               </h3>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -461,7 +472,7 @@ export function PurchaseForm() {
                   name="fullName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                      <FormLabel className="text-base font-bold text-[#8a2a2b]">
                         Full Name*
                       </FormLabel>
                       <FormControl>
@@ -476,7 +487,7 @@ export function PurchaseForm() {
                   name="mobileNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                      <FormLabel className="text-base font-bold text-[#8a2a2b]">
                         Mobile Number*
                       </FormLabel>
                       <FormControl>
@@ -487,8 +498,8 @@ export function PurchaseForm() {
                           maxLength={11}
                           onChange={(e) => {
                             const value = e.target.value;
-                            if (!value.startsWith("09")) {
-                              field.onChange("09");
+                            if (!value.startsWith('09')) {
+                              field.onChange('09');
                             } else if (value.length <= 11) {
                               field.onChange(value);
                             }
@@ -504,7 +515,7 @@ export function PurchaseForm() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                      <FormLabel className="text-base font-bold text-[#8a2a2b]">
                         Email Address*
                       </FormLabel>
                       <FormControl>
@@ -519,7 +530,7 @@ export function PurchaseForm() {
                   name="birthdate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                      <FormLabel className="text-base font-bold text-[#8a2a2b]">
                         Birthdate*
                       </FormLabel>
                       <Popover
@@ -530,15 +541,15 @@ export function PurchaseForm() {
                           <FormControl>
                             <Button
                               ref={birthdateTriggerRef}
-                              variant={"outline"}
+                              variant={'outline'}
                               className={cn(
-                                "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-                                !field.value && "text-muted-foreground"
+                                'flex h-10 w-full justify-start border border-[#b47e00] bg-white/50 text-left text-base font-normal text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                !field.value && 'text-muted-foreground'
                               )}
                             >
                               <CalendarIcon className="mr-1 h-4 w-4 opacity-50" />
                               {field.value ? (
-                                format(field.value, "PPP")
+                                format(field.value, 'PPP')
                               ) : (
                                 <span>Pick a date</span>
                               )}
@@ -563,7 +574,7 @@ export function PurchaseForm() {
                     name="residentialAddress"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
                           Residential Address*
                         </FormLabel>
                         <FormControl>
@@ -579,7 +590,7 @@ export function PurchaseForm() {
 
             <div className="space-y-4 pt-2">
               <Separator className="bg-[#b47e00]" />
-              <h3 className="font-bold text-[#8a2b2b] text-[20px] text-center pt-2">
+              <h3 className="pt-2 text-center text-[20px] font-bold text-[#8a2b2b]">
                 Purchase Information
               </h3>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -588,7 +599,7 @@ export function PurchaseForm() {
                   name="dateOfPurchase"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                      <FormLabel className="text-base font-bold text-[#8a2a2b]">
                         Date of Purchase*
                       </FormLabel>
                       <Popover
@@ -599,15 +610,15 @@ export function PurchaseForm() {
                           <FormControl>
                             <Button
                               ref={purchaseDateTriggerRef}
-                              variant={"outline"}
+                              variant={'outline'}
                               className={cn(
-                                "flex h-10 w-full justify-start text-left font-normal border border-[#b47e00] bg-white/50 text-base text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-                                !field.value && "text-muted-foreground"
+                                'flex h-10 w-full justify-start border border-[#b47e00] bg-white/50 text-left text-base font-normal text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus-within:ring-offset-2 focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                !field.value && 'text-muted-foreground'
                               )}
                             >
                               <CalendarIcon className="mr-1 h-4 w-4 opacity-50" />
                               {field.value ? (
-                                format(field.value, "PPP")
+                                format(field.value, 'PPP')
                               ) : (
                                 <span>Pick a date</span>
                               )}
@@ -640,14 +651,14 @@ export function PurchaseForm() {
                   name="purchaseAmount"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                      <FormLabel className="text-base font-bold text-[#8a2a2b]">
                         Purchase Amount*
                       </FormLabel>
                       <FormControl>
                         <Input
                           type="number"
                           {...field}
-                          value={field.value ?? ""}
+                          value={field.value ?? ''}
                           required
                         />
                       </FormControl>
@@ -660,7 +671,7 @@ export function PurchaseForm() {
                   name="receiptNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                      <FormLabel className="text-base font-bold text-[#8a2a2b]">
                         Receipt/Invoice Number*
                       </FormLabel>
                       <FormControl>
@@ -675,7 +686,7 @@ export function PurchaseForm() {
                   name="branch"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                      <FormLabel className="text-base font-bold text-[#8a2a2b]">
                         Branch*
                       </FormLabel>
                       <Select
@@ -704,14 +715,14 @@ export function PurchaseForm() {
             </div>
 
             <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2 flex flex-col">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="flex flex-col space-y-2">
                   <FormField
                     control={form.control}
                     name="receiptUpload"
                     render={({ field: { onChange, value, ...fieldProps } }) => (
                       <FormItem>
-                        <FormLabel className="text-base text-[#8a2a2b] font-bold">
+                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
                           Upload Receipt*
                         </FormLabel>
                         <FormControl>
@@ -721,19 +732,20 @@ export function PurchaseForm() {
                               ref={receiptUploadRef}
                               tabIndex={0}
                               className={cn(
-                                "flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                'flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm'
                               )}
                             >
                               <span className="truncate text-muted-foreground">
-                                {receiptFileNames || "Select file(s)"}
+                                {receiptFileNames || 'Select file(s)'}
                               </span>
-                              <UploadCloud className="h-5 w-5 ml-2 text-muted-foreground" />
+                              <UploadCloud className="ml-2 h-5 w-5 text-muted-foreground" />
                             </label>
                             <Input
                               id="receipt-upload"
                               type="file"
                               className="sr-only"
-                              ref={receiptInputRef}
+                              // ref removed
+                              key={fileInputKey}
                               {...fieldProps}
                               multiple
                               onChange={handleFileChange}
@@ -743,12 +755,12 @@ export function PurchaseForm() {
                           </div>
                         </FormControl>
                         <FormDescription>
-                          Max {MAX_FILES} files. Max file size: 10MB. Accepted formats:
-                          JPG, PNG, WEBP.
+                          Max {MAX_FILES} files. Max file size: 10MB. Accepted
+                          formats: JPG, PNG, WEBP.
                         </FormDescription>
                         <FormMessage />
                         {imagePreviews.length > 0 && (
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                          <div className="mt-2 grid grid-cols-2 gap-2 md:grid-cols-3">
                             {imagePreviews.map((src, index) => (
                               <div
                                 key={index}
@@ -762,7 +774,12 @@ export function PurchaseForm() {
                                   alt={`Receipt preview ${index + 1}`}
                                   fill
                                   sizes="(max-width: 768px) 50vw, 33vw"
-                                  className={cn("rounded-md object-cover", imageLoadStates[index] !== 'loading' ? 'opacity-100' : 'opacity-0')}
+                                  className={cn(
+                                    'rounded-md object-cover',
+                                    imageLoadStates[index] !== 'loading'
+                                      ? 'opacity-100'
+                                      : 'opacity-0'
+                                  )}
                                   onLoad={() => handleImageLoad(index)}
                                   onError={() => handleImageError(index)}
                                 />
@@ -771,14 +788,14 @@ export function PurchaseForm() {
                                     type="button"
                                     variant="destructive"
                                     size="icon"
-                                    className="absolute top-1 right-1 h-6 w-6 rounded-full"
+                                    className="absolute right-1 top-1 h-6 w-6 rounded-full"
                                     onClick={() => handleRemoveImage(index)}
                                   >
                                     <X className="h-4 w-4" />
                                   </Button>
                                 )}
-                                 {imageLoadStates[index] === 'error' && (
-                                  <div className="absolute inset-0 flex items-center justify-center bg-destructive/20 text-destructive text-xs text-center p-2 rounded-md">
+                                {imageLoadStates[index] === 'error' && (
+                                  <div className="absolute inset-0 flex items-center justify-center rounded-md bg-destructive/20 p-2 text-center text-xs text-destructive">
                                     Error loading image
                                   </div>
                                 )}
@@ -791,7 +808,7 @@ export function PurchaseForm() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <p className="text-base text-[#8a2b2b] font-bold">
+                  <p className="text-base font-bold text-[#8a2b2b]">
                     Sample Receipt
                   </p>
                   <div className="relative aspect-[2/3]">
@@ -810,25 +827,25 @@ export function PurchaseForm() {
             </div>
 
             <div className="mt-4 text-center text-sm text-gray-600">
-              Read our{" "}
+              Read our{' '}
               <Dialog>
                 <DialogTrigger asChild>
                   <Button
                     variant="link"
-                    className="p-0 h-auto text-[#8a2a2b] underline"
+                    className="h-auto p-0 text-[#8a2a2b] underline"
                   >
                     Privacy Policy
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[90vh] h-full flex flex-col p-6 sm:p-8 border-none">
+                <DialogContent className="flex h-full max-h-[90vh] max-w-4xl flex-col border-none p-6 sm:p-8">
                   <DialogHeader>
                     <DialogTitle>Privacy Policy</DialogTitle>
                     <DialogDescription>
                       Our Privacy commitment
                     </DialogDescription>
                   </DialogHeader>
-                  <ScrollArea className="h-full -mx-6 sm:-mx-8 pr-4">
-                    <div className="px-6 sm:px-8 pb-6 space-y-4 text-sm text-left">
+                  <ScrollArea className="-mx-6 h-full pr-4 sm:-mx-8">
+                    <div className="space-y-4 px-6 pb-6 text-left text-sm sm:px-8">
                       <p>
                         TAPA KING, INC. (Tapa King) is committed to protecting
                         and safeguarding your privacy when you visit and access
@@ -843,14 +860,14 @@ export function PurchaseForm() {
                         channels other than this website.
                       </p>
 
-                      <h3 className="font-bold mb-2">Information we collect</h3>
+                      <h3 className="mb-2 font-bold">Information we collect</h3>
                       <p>
                         In order to facilitate your transaction, request, or
                         access to our products or services, there will be
                         instances when we will be requesting you to provide
                         Personal Data, such as your:
                       </p>
-                      <ul className="list-disc pl-6 space-y-1">
+                      <ul className="list-disc space-y-1 pl-6">
                         <li>Full name;</li>
                         <li>Age;</li>
                         <li>Residential, postal, or billing addresses;</li>
@@ -873,7 +890,7 @@ export function PurchaseForm() {
                         </li>
                       </ul>
 
-                      <h3 className="font-bold mb-2">Consent</h3>
+                      <h3 className="mb-2 font-bold">Consent</h3>
                       <p>
                         By using our website and providing us your Personal Data
                         to avail our products and services or in any transaction
@@ -884,7 +901,7 @@ export function PurchaseForm() {
                         to READ our Privacy Policy.
                       </p>
 
-                      <h3 className="font-bold mb-2">
+                      <h3 className="mb-2 font-bold">
                         How we collect information
                       </h3>
                       <p>
@@ -893,14 +910,14 @@ export function PurchaseForm() {
                         those that we gathered from other sources.
                       </p>
 
-                      <h3 className="font-bold mb-2">
+                      <h3 className="mb-2 font-bold">
                         Use and sharing of information
                       </h3>
                       <p>
                         We use the information we collect in various ways,
                         including the following purposes:
                       </p>
-                      <ul className="list-disc pl-6 space-y-1">
+                      <ul className="list-disc space-y-1 pl-6">
                         <li>
                           Carry out your requests, fulfilling orders, processing
                           payments, and providing delivery services;
@@ -956,7 +973,7 @@ export function PurchaseForm() {
                         investigation.
                       </p>
 
-                      <h3 className="font-bold mb-2">
+                      <h3 className="mb-2 font-bold">
                         Protection and Security of Personal Data
                       </h3>
                       <p>
@@ -975,7 +992,7 @@ export function PurchaseForm() {
                         gathered from you.
                       </p>
 
-                      <h3 className="font-bold mb-2">Retention of data</h3>
+                      <h3 className="mb-2 font-bold">Retention of data</h3>
                       <p>
                         Unless otherwise required by law or other lawful orders,
                         Tapa King will only retain Personal Data for such period
@@ -985,7 +1002,7 @@ export function PurchaseForm() {
                         have ceased.
                       </p>
 
-                      <h3 className="font-bold mb-2">Access</h3>
+                      <h3 className="mb-2 font-bold">Access</h3>
                       <p>
                         You are in control of the Personal Data you provide us.
                         You can access, modify, correct, update, or withdraw
@@ -993,7 +1010,7 @@ export function PurchaseForm() {
                         information provided below.
                       </p>
 
-                      <h3 className="font-bold mb-2">Cookies</h3>
+                      <h3 className="mb-2 font-bold">Cookies</h3>
                       <p>
                         Tapa King uses ‘cookies'. Cookies are used to store
                         information including visitors' preference, and the
@@ -1003,7 +1020,7 @@ export function PurchaseForm() {
                         visitors' browser type and/or other information.
                       </p>
 
-                      <h4 className="font-semibold mb-2">Cookie description</h4>
+                      <h4 className="mb-2 font-semibold">Cookie description</h4>
                       <p>
                         Tapa King uses analytics cookie, a first party
                         browser-based cookie which allows the site to measure
@@ -1012,7 +1029,7 @@ export function PurchaseForm() {
                         cookies.
                       </p>
 
-                      <h3 className="font-bold mb-2">Links to other sites</h3>
+                      <h3 className="mb-2 font-bold">Links to other sites</h3>
                       <p>
                         Our website may contain links to other sites of
                         interest, including a third-party online ordering
@@ -1025,7 +1042,7 @@ export function PurchaseForm() {
                         visiting such sites.
                       </p>
 
-                      <h3 className="font-bold mb-2">
+                      <h3 className="mb-2 font-bold">
                         Updates to our Privacy Policy
                       </h3>
                       <p>
@@ -1035,7 +1052,7 @@ export function PurchaseForm() {
                         ‍
                       </p>
 
-                      <h3 className="font-bold mb-2">How to Contact Us</h3>
+                      <h3 className="mb-2 font-bold">How to Contact Us</h3>
                       <p>
                         For questions or more information about our Privacy
                         Policy, you may contact us through our email:
@@ -1049,17 +1066,17 @@ export function PurchaseForm() {
                   </DialogClose>
                 </DialogContent>
               </Dialog>
-              . Tap &quot;Agree &amp; Continue&quot; to accept the{" "}
+              . Tap &quot;Agree &amp; Continue&quot; to accept the{' '}
               <Dialog>
                 <DialogTrigger asChild>
                   <Button
                     variant="link"
-                    className="p-0 h-auto text-[#8a2a2b] underline"
+                    className="h-auto p-0 text-[#8a2a2b] underline"
                   >
                     Terms and Conditions
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[90vh] h-full flex flex-col p-6 sm:p-8 border-none">
+                <DialogContent className="flex h-full max-h-[90vh] max-w-4xl flex-col border-none p-6 sm:p-8">
                   <DialogHeader>
                     <DialogTitle>
                       TAPA KING’S ROYAL ESCAPE RAFFLE PROMO
@@ -1068,8 +1085,8 @@ export function PurchaseForm() {
                       Terms of Use for E-Raffle System Participation
                     </DialogDescription>
                   </DialogHeader>
-                  <ScrollArea className="h-full -mx-6 sm:-mx-8 pr-4">
-                    <div className="px-6 sm:px-8 pb-6 space-y-4 text-sm text-left">
+                  <ScrollArea className="-mx-6 h-full pr-4 sm:-mx-8">
+                    <div className="space-y-4 px-6 pb-6 text-left text-sm sm:px-8">
                       <p>
                         <strong>Promo Period:</strong> July 23, 2025 to October
                         31, 2025
@@ -1088,7 +1105,7 @@ export function PurchaseForm() {
                         by these Terms.
                       </p>
 
-                      <h3 className="font-bold mb-2">1. Eligibility</h3>
+                      <h3 className="mb-2 font-bold">1. Eligibility</h3>
                       <p>
                         1.1 The Promo is open to all customers of Tapa King
                         nationwide who meet the minimum purchase requirement as
@@ -1105,7 +1122,7 @@ export function PurchaseForm() {
                         residents of the Philippines.
                       </p>
 
-                      <h3 className="font-bold mb-2">2. Promo Mechanics</h3>
+                      <h3 className="mb-2 font-bold">2. Promo Mechanics</h3>
                       <p>
                         2.1 For every P750 dine-in purchase on a single receipt
                         from any participating Tapa King branch, the customer is
@@ -1121,8 +1138,8 @@ export function PurchaseForm() {
                         accepted.
                       </p>
 
-                      <h3 className="font-bold mb-2">3. Prizes</h3>
-                      <ul className="list-disc pl-6 space-y-1">
+                      <h3 className="mb-2 font-bold">3. Prizes</h3>
+                      <ul className="list-disc space-y-1 pl-6">
                         <li>
                           <strong>
                             Major Prizes – One (1) Winner per Destination:
@@ -1146,7 +1163,7 @@ export function PurchaseForm() {
                         </li>
                       </ul>
 
-                      <h3 className="font-bold mb-2">4. Winner Selection</h3>
+                      <h3 className="mb-2 font-bold">4. Winner Selection</h3>
                       <p>
                         4.1 Winners will be drawn electronically via the System
                         on November 7, 2025 under the supervision of a DTI
@@ -1164,11 +1181,11 @@ export function PurchaseForm() {
                         Tapa King social media pages.
                       </p>
 
-                      <h3 className="font-bold mb-2">5. Claiming of Prizes</h3>
+                      <h3 className="mb-2 font-bold">5. Claiming of Prizes</h3>
                       <p>
                         <strong>Requirements:</strong>
                       </p>
-                      <ul className="list-disc pl-6 space-y-1">
+                      <ul className="list-disc space-y-1 pl-6">
                         <li>Letter of notification from Tapa King</li>
                         <li>
                           Two (2) valid government-issued IDs with a photo
@@ -1188,7 +1205,7 @@ export function PurchaseForm() {
                       <p>
                         <strong>Claim Locations:</strong>
                       </p>
-                      <ul className="list-disc pl-6 space-y-1">
+                      <ul className="list-disc space-y-1 pl-6">
                         <li>
                           Tapa King Head Office: 16 Armal Compound, Francisco
                           Legaspi St., Maybunga, Pasig City
@@ -1199,7 +1216,7 @@ export function PurchaseForm() {
                         </li>
                       </ul>
 
-                      <h3 className="font-bold mb-2">
+                      <h3 className="mb-2 font-bold">
                         6. Data Privacy & Consent
                       </h3>
                       <p>
@@ -1218,7 +1235,7 @@ export function PurchaseForm() {
                         and ensures the protection of personal data.
                       </p>
 
-                      <h3 className="font-bold mb-2">
+                      <h3 className="mb-2 font-bold">
                         7. System Usage & Limitations
                       </h3>
                       <p>
@@ -1235,7 +1252,7 @@ export function PurchaseForm() {
                         submission.
                       </p>
 
-                      <h3 className="font-bold mb-2">
+                      <h3 className="mb-2 font-bold">
                         8. Disqualification & Forfeiture
                       </h3>
                       <p>
@@ -1249,7 +1266,7 @@ export function PurchaseForm() {
                         with prior DTI approval.
                       </p>
 
-                      <h3 className="font-bold mb-2">
+                      <h3 className="mb-2 font-bold">
                         9. Liability Limitation
                       </h3>
                       <p>
@@ -1258,7 +1275,7 @@ export function PurchaseForm() {
                         participation in the promo or the use of prizes awarded.
                       </p>
 
-                      <h3 className="font-bold mb-2">10. Governing Law</h3>
+                      <h3 className="mb-2 font-bold">10. Governing Law</h3>
                       <p>
                         These Terms are governed by the laws of the Republic of
                         the Philippines, and disputes arising in connection with
@@ -1297,7 +1314,7 @@ export function PurchaseForm() {
 
             <Button
               type="submit"
-              className="w-full text-lg py-6"
+              className="w-full py-6 text-lg"
               disabled={!agreeToTermsValue || isSubmitting}
             >
               {isSubmitting ? (
@@ -1306,7 +1323,7 @@ export function PurchaseForm() {
                   Submitting...
                 </>
               ) : (
-                "Submit"
+                'Submit'
               )}
             </Button>
           </form>
@@ -1315,5 +1332,3 @@ export function PurchaseForm() {
     </Card>
   );
 }
-
-    
