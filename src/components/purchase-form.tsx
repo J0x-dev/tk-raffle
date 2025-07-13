@@ -450,7 +450,7 @@ export function PurchaseForm() {
 
       console.log('Data saved to Firestore successfully!');
 
-      // sendEmail({ ...userData, email: values.email });
+      sendEmail({ ...userData, email: values.email });
       router.push(`/success`);
     } catch (error) {
       console.error('Error submitting form: ', error);
@@ -1399,8 +1399,8 @@ export function PurchaseForm() {
                           <li>
                             <strong>Major Prizes - Eight (8) Winners:</strong>
                             <ul className="list-circle pl-6">
-                              <li>Discovery Samal Package for two (2)</li>
                               <li>Discovery Coron Package for two (2)</li>
+                              <li>Discovery Samal Package for two (2)</li>
                               <li>Discovery Boracay Package for two (2)</li>
                               <li>Discovery Suites (1)</li>
                               <li>Discovery Primea (1)</li>
