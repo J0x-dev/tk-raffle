@@ -324,6 +324,14 @@ export function PurchaseForm() {
       }).format(values.purchaseAmount);
       const raffleEntries = Math.floor(values.purchaseAmount / 750);
 
+      const userData = {
+        fullName: fullName,
+        purchaseAmount: formattedAmount,
+        raffleEntries: raffleEntries,
+      };
+
+      sessionStorage.setItem('submissionData', JSON.stringify(userData));
+
       await addDoc(collection(db, 'submissions'), {
         fullName: fullName,
         mobileNumber: values.mobileNumber,
@@ -341,34 +349,18 @@ export function PurchaseForm() {
 
       console.log('Data saved to Firestore successfully!');
 
-      sessionStorage.setItem(
-        'submissionData',
-        JSON.stringify({
-          fullName: fullName,
-          purchaseAmount: formattedAmount,
-          raffleEntries: raffleEntries,
-        })
-      );
-
-      const templateParams = {
-        email: values.email,
-        fullName: fullName,
-        purchaseAmount: formattedAmount,
-        raffleEntries: raffleEntries,
-      };
-
-      // sendEmail(templateParams);
+      // sendEmail({ ...userData, email: values.email });
+      setIsSubmitting(false);
       router.push(`/success`);
     } catch (error) {
       console.error('Error submitting form: ', error);
+      setIsSubmitting(false);
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
         description:
           'There was a problem with your submission. Please try again.',
       });
-    } finally {
-      setIsSubmitting(false);
     }
   }
 
@@ -744,7 +736,6 @@ export function PurchaseForm() {
                               id="receipt-upload"
                               type="file"
                               className="sr-only"
-                              // ref removed
                               key={fileInputKey}
                               {...fieldProps}
                               multiple
@@ -1302,10 +1293,13 @@ export function PurchaseForm() {
                     <Checkbox
                       checked={field.value}
                       onCheckedChange={field.onChange}
+                      disabled={isSubmitting}
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>Agree and Continue</FormLabel>
+                    <FormLabel className="cursor-pointer">
+                      Agree and Continue
+                    </FormLabel>
                     <FormMessage />
                   </div>
                 </FormItem>
