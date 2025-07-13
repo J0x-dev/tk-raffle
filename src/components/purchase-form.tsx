@@ -187,10 +187,10 @@ const MemoizedBirthdateCalendar = React.memo(
         field.onChange(date);
         setIsBirthdateOpen(false);
       }}
-      disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+      disabled={(date) => date > new Date() || date < new Date('1940-01-01')}
       initialFocus
       required
-      defaultMonth={new Date(2000, 0)}
+      defaultMonth={new Date(1995, 0)}
     />
   )
 );
@@ -221,18 +221,29 @@ export function PurchaseForm() {
     resolver: zodResolver(formSchema),
     mode: 'onChange',
     defaultValues: {
-      fullName: 'mark',
-      mobileNumber: '09123123123',
-      email: 'mm@gmai.co',
-      residentialAddress: '123',
-      purchaseAmount: 1234,
-      receiptNumber: '1235',
-      branch: 'Avida Paco',
-      agreeToTerms: !false,
+      fullName: '',
+      mobileNumber: '09',
+      email: '',
+      residentialAddress: '',
+      purchaseAmount: undefined,
+      receiptNumber: '',
+      branch: '',
       receiptUpload: undefined,
-      birthdate: new Date('2000-01-01'),
-      dateOfPurchase: new Date('2025-07-01'),
+      agreeToTerms: false,
     },
+    // defaultValues: {
+    //   fullName: 'mark',
+    //   mobileNumber: '09123123123',
+    //   email: 'mm@gmai.co',
+    //   residentialAddress: '123',
+    //   purchaseAmount: 1234,
+    //   receiptNumber: '1235',
+    //   branch: 'Avida Paco',
+    //   receiptUpload: undefined,
+    //   agreeToTerms: !false,
+    //   birthdate: new Date('2000-01-01'),
+    //   dateOfPurchase: new Date('2025-07-01'),
+    // },
   });
 
   const receiptFileRef = form.watch('receiptUpload');
@@ -429,7 +440,7 @@ export function PurchaseForm() {
   }
 
   return (
-    <Card className="w-full max-w-4xl bg-transparent shadow-none">
+    <Card className="w-full max-w-4xl bg-transparent">
       <CardHeader>
         <div className="mb-4 flex justify-center">
           <Image
@@ -468,7 +479,16 @@ export function PurchaseForm() {
                         Full Name*
                       </FormLabel>
                       <FormControl>
-                        <Input {...field} required />
+                        <Input
+                          {...field}
+                          required
+                          className={cn(
+                            form.formState.errors.fullName
+                              ? 'border-destructive focus-visible:ring-destructive'
+                              : 'border-[#b47e00]',
+                            'focus-visible:ring-2 focus-visible:ring-offset-2'
+                          )}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -496,6 +516,12 @@ export function PurchaseForm() {
                               field.onChange(value);
                             }
                           }}
+                          className={cn(
+                            form.formState.errors.mobileNumber
+                              ? 'border-destructive focus-visible:ring-destructive'
+                              : 'border-[#b47e00]',
+                            'focus-visible:ring-2 focus-visible:ring-offset-2'
+                          )}
                         />
                       </FormControl>
                       <FormMessage />
@@ -505,17 +531,44 @@ export function PurchaseForm() {
                 <FormField
                   control={form.control}
                   name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                        Email Address*
-                      </FormLabel>
-                      <FormControl>
-                        <Input {...field} required />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  render={({ field }) => {
+                    const showGmailSuggestion =
+                      field.value &&
+                      !field.value.includes('@') &&
+                      !field.value.endsWith('@gmail.com');
+                    const suggestedEmail = field.value + '@gmail.com';
+                    return (
+                      <FormItem>
+                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
+                          Email Address*
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            required
+                            className={cn(
+                              form.formState.errors.email
+                                ? 'border-destructive focus-visible:ring-destructive'
+                                : 'border-[#b47e00]',
+                              'focus-visible:ring-2 focus-visible:ring-offset-2'
+                            )}
+                          />
+                        </FormControl>
+                        {showGmailSuggestion && (
+                          <button
+                            type="button"
+                            className="mt-1 block w-full rounded-md border border-[#b47e00] bg-white/70 px-3 py-2 text-left text-base font-medium text-muted-foreground transition-colors hover:bg-[#f9f5f2] focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2"
+                            onClick={() => {
+                              field.onChange(suggestedEmail);
+                            }}
+                          >
+                            {suggestedEmail}
+                          </button>
+                        )}
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
                 />
                 <FormField
                   control={form.control}
@@ -535,8 +588,11 @@ export function PurchaseForm() {
                               ref={birthdateTriggerRef}
                               variant={'outline'}
                               className={cn(
-                                'flex h-10 w-full justify-start border border-[#b47e00] bg-white/50 text-left text-base font-normal text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#e5b9a5] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-                                !field.value && 'text-muted-foreground'
+                                'flex h-10 w-full justify-start border bg-white/50 text-left text-base font-normal text-[rgb(138,42,43)] ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                !field.value && 'text-muted-foreground',
+                                form.formState.errors.birthdate
+                                  ? 'border-destructive focus:ring-destructive focus-visible:ring-destructive'
+                                  : 'border-[#b47e00]'
                               )}
                             >
                               <CalendarIcon className="mr-1 h-4 w-4 opacity-50" />
@@ -570,7 +626,15 @@ export function PurchaseForm() {
                           Residential Address*
                         </FormLabel>
                         <FormControl>
-                          <Textarea {...field} required />
+                          <Textarea
+                            {...field}
+                            required
+                            className={cn(
+                              form.formState.errors.residentialAddress
+                                ? 'border-destructive focus-visible:ring-destructive'
+                                : 'border-[#b47e00]'
+                            )}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -652,6 +716,11 @@ export function PurchaseForm() {
                           {...field}
                           value={field.value ?? ''}
                           required
+                          className={cn(
+                            form.formState.errors.purchaseAmount
+                              ? 'border-destructive focus-visible:ring-destructive'
+                              : 'border-[#b47e00]'
+                          )}
                         />
                       </FormControl>
                       <FormMessage />
@@ -667,7 +736,16 @@ export function PurchaseForm() {
                         Receipt/Invoice Number*
                       </FormLabel>
                       <FormControl>
-                        <Input type="text" {...field} required />
+                        <Input
+                          type="text"
+                          {...field}
+                          required
+                          className={cn(
+                            form.formState.errors.receiptNumber
+                              ? 'border-destructive focus-visible:ring-destructive'
+                              : 'border-[#b47e00]'
+                          )}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -687,7 +765,13 @@ export function PurchaseForm() {
                         required
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger
+                            className={cn(
+                              form.formState.errors.branch
+                                ? 'border-destructive focus-visible:ring-destructive'
+                                : 'border-[#b47e00]'
+                            )}
+                          >
                             <SelectValue placeholder="Select Branch" />
                           </SelectTrigger>
                         </FormControl>
@@ -724,7 +808,10 @@ export function PurchaseForm() {
                               ref={receiptUploadRef}
                               tabIndex={0}
                               className={cn(
-                                'flex h-10 w-full cursor-pointer items-center justify-between rounded-md border border-[#b47e00] bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-[#e5b9a5] focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm'
+                                'flex h-10 w-full cursor-pointer items-center justify-between rounded-md border bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                form.formState.errors.receiptUpload
+                                  ? 'border-destructive focus-within:ring-destructive focus-visible:ring-destructive'
+                                  : 'border-[#b47e00]'
                               )}
                             >
                               <span className="truncate text-muted-foreground">
