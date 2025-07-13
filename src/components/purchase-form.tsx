@@ -10,7 +10,14 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import emailjs from '@emailjs/browser';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  where,
+  getDocs,
+} from 'firebase/firestore';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -220,30 +227,30 @@ export function PurchaseForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: 'onChange',
-    defaultValues: {
-      fullName: '',
-      mobileNumber: '09',
-      email: '',
-      residentialAddress: '',
-      purchaseAmount: undefined,
-      receiptNumber: '',
-      branch: '',
-      receiptUpload: undefined,
-      agreeToTerms: false,
-    },
     // defaultValues: {
-    //   fullName: 'mark',
-    //   mobileNumber: '09123123123',
-    //   email: 'mm@gmai.co',
-    //   residentialAddress: '123',
-    //   purchaseAmount: 1234,
-    //   receiptNumber: '1235',
-    //   branch: 'Avida Paco',
+    //   fullName: '',
+    //   mobileNumber: '09',
+    //   email: '',
+    //   residentialAddress: '',
+    //   purchaseAmount: undefined,
+    //   receiptNumber: '',
+    //   branch: '',
     //   receiptUpload: undefined,
-    //   agreeToTerms: !false,
-    //   birthdate: new Date('2000-01-01'),
-    //   dateOfPurchase: new Date('2025-07-01'),
+    //   agreeToTerms: false,
     // },
+    defaultValues: {
+      fullName: 'mark',
+      mobileNumber: '09123123123',
+      email: 'mm@gmai.co',
+      residentialAddress: '123',
+      purchaseAmount: 1234,
+      receiptNumber: '1235',
+      branch: 'Avida Paco',
+      receiptUpload: undefined,
+      agreeToTerms: !false,
+      birthdate: new Date('2000-01-01'),
+      dateOfPurchase: new Date('2025-07-01'),
+    },
   });
 
   const receiptFileRef = form.watch('receiptUpload');
@@ -327,6 +334,38 @@ export function PurchaseForm() {
     setIsSubmitting(true);
 
     try {
+      // Check for duplicate receipt/invoice number
+      const submissionsRef = collection(db, 'submissions');
+      const q = query(
+        submissionsRef,
+        where('receiptNumber', '==', values.receiptNumber)
+      );
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        // Save the duplicate invoice number to localStorage
+        let duplicates = [];
+        const existing = localStorage.getItem('duplicateInvoiceNumbers');
+        if (existing) {
+          duplicates = JSON.parse(existing);
+        }
+        if (!duplicates.includes(values.receiptNumber)) {
+          duplicates.push(values.receiptNumber);
+          localStorage.setItem(
+            'duplicateInvoiceNumbers',
+            JSON.stringify(duplicates)
+          );
+        }
+        setIsSubmitting(false);
+        toast({
+          variant: 'destructive',
+          title: 'Duplicate Invoice Number',
+          description:
+            'This receipt/invoice number has already been used. Please check your entry.',
+          duration: 3000,
+        });
+        return;
+      }
+
       const fullName =
         values.fullName.charAt(0).toUpperCase() + values.fullName.slice(1);
       const formattedAmount = new Intl.NumberFormat('en-PH', {
@@ -366,12 +405,31 @@ export function PurchaseForm() {
     } catch (error) {
       console.error('Error submitting form: ', error);
       setIsSubmitting(false);
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description:
-          'There was a problem with your submission. Please try again.',
-      });
+      // Check for network error (slow or no internet)
+      const err: any = error;
+      if (
+        (typeof err === 'object' &&
+          err !== null &&
+          (err.code === 'unavailable' ||
+            err.code === 'network-request-failed')) ||
+        (typeof err === 'string' && err.toLowerCase().includes('network'))
+      ) {
+        toast({
+          variant: 'destructive',
+          title: 'Network Error',
+          description:
+            'Unable to connect to the server. Please check your internet connection and try again.',
+          duration: 3000,
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description:
+            'There was a problem with your submission. Please try again.',
+          duration: 3000,
+        });
+      }
     }
   }
 
@@ -408,6 +466,7 @@ export function PurchaseForm() {
           variant: 'destructive',
           title: 'File too large',
           description: `"${file.name}" exceeds the 10MB limit.`,
+          duration: 3000,
         });
       } else if (combinedFiles.length < MAX_FILES) {
         combinedFiles.push(file);
@@ -416,6 +475,7 @@ export function PurchaseForm() {
           variant: 'destructive',
           title: 'Maximum files reached',
           description: `You can only upload a maximum of ${MAX_FILES} files.`,
+          duration: 3000,
         });
         break;
       }
