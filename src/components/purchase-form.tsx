@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, FieldErrors } from 'react-hook-form';
+import { useForm, FieldErrors, Controller } from 'react-hook-form';
+import NumberFormat from 'react-number-format';
 import { CalendarIcon, Loader2, UploadCloud, X } from 'lucide-react';
 import { format } from 'date-fns';
 import emailjs from '@emailjs/browser';
@@ -813,46 +814,57 @@ export function PurchaseForm() {
                       </FormItem>
                     )}
                   />
-                  <FormField
+                  <Controller
                     control={form.control}
                     name="purchaseAmount"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Purchase Amount*</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="text"
-                            inputMode="numeric"
-                            pattern="[0-9]*"
+                    render={({ field }) => {
+                      const hasError =
+                        !!form.formState.errors.purchaseAmount &&
+                        (field.value === undefined || field.value < 750) &&
+                        (form.formState.isSubmitted ||
+                          form.formState.submitCount > 0);
+                      return (
+                        <FormItem>
+                          <FormLabel>Purchase Amount*</FormLabel>
+                          <NumberFormat
                             {...field}
-                            maxLength={10}
-                            value={field.value ?? ''}
-                            onChange={(e) => {
-                              let value = e.target.value;
-                              // Remove any non-digit characters (including '-')
-                              value = value.replace(/[^0-9]/g, '');
-                              // Limit to 10 digits
-                              value = value.slice(0, 10);
-                              // If input is '0' or starts with 0, clear the field
-                              if (value === '0' || /^0+/.test(value)) {
-                                field.onChange(undefined);
-                                return;
-                              }
-                              field.onChange(
-                                value === '' ? undefined : Number(value)
-                              );
-                            }}
+                            thousandSeparator
+                            allowLeadingZeros={false}
+                            allowNegative={false}
+                            decimalScale={2}
+                            fixedDecimalScale={false}
+                            allowEmptyFormatting={false}
+                            customInput={Input}
                             className={cn(
-                              form.formState.errors.purchaseAmount
+                              hasError
                                 ? 'border-destructive focus-visible:ring-destructive'
                                 : 'border-[#b47e00]',
                               'focus-visible:ring-2 focus-visible:ring-offset-1'
                             )}
+                            value={field.value ?? ''}
+                            onValueChange={(values) => {
+                              if (values.value === '') {
+                                field.onChange(undefined);
+                              } else if (values.floatValue !== undefined) {
+                                field.onChange(values.floatValue);
+                              } else {
+                                field.onChange(undefined);
+                              }
+                            }}
+                            isAllowed={({ value }) => {
+                              if (value === '') return true;
+                              if (/^0/.test(value)) return false;
+                              return true;
+                            }}
                           />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                          {hasError && (
+                            <FormMessage>
+                              {form.formState.errors.purchaseAmount?.message}
+                            </FormMessage>
+                          )}
+                        </FormItem>
+                      );
+                    }}
                   />
                   <FormField
                     control={form.control}
@@ -933,8 +945,9 @@ export function PurchaseForm() {
                             </div>
                           </FormControl>
                           <FormDescription>
-                            Max {MAX_FILES} files. Max file size: 10MB. Accepted
-                            formats: JPG, PNG, WEBP.
+                            Max {MAX_FILES} files. Max per file size: 10MB.{' '}
+                            <br />
+                            Accepted formats: JPG, JPEG, PNG, WEBP.
                           </FormDescription>
                           <FormMessage />
                           {imagePreviews.length > 0 && (
@@ -1040,7 +1053,7 @@ export function PurchaseForm() {
               >
                 {isSubmitting ? (
                   <>
-                    Submitting...
+                    Submitting
                     <Loader2 className="h-4 w-4 animate-spin" />
                   </>
                 ) : (

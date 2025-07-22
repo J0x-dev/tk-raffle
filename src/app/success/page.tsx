@@ -60,7 +60,7 @@ export default function SuccessPage() {
               Submission Successful!
             </CardTitle>
             <CardDescription className="mt-2 text-base text-foreground">
-              Hi <span className="font-bold">{fullName}!</span>, <br /> ✨ Thank
+              Hi <span className="font-bold">{fullName}</span> <br />✨ Thank
               you for joining the Tapa King Royal Escape 38th Anniversary
               Vacation Raffle! Based on your recent purchase of{' '}
               <span className="font-bold">{purchaseAmount}</span>, you have
