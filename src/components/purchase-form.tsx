@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, FieldErrors, Controller } from 'react-hook-form';
-import NumberFormat from 'react-number-format';
+import { useForm, FieldErrors } from 'react-hook-form';
 import { CalendarIcon, Loader2, UploadCloud, X } from 'lucide-react';
 import { format } from 'date-fns';
 import emailjs from '@emailjs/browser';
@@ -71,7 +70,7 @@ const MAX_FILES = 4;
 const formSchema = z.object({
   fullName: z.string().min(1, { message: 'Full name is required.' }),
   mobileNumber: z.string().regex(/^09\d{9}$/, {
-    message: 'Please enter a valid mobile number starting with 09.',
+    message: 'Please enter a valid mobile number with 09.',
   }),
   email: z
     .string()
@@ -84,10 +83,10 @@ const formSchema = z.object({
   dateOfPurchase: z.date({ required_error: 'A date of purchase is required.' }),
   purchaseAmount: z.coerce
     .number({
-      required_error: 'Purchase amount must be at least ₱750.',
-      invalid_type_error: 'Purchase amount must be at least ₱750.',
+      required_error: 'Purchase amount must be at least ₱750',
+      invalid_type_error: 'Purchase amount must be at least ₱750',
     })
-    .min(750, { message: 'Purchase amount must be at least ₱750.' }),
+    .min(750, { message: 'Purchase amount must be at least ₱750' }),
   receiptNumber: z
     .string({
       required_error: 'Receipt/Invoice number is required.',
@@ -175,10 +174,27 @@ export function PurchaseForm() {
     setCurrentYear(new Date().getFullYear());
   }, []);
 
+  // Load saved form data from localStorage
+  const getSavedFormData = () => {
+    if (typeof window === 'undefined') return undefined;
+    try {
+      const saved = localStorage.getItem('purchaseFormDraft');
+      if (!saved) return undefined;
+      const parsed = JSON.parse(saved);
+      // Convert date strings back to Date objects
+      if (parsed.birthdate) parsed.birthdate = new Date(parsed.birthdate);
+      if (parsed.dateOfPurchase)
+        parsed.dateOfPurchase = new Date(parsed.dateOfPurchase);
+      return parsed;
+    } catch {
+      return undefined;
+    }
+  };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: 'onChange',
-    defaultValues: {
+    defaultValues: getSavedFormData() || {
       fullName: '',
       mobileNumber: '09',
       email: '',
@@ -189,20 +205,19 @@ export function PurchaseForm() {
       receiptUpload: undefined,
       agreeToTerms: false,
     },
-    // defaultValues: {
-    //   fullName: 'mark',
-    //   mobileNumber: '09123123123',
-    //   email: 'mm@gmai.co',
-    //   residentialAddress: '123',
-    //   purchaseAmount: 1234,
-    //   receiptNumber: '1235',
-    //   branch: 'Avida Paco',
-    //   receiptUpload: undefined,
-    //   agreeToTerms: !false,
-    //   birthdate: new Date('2000-01-01'),
-    //   dateOfPurchase: new Date('2025-07-01'),
-    // },
   });
+  // Save form data to localStorage on change
+  React.useEffect(() => {
+    const subscription = form.watch((values) => {
+      // Don't save receiptUpload (FileList) to localStorage
+      const { receiptUpload, ...rest } = values;
+      // Only save if not submitted
+      if (!form.formState.isSubmitted) {
+        localStorage.setItem('purchaseFormDraft', JSON.stringify(rest));
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   const receiptFileRef = form.watch('receiptUpload');
   const agreeToTermsValue = form.watch('agreeToTerms');
@@ -338,10 +353,12 @@ export function PurchaseForm() {
         return;
       }
 
-      // Upload images to Firebase Storage
+      // Upload images to Firebase Storage (with compression)
       let receiptUploadUrls: string[] = [];
       const files = values.receiptUpload as FileList | undefined;
       if (files && files.length > 0) {
+        const imageCompression = (await import('browser-image-compression'))
+          .default;
         const storageRef = (await import('firebase/storage')).getStorage(
           db.app
         );
@@ -350,11 +367,17 @@ export function PurchaseForm() {
         );
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
+          // Compress image
+          const compressedFile = await imageCompression(file, {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true,
+          });
           const fileRef = ref(
             storageRef,
             `receipts/${values.receiptNumber}_${Date.now()}_${i}_${file.name}`
           );
-          await uploadBytes(fileRef, file);
+          await uploadBytes(fileRef, compressedFile);
           const url = await getDownloadURL(fileRef);
           receiptUploadUrls.push(url);
         }
@@ -375,6 +398,8 @@ export function PurchaseForm() {
       };
 
       sessionStorage.setItem('submissionData', JSON.stringify(userData));
+      // Clear draft from localStorage on successful submit
+      localStorage.removeItem('purchaseFormDraft');
 
       await addDoc(collection(db, 'submissions'), {
         fullName: fullName,
@@ -436,34 +461,37 @@ export function PurchaseForm() {
       mobileNumber: 'input[name="mobileNumber"]',
       email: 'input[name="email"]',
       residentialAddress: 'textarea[name="residentialAddress"]',
-      purchaseAmount: 'input[name="purchaseAmount"]',
+      purchaseAmount: 'input[name="purchaseAmounts"]',
       receiptNumber: 'input[name="receiptNumber"]',
       branch: '[data-field-branch]',
       agreeToTerms: '[data-field-agree-to-terms]',
     };
-    for (const key of errorKeys) {
-      const refOrSelector = fieldRefs[key];
-      if (refOrSelector) {
-        if (typeof refOrSelector === 'string') {
-          const el = document.querySelector(
-            refOrSelector
-          ) as HTMLElement | null;
-          if (el) {
-            el.focus();
+
+    if (errorKeys.length > 0) {
+      for (const key of errorKeys) {
+        const refOrSelector = fieldRefs[key];
+        if (refOrSelector) {
+          if (typeof refOrSelector === 'string') {
+            const el = document.querySelector(
+              refOrSelector
+            ) as HTMLElement | null;
+            if (el) {
+              setTimeout(() => {
+                el.focus();
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }, 100);
+            }
+          } else if (refOrSelector.current) {
             setTimeout(() => {
-              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              refOrSelector.current.focus();
+              refOrSelector.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+              });
             }, 100);
           }
-        } else if (refOrSelector.current) {
-          refOrSelector.current.focus();
-          setTimeout(() => {
-            refOrSelector.current.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center',
-            });
-          }, 100);
+          break; // Only scroll to the first error
         }
-        break; // Only scroll to the first error
       }
     }
   }
@@ -814,49 +842,85 @@ export function PurchaseForm() {
                       </FormItem>
                     )}
                   />
-                  <Controller
+                  <FormField
                     control={form.control}
                     name="purchaseAmount"
                     render={({ field }) => {
-                      const hasError =
-                        !!form.formState.errors.purchaseAmount &&
-                        (field.value === undefined || field.value < 750) &&
-                        (form.formState.isSubmitted ||
-                          form.formState.submitCount > 0);
+                      const hasError = !!form.formState.errors.purchaseAmount;
+
+                      const formatInput = (value: string): string => {
+                        const cleaned = value.replace(/[^0-9.]/g, '');
+
+                        if (
+                          cleaned === '' ||
+                          cleaned === '.' ||
+                          /^0\.$/.test(cleaned)
+                        ) {
+                          return cleaned; // allow dot-only or zero-dot
+                        }
+
+                        const parts = cleaned.split('.');
+                        const [intPart, decPart] = parts;
+
+                        const intFormatted = intPart
+                          ? Number(intPart).toLocaleString('en-US')
+                          : '';
+
+                        // If there's a decimal, return full formatted with limited decimals
+                        return decPart !== undefined
+                          ? `${intFormatted}.${decPart.slice(0, 2)}`
+                          : intFormatted;
+                      };
+
+                      const parseInput = (val: string): number | string => {
+                        const cleaned = val.replace(/,/g, '');
+
+                        // Allow edge typing states like '.', '0.', etc.
+                        if (/^\d*\.$/.test(cleaned)) return cleaned; // typing decimal
+                        if (/^\d*\.\d{0,2}$/.test(cleaned)) return cleaned;
+
+                        const parsed = parseFloat(cleaned);
+                        return isNaN(parsed) ? '' : parsed;
+                      };
+
+                      const displayValue =
+                        typeof field.value === 'number'
+                          ? field.value.toLocaleString('en-US', {
+                              minimumFractionDigits: 0,
+                              maximumFractionDigits: 2,
+                            })
+                          : typeof field.value === 'string'
+                            ? formatInput(field.value)
+                            : '';
+
                       return (
                         <FormItem>
                           <FormLabel>Purchase Amount*</FormLabel>
-                          <NumberFormat
-                            {...field}
-                            thousandSeparator
-                            allowLeadingZeros={false}
-                            allowNegative={false}
-                            decimalScale={2}
-                            fixedDecimalScale={false}
-                            allowEmptyFormatting={false}
-                            customInput={Input}
-                            className={cn(
-                              hasError
-                                ? 'border-destructive focus-visible:ring-destructive'
-                                : 'border-[#b47e00]',
-                              'focus-visible:ring-2 focus-visible:ring-offset-1'
-                            )}
-                            value={field.value ?? ''}
-                            onValueChange={(values) => {
-                              if (values.value === '') {
-                                field.onChange(undefined);
-                              } else if (values.floatValue !== undefined) {
-                                field.onChange(values.floatValue);
-                              } else {
-                                field.onChange(undefined);
-                              }
-                            }}
-                            isAllowed={({ value }) => {
-                              if (value === '') return true;
-                              if (/^0/.test(value)) return false;
-                              return true;
-                            }}
-                          />
+                          <FormControl>
+                            <Input
+                              type="text"
+                              inputMode="decimal"
+                              autoComplete="off"
+                              name="purchaseAmounts"
+                              value={displayValue}
+                              onChange={(e) => {
+                                const input = e.target.value;
+                                const parsed = parseInput(input);
+
+                                if (parsed === '') {
+                                  field.onChange(undefined);
+                                } else {
+                                  field.onChange(parsed);
+                                }
+                              }}
+                              className={cn(
+                                hasError
+                                  ? 'border-destructive focus-visible:ring-destructive'
+                                  : 'border-[#b47e00]',
+                                'focus-visible:ring-2 focus-visible:ring-offset-1'
+                              )}
+                            />
+                          </FormControl>
                           {hasError && (
                             <FormMessage>
                               {form.formState.errors.purchaseAmount?.message}
@@ -876,15 +940,15 @@ export function PurchaseForm() {
                           <Input
                             type="text"
                             inputMode="numeric"
-                            pattern="[0-9\-]*"
+                            pattern="[0-9]*"
                             {...field}
                             maxLength={20}
                             value={field.value ?? ''}
                             onChange={(e) => {
                               let value = e.target.value;
 
-                              // Allow only numbers and dashes
-                              const regex = value.replace(/[^0-9\-]/g, '');
+                              // Allow only numbers
+                              const regex = value.replace(/[^0-9]/g, '');
 
                               field.onChange(regex);
                             }}
