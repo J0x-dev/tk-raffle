@@ -31,7 +31,7 @@ export function TermsAndConditions() {
         <ScrollArea className="-mx-6 h-full pr-4 sm:-mx-8">
           <div className="space-y-4 px-6 pb-6 text-left text-sm sm:px-8">
             <p>
-              <strong>Promo Period:</strong> July 23, 2025 to October 31, 2025
+              <strong>Promo Period:</strong> August 1, 2025 to October 31, 2025
               <br />
               <strong>DTI Fair Trade Permit No.:</strong> XXXX XXXX XXXX
             </p>

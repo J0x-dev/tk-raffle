@@ -728,6 +728,41 @@ export function PurchaseForm() {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <FormField
                     control={form.control}
+                    name="branch"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Branch*</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          data-field-branch
+                        >
+                          <FormControl>
+                            <SelectTrigger
+                              className={cn(
+                                form.formState.errors.branch
+                                  ? 'border-destructive focus-visible:ring-destructive'
+                                  : 'border-[#b47e00]',
+                                'focus-visible:ring-2 focus-visible:ring-offset-1'
+                              )}
+                            >
+                              <SelectValue placeholder="Select Branch" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {branches.map((branch) => (
+                              <SelectItem key={branch} value={branch}>
+                                {branch}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
                     name="dateOfPurchase"
                     render={({ field }) => (
                       <FormItem>
@@ -853,41 +888,6 @@ export function PurchaseForm() {
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={form.control}
-                    name="branch"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Branch*</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          data-field-branch
-                        >
-                          <FormControl>
-                            <SelectTrigger
-                              className={cn(
-                                form.formState.errors.branch
-                                  ? 'border-destructive focus-visible:ring-destructive'
-                                  : 'border-[#b47e00]',
-                                'focus-visible:ring-2 focus-visible:ring-offset-1'
-                              )}
-                            >
-                              <SelectValue placeholder="Select Branch" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {branches.map((branch) => (
-                              <SelectItem key={branch} value={branch}>
-                                {branch}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
                 </div>
               </div>
 
@@ -909,7 +909,7 @@ export function PurchaseForm() {
                                 ref={receiptUploadRef}
                                 tabIndex={0}
                                 className={cn(
-                                  'flex h-10 w-full cursor-pointer items-center justify-between rounded-md border bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                  'flex h-10 w-full cursor-pointer items-center justify-between rounded border bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
                                   form.formState.errors.receiptUpload
                                     ? 'border-destructive focus-visible:ring-destructive'
                                     : 'border-[#b47e00]'
@@ -995,7 +995,7 @@ export function PurchaseForm() {
                         alt="Sample Receipt"
                         fill
                         sizes="(max-width: 768px) 50vw, 33vw"
-                        className="rounded-md object-cover"
+                        className="object-cover"
                         data-ai-hint="receipt"
                         priority
                       />
