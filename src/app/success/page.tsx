@@ -1,5 +1,10 @@
 'use client';
 
+// @ts-ignore
+import Confetti from 'react-confetti';
+// @ts-ignore
+import { useWindowSize } from 'react-use';
+
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -20,8 +25,11 @@ interface SubmissionData {
 
 export default function SuccessPage() {
   const [data, setData] = useState<SubmissionData | null>(null);
+  const { width, height } = useWindowSize();
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
+    setShowConfetti(true);
     const storedData = sessionStorage.getItem('submissionData');
     if (storedData) {
       setData(JSON.parse(storedData));
@@ -33,8 +41,16 @@ export default function SuccessPage() {
   const raffleEntries = data?.raffleEntries || '0';
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center p-4">
-      <Card className="w-full max-w-md rounded-lg border text-center shadow-lg">
+    <main className="flex min-h-dvh w-full flex-col items-center justify-center p-4">
+      {showConfetti && (
+        <Confetti
+          width={width}
+          height={height}
+          numberOfPieces={250}
+          recycle={false}
+        />
+      )}
+      <Card className="w-full max-w-md rounded-md border text-center shadow-lg">
         <CardHeader className="p-6">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
             <CheckCircle2 className="h-10 w-10 text-green-600" />
@@ -54,8 +70,8 @@ export default function SuccessPage() {
           </div>
         </CardHeader>
         <CardContent className="p-6 pt-0">
-          <div className="mb-6 rounded-lg bg-slate-100 p-4 text-left text-sm">
-            <p className="mb-2">
+          <div className="mb-6 rounded bg-slate-100 p-3 text-left text-sm">
+            <p className="mb-3">
               🧾 Total Spent:{' '}
               <span className="font-bold">{purchaseAmount}</span>
             </p>
