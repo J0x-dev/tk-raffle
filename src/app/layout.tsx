@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Join Tapa King Royal Escape 38th Anniversary Vacation Raffle',

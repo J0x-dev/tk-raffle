@@ -1,13 +1,13 @@
 'use client';
 
 import * as React from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FieldErrors } from 'react-hook-form';
-import * as z from 'zod';
-import { format } from 'date-fns';
 import { CalendarIcon, Loader2, UploadCloud, X } from 'lucide-react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { format } from 'date-fns';
 import emailjs from '@emailjs/browser';
 import { db } from '@/lib/firebase';
 import {
@@ -65,6 +65,7 @@ import { ScrollArea } from './ui/scroll-area';
 import { Checkbox } from './ui/checkbox';
 import { Separator } from './ui/separator';
 import { Skeleton } from './ui/skeleton';
+import { branches } from './branches';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ACCEPTED_IMAGE_TYPES = [
@@ -73,7 +74,7 @@ const ACCEPTED_IMAGE_TYPES = [
   'image/png',
   'image/webp',
 ];
-const MAX_FILES = 6;
+const MAX_FILES = 4;
 
 const formSchema = z.object({
   fullName: z.string().min(1, { message: 'Full name is required.' }),
@@ -98,7 +99,7 @@ const formSchema = z.object({
   receiptNumber: z
     .string({
       required_error: 'Receipt/invoice number is required.',
-      invalid_type_error: 'Receipt/invoice number is required.',
+      invalid_type_error: 'Receipt/invoice number must be a string.',
     })
     .min(1, { message: 'Receipt/invoice number is required.' }),
   branch: z
@@ -130,56 +131,6 @@ const formSchema = z.object({
     ),
   agreeToTerms: z.boolean(),
 });
-
-const branches = [
-  'A.T. Yuchengco Centre',
-  'Aseana Parañaque',
-  'Avida Paco',
-  'Avire Tower',
-  'Ayala Harbor Point',
-  'Ayala Malls Serin',
-  'Ayala Malls Vermosa',
-  'BF Aguirre',
-  'Boni Ave. Mandaluyong',
-  'Boracay',
-  'California Garden Square',
-  'Caloocan Commercial Complex',
-  'Caltex Balintawak',
-  'Caltex SLEX',
-  'Cardinal Santos Medical Center',
-  'Chinese General Hospital and Medical Center',
-  'Clean Fuel',
-  'E. Rodriguez',
-  'Eton Centris',
-  'Ilagan',
-  'Jupiter Makati',
-  'L&Y Plaza Pasig',
-  'Lakeshore',
-  'Lucena',
-  'MCU Monumento',
-  'Market! Market!',
-  'NAIA Terminal 3',
-  'PITX',
-  'Petron Katipunan',
-  'Petron NLEX Marilao',
-  'Pio Del Pilar Makati',
-  'Pioneer Pasig',
-  'Quiapo',
-  'RCBC Plaza - Makati',
-  'Robinsons Galleria South',
-  'San Lorenzo Place Makati',
-  'Santana Grove Parañaque',
-  'Starmall EDSA Shaw',
-  'Taft',
-  'The Outlets at LIMA',
-  'Tomas Morato',
-  'Total NLEX',
-  'Total SLEX',
-  'UST',
-  'Ulticare Medical Center',
-  'Versailles Town Plaza',
-  'WalterMart Antipolo',
-];
 
 const MemoizedBirthdateCalendar = React.memo(
   ({
@@ -241,7 +192,7 @@ export function PurchaseForm() {
       email: '',
       residentialAddress: '',
       purchaseAmount: undefined,
-      receiptNumber: '',
+      receiptNumber: undefined,
       branch: '',
       receiptUpload: undefined,
       agreeToTerms: false,
@@ -610,9 +561,7 @@ export function PurchaseForm() {
                     name="fullName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                          Full Name*
-                        </FormLabel>
+                        <FormLabel>Full Name*</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -634,9 +583,7 @@ export function PurchaseForm() {
                     name="mobileNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                          Mobile Number*
-                        </FormLabel>
+                        <FormLabel>Mobile Number*</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -673,9 +620,7 @@ export function PurchaseForm() {
                       const suggestedEmail = field.value + '@gmail.com';
                       return (
                         <FormItem>
-                          <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                            Email Address*
-                          </FormLabel>
+                          <FormLabel>Email Address*</FormLabel>
                           <div className="relative">
                             <FormControl>
                               <Input
@@ -718,9 +663,7 @@ export function PurchaseForm() {
                     name="birthdate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                          Birthdate*
-                        </FormLabel>
+                        <FormLabel>Birthdate*</FormLabel>
                         <Popover
                           open={isBirthdateOpen}
                           onOpenChange={setIsBirthdateOpen}
@@ -765,9 +708,7 @@ export function PurchaseForm() {
                       name="residentialAddress"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                            Residential Address*
-                          </FormLabel>
+                          <FormLabel>Residential Address*</FormLabel>
                           <FormControl>
                             <Textarea
                               {...field}
@@ -799,9 +740,7 @@ export function PurchaseForm() {
                     name="dateOfPurchase"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                          Date of Purchase*
-                        </FormLabel>
+                        <FormLabel>Date of Purchase*</FormLabel>
                         <Popover
                           open={isPurchaseDateOpen}
                           onOpenChange={setIsPurchaseDateOpen}
@@ -853,9 +792,7 @@ export function PurchaseForm() {
                     name="purchaseAmount"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                          Purchase Amount*
-                        </FormLabel>
+                        <FormLabel>Purchase Amount*</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
@@ -896,24 +833,29 @@ export function PurchaseForm() {
                     name="receiptNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                          Receipt/Invoice Number*
-                        </FormLabel>
+                        <FormLabel>Receipt/Invoice Number*</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
                             inputMode="numeric"
-                            pattern="[0-9]*"
+                            pattern="[0-9\-]*"
                             {...field}
                             maxLength={20}
                             value={field.value ?? ''}
                             onChange={(e) => {
                               let value = e.target.value;
-                              // Allow only numbers
-                              value = value.replace(/[^0-9]/g, '');
-                              value = value.slice(0, 20);
-                              field.onChange(value === '' ? undefined : value);
+
+                              // Allow only numbers and dashes
+                              const regex = value.replace(/[^0-9\-]/g, '');
+
+                              field.onChange(regex);
                             }}
+                            className={cn(
+                              form.formState.errors.receiptNumber
+                                ? 'border-destructive focus-visible:ring-destructive'
+                                : 'border-[#b47e00]',
+                              'focus-visible:ring-2 focus-visible:ring-offset-1'
+                            )}
                           />
                         </FormControl>
                         <FormMessage />
@@ -925,9 +867,7 @@ export function PurchaseForm() {
                     name="branch"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                          Branch*
-                        </FormLabel>
+                        <FormLabel>Branch*</FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -970,9 +910,7 @@ export function PurchaseForm() {
                         field: { onChange, value, ...fieldProps },
                       }) => (
                         <FormItem>
-                          <FormLabel className="text-base font-bold text-[#8a2a2b]">
-                            Upload Receipt*
-                          </FormLabel>
+                          <FormLabel>Upload Receipt*</FormLabel>
                           <FormControl>
                             <div className="relative">
                               <label
@@ -1568,7 +1506,7 @@ export function PurchaseForm() {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="cursor-pointer">
+                      <FormLabel className="cursor-pointer font-normal text-black">
                         Agree and Continue
                       </FormLabel>
                       <FormMessage />
