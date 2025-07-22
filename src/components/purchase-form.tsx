@@ -98,10 +98,10 @@ const formSchema = z.object({
     .min(750, { message: 'Purchase amount must be at least ₱750.' }),
   receiptNumber: z
     .string({
-      required_error: 'Receipt/invoice number is required.',
-      invalid_type_error: 'Receipt/invoice number must be a string.',
+      required_error: 'Receipt/Invoice number is required.',
+      invalid_type_error: 'Receipt/Invoice number must be a string.',
     })
-    .min(1, { message: 'Receipt/invoice number is required.' }),
+    .min(1, { message: 'Receipt/Invoice number is required.' }),
   branch: z
     .string({ required_error: 'Please select a branch.' })
     .min(1, { message: 'Please select a branch.' }),
