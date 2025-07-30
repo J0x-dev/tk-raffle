@@ -31,7 +31,7 @@ export function TermsAndConditions() {
         <ScrollArea className="-mx-6 h-full pr-4 sm:-mx-8">
           <div className="space-y-4 px-6 pb-6 text-left text-sm sm:px-8">
             <p>
-              <strong>Promo Period:</strong> August 18, 2025 to October 31, 2025
+              <strong>Promo Period:</strong> Aug 18, 2025 to Oct 31, 2025
               <br />
               <strong>DTI Fair Trade Permit No.</strong> XXXX XXXX XXXX
             </p>
@@ -80,11 +80,11 @@ export function TermsAndConditions() {
               <li>
                 <strong>Major Prizes - Eight (8) Winners:</strong>
                 <ul className="list-circle pl-6">
-                  <li>Discovery Samal Package for two (2)</li>
-                  <li>Discovery Coron Package for two (2)</li>
-                  <li>Discovery Boracay Package for two (2)</li>
-                  <li>Discovery Suites Package for one (1)</li>
-                  <li>Discovery Primea Package for one (1)</li>
+                  <li>2 Winners of Discovery Samal Package for two (2)</li>
+                  <li>2 Winners of Discovery Coron Package for two (2)</li>
+                  <li>2 Winners of Discovery Boracay Package for two (2)</li>
+                  <li>1 Winner of Discovery Suites Package for two (2)</li>
+                  <li>1 Winner of Discovery Primea Package for two (2)</li>
                 </ul>
               </li>
               <li>
