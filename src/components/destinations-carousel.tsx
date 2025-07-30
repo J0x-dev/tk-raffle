@@ -78,7 +78,8 @@ export function DestinationsCarousel() {
   }, [api])
 
   const handleJoinRaffleClick = () => {
-    router.push('/raffle-form')
+    router.push('/raffle-form');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   return (
