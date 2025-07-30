@@ -4,8 +4,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: "Join Tapa King's Discover Philippines Travel Raffle Promo",
-  description:
-    'Eat, Explore, and Escape with Tapa King!',
+  description: 'Eat, Explore, and Escape with Tapa King!',
 };
 
 export default function RootLayout({

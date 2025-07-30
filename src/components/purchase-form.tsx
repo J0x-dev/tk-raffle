@@ -902,6 +902,7 @@ export function PurchaseForm() {
                               autoComplete="off"
                               name="purchaseAmounts"
                               value={displayValue}
+                              maxLength={15}
                               onChange={(e) => {
                                 const input = e.target.value;
                                 const parsed = parseInput(input);
@@ -946,8 +947,8 @@ export function PurchaseForm() {
                             onChange={(e) => {
                               let value = e.target.value;
 
-                              // Allow only numbers
-                              const regex = value.replace(/[^0-9]/g, '');
+                              // Allow only numbers and limit to 20 chars
+                              const regex = value.replace(/[^0-9]/g, '').slice(0, 20);
 
                               field.onChange(regex);
                             }}
