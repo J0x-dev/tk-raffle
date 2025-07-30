@@ -558,11 +558,10 @@ export function PurchaseForm() {
       <Card className="w-full max-w-4xl bg-transparent">
         <CardHeader>
           <CardTitle className="text-center font-headline text-[28px] font-bold leading-[32px] text-[#8a2a2b]">
-            Join Tapa King Royal Escape 38th Anniversary Vacation Raffle
+            Join Tapa King's 'Discover Philippines' Travel Raffle Promo
           </CardTitle>
           <CardDescription className="text-center text-sm text-[#8a2b2b]">
-            Enjoy your Tapa Favorites and get a chance to win your dream
-            vacation!
+            Eat, Explore, and Escape with Tapa King!
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -581,7 +580,7 @@ export function PurchaseForm() {
                     name="fullName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Full Name*</FormLabel>
+                        <FormLabel>Full Name</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
@@ -603,7 +602,7 @@ export function PurchaseForm() {
                     name="mobileNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Mobile Number*</FormLabel>
+                        <FormLabel>Mobile Number</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -640,7 +639,7 @@ export function PurchaseForm() {
                       const suggestedEmail = field.value + '@gmail.com';
                       return (
                         <FormItem>
-                          <FormLabel>Email Address*</FormLabel>
+                          <FormLabel>Email Address</FormLabel>
                           <div className="relative">
                             <FormControl>
                               <Input
@@ -683,7 +682,7 @@ export function PurchaseForm() {
                     name="birthdate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Birthdate*</FormLabel>
+                        <FormLabel>Birthdate</FormLabel>
                         <Popover
                           open={isBirthdateOpen}
                           onOpenChange={setIsBirthdateOpen}
@@ -728,7 +727,7 @@ export function PurchaseForm() {
                       name="residentialAddress"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Residential Address*</FormLabel>
+                          <FormLabel>Residential Address</FormLabel>
                           <FormControl>
                             <Textarea
                               {...field}
@@ -760,7 +759,7 @@ export function PurchaseForm() {
                     name="branch"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Branch*</FormLabel>
+                        <FormLabel>Branch</FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -795,7 +794,7 @@ export function PurchaseForm() {
                     name="dateOfPurchase"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Date of Purchase*</FormLabel>
+                        <FormLabel>Date of Purchase</FormLabel>
                         <Popover
                           open={isPurchaseDateOpen}
                           onOpenChange={setIsPurchaseDateOpen}
@@ -935,7 +934,7 @@ export function PurchaseForm() {
                     name="receiptNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Receipt/Invoice Number*</FormLabel>
+                        <FormLabel>Receipt/Invoice Number</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
@@ -977,7 +976,7 @@ export function PurchaseForm() {
                         field: { onChange, value, ...fieldProps },
                       }) => (
                         <FormItem>
-                          <FormLabel>Upload Receipt*</FormLabel>
+                          <FormLabel>Upload Receipt</FormLabel>
                           <FormControl>
                             <div className="relative">
                               <label

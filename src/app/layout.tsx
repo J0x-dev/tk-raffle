@@ -3,9 +3,9 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Join Tapa King Royal Escape 38th Anniversary Vacation Raffle',
+  title: "Join Tapa King's 'Discover Philippines' Travel Raffle Promo",
   description:
-    'Enjoy your Tapa Favorites and get a chance to win your dream vacation!',
+    'Eat, Explore, and Escape with Tapa King!',
 };
 
 export default function RootLayout({
