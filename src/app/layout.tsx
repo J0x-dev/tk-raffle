@@ -65,6 +65,10 @@ export default function RootLayout({
           />
         </div>
         {children}
+        {/* Copyright Footer */}
+        <footer className="w-full text-center py-6 text-xs text-gray-500">
+          © 2025 Tapa King. All rights reserved.
+        </footer>
         <Toaster />
       </body>
     </html>

@@ -83,7 +83,7 @@ export function DestinationsCarousel() {
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 pb-10 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen">
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen">
       <div className="text-center">
         <CardHeader className="px-0">
           <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-[#8a2a2b] tracking-wide">
