@@ -558,9 +558,9 @@ export function PurchaseForm() {
       <Card className="w-full max-w-4xl bg-transparent">
         <CardHeader>
           <CardTitle className="text-center font-headline text-[28px] font-bold leading-[32px] text-[#8a2a2b]">
-            Join Tapa King's 'Discover Philippines' Travel Raffle Promo
+            Join Tapa King's Discover Philippines Travel Raffle Promo
           </CardTitle>
-          <CardDescription className="text-center text-sm text-[#8a2b2b]">
+          <CardDescription className="text-center text-md text-[#8a2b2b]">
             Eat, Explore, and Escape with Tapa King!
           </CardDescription>
         </CardHeader>
@@ -693,7 +693,7 @@ export function PurchaseForm() {
                                 ref={birthdateTriggerRef}
                                 variant={'outline'}
                                 className={cn(
-                                  'flex h-10 w-full justify-start border bg-white/50 text-left text-base font-normal text-[rgb(138,42,43)] placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                  'flex h-10 w-full justify-start border bg-white/50 text-left text-base font-normal placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
                                   !field.value && 'text-muted-foreground',
                                   form.formState.errors.birthdate
                                     ? 'border-destructive focus-visible:ring-destructive'
@@ -805,7 +805,7 @@ export function PurchaseForm() {
                                 ref={purchaseDateTriggerRef}
                                 variant={'outline'}
                                 className={cn(
-                                  'flex h-10 w-full justify-start border bg-white/50 text-left text-base font-normal text-[rgb(138,42,43)] placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                  'flex h-10 w-full justify-start border bg-white/50 text-left text-base font-normal placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
                                   !field.value && 'text-muted-foreground',
                                   form.formState.errors.dateOfPurchase
                                     ? 'border-destructive focus-visible:ring-destructive'
@@ -894,7 +894,7 @@ export function PurchaseForm() {
 
                       return (
                         <FormItem>
-                          <FormLabel>Purchase Amount*</FormLabel>
+                          <FormLabel>Purchase Amount</FormLabel>
                           <FormControl>
                             <Input
                               type="text"
@@ -984,13 +984,13 @@ export function PurchaseForm() {
                                 ref={receiptUploadRef}
                                 tabIndex={0}
                                 className={cn(
-                                  'flex h-10 w-full cursor-pointer items-center justify-between rounded border bg-white/50 px-3 py-2 text-base text-[rgb(138,42,43)] placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                  'flex h-10 w-full cursor-pointer items-center justify-between rounded border bg-white/50 px-3 py-2 text-base placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
                                   form.formState.errors.receiptUpload
                                     ? 'border-destructive focus-visible:ring-destructive'
                                     : 'border-[#b47e00]'
                                 )}
                               >
-                                <span className="truncate text-muted-foreground">
+                                <span className="truncate">
                                   {receiptFileNames || 'Select file(s)'}
                                 </span>
                                 <UploadCloud className="ml-2 h-5 w-5 text-muted-foreground" />
