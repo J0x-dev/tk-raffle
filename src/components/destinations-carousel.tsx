@@ -58,9 +58,18 @@ const destinations = [
   },
 ]
 
+const sponsorLogos = [
+  { src: "/imgs/logo/discovery-samal-logo.png", alt: "Discovery Samal" },
+  { src: "/imgs/logo/discovery-coron-logo.png", alt: "Discovery Coron" },
+  { src: "/imgs/logo/discovery-boracay-logo.png", alt: "Discovery Boracay" },
+  { src: "/imgs/logo/discovery-primea-logo.png", alt: "Discovery Primea" },
+  { src: "/imgs/logo/discovery-suites-logo.png", alt: "Discovery Suites" },
+]
+
 export function DestinationsCarousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [loading, setLoading] = useState(false)
   const raffleButtonRef = useRef<HTMLButtonElement>(null)
 
   const router = useRouter()
@@ -78,12 +87,27 @@ export function DestinationsCarousel() {
   }, [api])
 
   const handleJoinRaffleClick = () => {
-    router.push('/raffle-form');
+    setLoading(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      router.push('/raffle-form');
+    }, 1200);
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen">
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen relative">
+      {loading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-90">
+          <div className="flex flex-col items-center">
+            <div className="relative w-20 h-20 mb-4">
+              <span className="absolute inset-0 rounded-full border-4 border-[#ffd700] animate-spin-slow"></span>
+              <span className="absolute inset-2 rounded-full border-4 border-[#8a2a2b] border-t-transparent animate-spin"></span>
+              <span className="absolute inset-4 rounded-full border-2 border-[#8a2a2b] opacity-30"></span>
+            </div>
+            <span className="text-lg font-semibold text-[#8a2a2b]">Loading...</span>
+          </div>
+        </div>
+      )}
       <div className="text-center">
         <CardHeader className="px-0">
           <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-[#8a2a2b] tracking-wide">
@@ -111,8 +135,7 @@ export function DestinationsCarousel() {
                       width={800}
                       height={500}
                       className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover rounded-2xl"
-                      loading="eager"
-                      priority={true}
+                      loading="lazy"
                     />
                     {/* Overlay for title and description */}
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 rounded-b-2xl sm:p-6">
@@ -197,26 +220,37 @@ export function DestinationsCarousel() {
 
       {/* Sponsor Logos Section */}
       <div className="w-full max-w-lg mx-auto mt-12 mb-4 bg-white rounded-2xl shadow-lg p-6">
-        <h4 className="text-center text-base font-semibold text-[#8a2a2b] mb-4">Sponsored by</h4>
-        <div className="grid grid-cols-3 gap-6 mb-4">
-          <div className="flex justify-center items-center">
-            <Image src="/imgs/logo/discovery-boracay-logo.png" alt="Discovery Boracay" width={100} height={60} className="object-contain h-[60px]" />
+        <h4 className="text-center text-base font-semibold text-[#8a2a2b] mb-4">In Partnership with</h4>
+        <>
+          <div className="grid grid-cols-3 gap-6 mb-4">
+            {sponsorLogos.slice(0, 3).map((logo) => (
+              <div key={logo.alt} className="flex justify-center items-center relative h-[60px]">
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  fill
+                  sizes="(max-width: 768px) 80px, (max-width: 1024px) 100px, 120px"
+                  className="object-contain"
+                  priority={true}
+                />
+              </div>
+            ))}
           </div>
-          <div className="flex justify-center items-center">
-            <Image src="/imgs/logo/discovery-coron-logo.png" alt="Discovery Coron" width={100} height={60} className="object-contain h-[60px]" />
+          <div className="grid grid-cols-2 gap-6">
+            {sponsorLogos.slice(3).map((logo) => (
+              <div key={logo.alt} className="flex justify-center items-center relative h-[60px]">
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  fill
+                  sizes="(max-width: 768px) 80px, (max-width: 1024px) 100px, 120px"
+                  className="object-contain"
+                  priority={true}
+                />
+              </div>
+            ))}
           </div>
-          <div className="flex justify-center items-center">
-            <Image src="/imgs/logo/discovery-samal-logo.png" alt="Discovery Samal" width={100} height={60} className="object-contain h-[60px]" />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="flex justify-center items-center">
-            <Image src="/imgs/logo/discovery-primea-logo.png" alt="Discovery Primea" width={100} height={60} className="object-contain h-[60px]" />
-          </div>
-          <div className="flex justify-center items-center">
-            <Image src="/imgs/logo/discovery-suites-logo.png" alt="Discovery Suites" width={100} height={60} className="object-contain h-[60px]" />
-          </div>
-        </div>
+        </>
       </div>
 
       {/* Consolation Prizes Grid */}
