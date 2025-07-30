@@ -546,7 +546,7 @@ export function PurchaseForm() {
   return (
     <Card className="w-full max-w-4xl bg-transparent">
         <CardHeader className='px-5'>
-          <CardTitle className="text-center font-headline text-[28px] font-bold leading-[40px] text-[#8a2a2b] tracking-wide">
+          <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-[#d14124] tracking-wide">
             Join Tapa King's Discover the Philippines Travel Raffle Promo
           </CardTitle>
           <CardDescription className="text-center text-base text-[#8a2b2b]">

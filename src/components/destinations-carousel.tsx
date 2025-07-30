@@ -14,8 +14,6 @@ import Image from "next/image"
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
-// import { Checkbox } from "@/components/ui/checkbox"
-// import { Label } from "@/components/ui/label"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -67,7 +65,6 @@ const destinations = [
 export function DestinationsCarousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [currentSlide, setCurrentSlide] = useState(0)
-  // const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [showTermsAlert, setShowTermsAlert] = useState(false)
   const raffleButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -87,37 +84,13 @@ export function DestinationsCarousel() {
 
   const handleJoinRaffleClick = () => {
     router.push('/raffle-form')
-
-    // if (!agreedToTerms) {
-    //   setShowTermsAlert(true)
-    // } else {
-    //   router.push('/raffle-form')
-    // }
   }
-
-  // const handleCheckboxChange = (checked: boolean) => {
-  //   setAgreedToTerms(checked)
-  //   if (checked && raffleButtonRef.current) {
-  //     setTimeout(() => {
-  //       if (raffleButtonRef.current) {
-  //         raffleButtonRef.current.scrollIntoView({ behavior: "smooth", block: "center" })
-  //         raffleButtonRef.current.focus()
-  //       }
-  //     }, 1000)
-  //   }
-  // }
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 pb-10 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen">
       <div className="text-center">
-        {/* <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#892a2b] mb-2 sm:mb-4">
-          
-        </h1>
-        <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-          
-        </p> */}
         <CardHeader className="px-0">
-          <CardTitle className="text-center font-headline text-[28px] font-bold leading-[40px] text-[#8a2a2b] tracking-wide">
+          <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-[#8a2a2b] tracking-wide">
             Discover the Philippines
           </CardTitle>
           <CardDescription className="text-center text-base text-[#8a2b2b]">
@@ -134,11 +107,7 @@ export function DestinationsCarousel() {
           {destinations.map((destination, index) => (
             <CarouselItem key={index} className="pl-2 sm:pl-4">
               <Card className="border-0 overflow-hidden rounded-2xl">
-                {" "}
-                {/* Removed shadow-xl */}
                 <CardContent className="p-0">
-                  {" "}
-                  {/* Removed border border-red */}
                   <div className="relative">
                     <Image
                       src={destination.image || "/placeholder.svg"}
@@ -146,6 +115,7 @@ export function DestinationsCarousel() {
                       width={800}
                       height={500}
                       className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover rounded-2xl"
+                      priority={true}
                     />
                     {/* Overlay for title and description */}
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 rounded-b-2xl sm:p-6">
@@ -180,7 +150,7 @@ export function DestinationsCarousel() {
             className="flex flex-col items-center group cursor-pointer focus:outline-none"
           >
             <div
-              className={`relative overflow-hidden rounded-xl transition-all duration-300 ${
+              className={`relative overflow-hidden rounded-xl transition-all duration-300 w-[60px] h-[45px] sm:w-[80px] sm:h-[60px] ${
                 index === currentSlide
                   ? "ring-2 ring-[#cc9900] scale-110 shadow-lg"
                   : "ring-1 ring-gray-200 hover:ring-gray-300 hover:scale-105"
@@ -189,12 +159,16 @@ export function DestinationsCarousel() {
               <Image
                 src={destination.image || "/placeholder.svg"}
                 alt={`${destination.name} thumbnail`}
-                width={60}
-                height={45}
-                className="w-15 h-12 sm:w-20 sm:h-15 object-cover rounded-xl"
+                fill
+                className="object-cover rounded-xl"
+                sizes="(min-width: 640px) 80px, 60px"
+                priority
               />
+
               {/* Active overlay */}
-              {index === currentSlide && <div className="absolute inset-0 bg-[#cc9900]/20 rounded-xl" />}
+              {index === currentSlide && (
+                <div className="absolute inset-0 bg-[#cc9900]/20 rounded-xl" />
+              )}
             </div>
             <span
               className={`text-xs mt-2 transition-all duration-300 text-center max-w-[60px] sm:max-w-20 ${

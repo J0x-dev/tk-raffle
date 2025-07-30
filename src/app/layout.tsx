@@ -4,11 +4,11 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: "Join Tapa King's Discover Philippines Travel Raffle Promo",
+  title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
   description: "Eat, Explore, and Escape with Tapa King!",
   
   openGraph: {
-    title: "Join Tapa King's Discover Philippines Travel Raffle Promo",
+    title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
     description: "Eat, Explore, and Escape with Tapa King!",
     url: "http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg",
     siteName: "Tapa King",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Join Tapa King's Discover Philippines Travel Raffle Promo",
+    title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
     description: "Eat, Explore, and Escape with Tapa King!",
     images: ["http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg"],
     site: "@TapaKingPHL",
