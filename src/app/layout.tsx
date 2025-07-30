@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
@@ -27,6 +28,16 @@ export default function RootLayout({
         ></link>
       </head>
       <body className="font-body antialiased">
+        <div className="flex h-[100px] w-full items-center justify-center bg-[#d14124]">
+          <Image
+            src="/imgs/tk-white.png"
+            alt="Tapa King Logo"
+            width={200}
+            height={50}
+            className="h-[50px] w-[200px]"
+            priority
+          />
+        </div>
         {children}
         <Toaster />
       </body>

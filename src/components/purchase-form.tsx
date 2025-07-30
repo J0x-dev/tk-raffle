@@ -540,27 +540,16 @@ export function PurchaseForm() {
     : '';
 
   if (currentYear === null) {
-    return null; // Or a loading spinner
+    return null;
   }
 
   return (
-    <>
-      <div className="flex h-[100px] w-full items-center justify-center bg-[#d14124]">
-        <Image
-          src="/imgs/tk-white.png"
-          alt="Tapa King Logo"
-          width={200}
-          height={50}
-          className="h-[50px] w-[200px]"
-          priority
-        />
-      </div>
-      <Card className="w-full max-w-4xl bg-transparent">
+    <Card className="w-full max-w-4xl bg-transparent">
         <CardHeader>
-          <CardTitle className="text-center font-headline text-[28px] font-bold leading-[40px] text-[#8a2a2b]">
+          <CardTitle className="text-center font-headline text-[28px] font-bold leading-[40px] text-[#8a2a2b] tracking-wide">
             Join Tapa King's Discover Philippines Travel Raffle Promo
           </CardTitle>
-          <CardDescription className="text-center text-md text-[#8a2b2b]">
+          <CardDescription className="text-center text-base text-[#8a2b2b]">
             Eat, Explore, and Escape with Tapa King!
           </CardDescription>
         </CardHeader>
@@ -568,7 +557,7 @@ export function PurchaseForm() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit, onError)}
-              className="space-y-6"
+              className="space-y-6 mt-2"
             >
               <div className="space-y-4">
                 <h3 className="text-center text-[20px] font-bold text-[#8a2a2b]">
@@ -1127,7 +1116,6 @@ export function PurchaseForm() {
             </form>
           </Form>
         </CardContent>
-      </Card>
-    </>
+    </Card>
   );
 }

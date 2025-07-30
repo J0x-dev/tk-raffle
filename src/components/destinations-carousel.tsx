@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import { useState, useEffect, useRef } from "react"
+import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
@@ -27,48 +28,50 @@ import {
 
 const destinations = [
   {
-    name: "Boracay Beach",
-    location: "Aklan, Philippines",
-    description: "World-famous white sand beach with crystal clear waters and vibrant nightlife",
-    category: "Beach Paradise",
-    image: "/imgs/destinations/boracay-beach.png", // Updated image path
-  },
-  {
     name: "Coron Palawan",
     location: "Palawan, Philippines",
     description: "Breathtaking limestone karsts, hidden lagoons, and pristine diving spots",
     category: "Natural Wonder",
-    image: "/imgs/destinations/coron-palawan-islands.png", // Updated image path
+    image: "/imgs/destinations/coron-palawan-islands.png",
   },
   {
     name: "Samal Island",
     location: "Davao del Norte, Philippines",
     description: "Island garden city with untouched beaches and lush tropical landscapes",
     category: "Island Getaway",
-    image: "/imgs/destinations/samal-island-beach.png", // Updated image path
+    image: "/imgs/destinations/samal-island-beach.png",
   },
   {
-    name: "Discovery Suites",
-    location: "Ortigas, Manila",
-    description: "Luxury urban retreat with world-class amenities and city skyline views",
-    category: "Luxury Hotel",
-    image: "/imgs/destinations/discovery-suites-view.png", // Updated image path
+    name: "Boracay Beach",
+    location: "Aklan, Philippines",
+    description: "World-famous white sand beach with crystal clear waters and vibrant nightlife",
+    category: "Beach Paradise",
+    image: "/imgs/destinations/boracay-beach.png",
   },
   {
     name: "Discovery Primea",
     location: "Makati, Manila",
     description: "Premium boutique hotel in the heart of the business district",
     category: "Business Hotel",
-    image: "/imgs/destinations/discovery-primea-landmark.png", // Updated image path
+    image: "/imgs/destinations/discovery-primea-landmark.png",
+  },
+  {
+    name: "Discovery Suites",
+    location: "Ortigas, Manila",
+    description: "Luxury urban retreat with world-class amenities and city skyline views",
+    category: "Luxury Hotel",
+    image: "/imgs/destinations/discovery-suites-view.png",
   },
 ]
 
-export default function DestinationsCarousel() {
+export function DestinationsCarousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [currentSlide, setCurrentSlide] = useState(0)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [showTermsAlert, setShowTermsAlert] = useState(false)
   const raffleButtonRef = useRef<HTMLButtonElement>(null)
+
+  const router = useRouter()
 
   useEffect(() => {
     if (!api) {
@@ -86,7 +89,7 @@ export default function DestinationsCarousel() {
     if (!agreedToTerms) {
       setShowTermsAlert(true)
     } else {
-      window.location.href = "https://tk38royalescaperaffle.netlify.app/"
+      router.push('/raffle-form')
     }
   }
 
@@ -103,7 +106,7 @@ export default function DestinationsCarousel() {
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-6 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen">
+    <div className="w-full max-w-6xl mx-auto px-4 py-4 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen">
       <div className="text-center mb-8 sm:mb-12">
         <Badge variant="secondary" className="mb-3 px-3 py-1 text-xs sm:text-sm font-medium rounded-full">
           ✈️ Travel Destinations
@@ -196,10 +199,17 @@ export default function DestinationsCarousel() {
 
       {/* Join Raffle Button */}
       <div className="text-center mt-6 sm:mt-8">
-        <Button
+        {/* <Button
           ref={raffleButtonRef}
           onClick={handleJoinRaffleClick}
           className="px-8 py-3 text-lg font-semibold bg-[#892a2b] hover:bg-[#a03a3b] text-white rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+        >
+          Join Raffle Now! 🎉
+        </Button> */}
+        <Button
+          ref={raffleButtonRef}
+          onClick={handleJoinRaffleClick}
+          className="animate-bounce px-8 py-3 text-lg font-semibold bg-[#892a2b] hover:bg-[#a03a3b] text-white rounded-full shadow-lg transition-all duration-800 transform hover:scale-105"
         >
           Join Raffle Now! 🎉
         </Button>
@@ -391,7 +401,7 @@ export default function DestinationsCarousel() {
               Terms and Conditions Required
             </AlertDialogTitle>
             <AlertDialogDescription className="text-center text-gray-700">
-              Please accept the Terms and Conditions to join the raffle.
+              Read and accept the Terms and Conditions to join the raffle.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="justify-center">

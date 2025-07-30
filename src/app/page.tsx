@@ -1,9 +1,10 @@
-import { PurchaseForm } from '@/components/purchase-form';
+import Image from 'next/image';
+import { DestinationsCarousel } from '@/components/destinations-carousel';
 
 export default function Home() {
   return (
     <main className="flex min-h-screen w-full flex-col items-center">
-      <PurchaseForm />
+      <DestinationsCarousel />
     </main>
   );
 }
