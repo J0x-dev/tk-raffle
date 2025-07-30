@@ -557,7 +557,7 @@ export function PurchaseForm() {
       </div>
       <Card className="w-full max-w-4xl bg-transparent">
         <CardHeader>
-          <CardTitle className="text-center font-headline text-[28px] font-bold leading-[32px] text-[#8a2a2b]">
+          <CardTitle className="text-center font-headline text-[28px] font-bold leading-[32px] text-[#8a2a2b] tracking-wider">
             Join Tapa King's Discover Philippines Travel Raffle Promo
           </CardTitle>
           <CardDescription className="text-center text-md text-[#8a2b2b]">
