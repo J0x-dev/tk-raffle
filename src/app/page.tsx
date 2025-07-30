@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { DestinationsCarousel } from '@/components/destinations-carousel';
 
 export default function Home() {
