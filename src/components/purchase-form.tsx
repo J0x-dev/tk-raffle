@@ -535,8 +535,8 @@ export function PurchaseForm() {
 
   const receiptFileNames = receiptFileRef
     ? Array.from(receiptFileRef as FileList)
-        .map((file: any) => file.name)
-        .join(', ')
+      .map((file: any) => file.name)
+      .join(', ')
     : '';
 
   if (currentYear === null) {
@@ -545,577 +545,577 @@ export function PurchaseForm() {
 
   return (
     <Card className="w-full max-w-4xl bg-transparent">
-        <CardHeader className='px-5'>
-          <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-[#d14124] tracking-wide">
-            Join Tapa King's Discover the Philippines Travel Raffle Promo
-          </CardTitle>
-          <CardDescription className="text-center text-base text-[#8a2b2b]">
-            Eat, Explore, and Escape with Tapa King!
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit, onError)}
-              className="space-y-6 mt-2"
-            >
-              <div className="space-y-4">
-                <h3 className="text-center text-[20px] font-bold text-[#8a2a2b]">
-                  Contact Details
-                </h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <FormField
-                    control={form.control}
-                    name="fullName"
-                    render={({ field }) => (
+      <CardHeader className='px-5'>
+        <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-[#d14124] tracking-wide">
+          Join Tapa King's Discover the Philippines Travel Raffle Promo
+        </CardTitle>
+        <CardDescription className="text-center text-base text-[#8a2b2b]">
+          Eat, Explore, and Escape with Tapa King!
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit, onError)}
+            className="space-y-6 mt-2"
+          >
+            <div className="space-y-4">
+              <h3 className="text-center text-[20px] font-bold text-[#8a2a2b]">
+                Contact Details
+              </h3>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          maxLength={60}
+                          className={cn(
+                            form.formState.errors.fullName
+                              ? 'border-destructive focus-visible:ring-destructive'
+                              : 'border-[#b47e00]',
+                            'focus-visible:ring-2 focus-visible:ring-offset-1'
+                          )}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="mobileNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Mobile Number</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          maxLength={11}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (!value.startsWith('09')) {
+                              field.onChange('09');
+                            } else if (value.length <= 11) {
+                              field.onChange(value);
+                            }
+                          }}
+                          className={cn(
+                            form.formState.errors.mobileNumber
+                              ? 'border-destructive focus-visible:ring-destructive'
+                              : 'border-[#b47e00]',
+                            'focus-visible:ring-2 focus-visible:ring-offset-1'
+                          )}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => {
+                    const showGmailSuggestion =
+                      field.value &&
+                      !field.value.includes('@') &&
+                      !field.value.endsWith('@gmail.com');
+                    const suggestedEmail = field.value + '@gmail.com';
+                    return (
                       <FormItem>
-                        <FormLabel>Full Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            maxLength={60}
-                            className={cn(
-                              form.formState.errors.fullName
-                                ? 'border-destructive focus-visible:ring-destructive'
-                                : 'border-[#b47e00]',
-                              'focus-visible:ring-2 focus-visible:ring-offset-1'
-                            )}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="mobileNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Mobile Number</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            {...field}
-                            maxLength={11}
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              if (!value.startsWith('09')) {
-                                field.onChange('09');
-                              } else if (value.length <= 11) {
-                                field.onChange(value);
-                              }
-                            }}
-                            className={cn(
-                              form.formState.errors.mobileNumber
-                                ? 'border-destructive focus-visible:ring-destructive'
-                                : 'border-[#b47e00]',
-                              'focus-visible:ring-2 focus-visible:ring-offset-1'
-                            )}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => {
-                      const showGmailSuggestion =
-                        field.value &&
-                        !field.value.includes('@') &&
-                        !field.value.endsWith('@gmail.com');
-                      const suggestedEmail = field.value + '@gmail.com';
-                      return (
-                        <FormItem>
-                          <FormLabel>Email Address</FormLabel>
-                          <div className="relative">
-                            <FormControl>
-                              <Input
-                                {...field}
-                                maxLength={40}
-                                onFocus={() => setIsEmailFocused(true)}
-                                onBlur={() => setIsEmailFocused(false)}
-                                className={cn(
-                                  form.formState.errors.email
-                                    ? 'border-destructive focus-visible:ring-destructive'
-                                    : 'border-[#b47e00]',
-                                  'focus-visible:ring-2 focus-visible:ring-offset-1'
-                                )}
-                              />
-                            </FormControl>
-                            {showGmailSuggestion && isEmailFocused && (
-                              <button
-                                type="button"
-                                className="absolute left-0 right-0 z-10 w-full truncate rounded-md border border-[#b47e00] bg-white px-3 py-2 text-left text-base font-medium text-muted-foreground shadow-lg"
-                                style={{ top: 'calc(100% + 5px)' }}
-                                onMouseDown={(e) => e.preventDefault()}
-                                onClick={() => {
-                                  field.onChange(suggestedEmail);
-                                }}
-                                title={suggestedEmail}
-                              >
-                                <span className="block truncate">
-                                  {suggestedEmail}
-                                </span>
-                              </button>
-                            )}
-                          </div>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="birthdate"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Birthdate</FormLabel>
-                        <Popover
-                          open={isBirthdateOpen}
-                          onOpenChange={setIsBirthdateOpen}
-                        >
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                ref={birthdateTriggerRef}
-                                variant={'outline'}
-                                className={cn(
-                                  'flex h-10 w-full justify-start border bg-white/50 text-left text-base font-normal placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-                                  !field.value && 'text-muted-foreground',
-                                  form.formState.errors.birthdate
-                                    ? 'border-destructive focus-visible:ring-destructive'
-                                    : 'border-[#b47e00]'
-                                )}
-                              >
-                                <CalendarIcon className="mr-1 h-4 w-4 opacity-50" />
-                                {field.value ? (
-                                  format(field.value, 'PPP')
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <MemoizedBirthdateCalendar
-                              field={field}
-                              setIsBirthdateOpen={setIsBirthdateOpen}
-                              toYear={currentYear!}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <div className="md:col-span-2">
-                    <FormField
-                      control={form.control}
-                      name="residentialAddress"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Residential Address</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              {...field}
-                              maxLength={100}
-                              className={cn(
-                                form.formState.errors.residentialAddress
-                                  ? 'border-destructive focus-visible:ring-destructive'
-                                  : 'border-[#b47e00]',
-                                'focus-visible:ring-2 focus-visible:ring-offset-1'
-                              )}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4 pt-2">
-                <Separator className="bg-[#b47e00]" />
-                <h3 className="pt-2 text-center text-[20px] font-bold text-[#8a2b2b]">
-                  Purchase Information
-                </h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <FormField
-                    control={form.control}
-                    name="branch"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Branch</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          data-field-branch
-                        >
-                          <FormControl>
-                            <SelectTrigger
-                              className={cn(
-                                form.formState.errors.branch
-                                  ? 'border-destructive focus-visible:ring-destructive'
-                                  : 'border-[#b47e00]',
-                                'focus-visible:ring-2 focus-visible:ring-offset-1'
-                              )}
-                            >
-                              <SelectValue placeholder="Select Branch" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {branches.map((branch) => (
-                              <SelectItem key={branch} value={branch}>
-                                {branch}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="dateOfPurchase"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Date of Purchase</FormLabel>
-                        <Popover
-                          open={isPurchaseDateOpen}
-                          onOpenChange={setIsPurchaseDateOpen}
-                        >
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                ref={purchaseDateTriggerRef}
-                                variant={'outline'}
-                                className={cn(
-                                  'flex h-10 w-full justify-start border bg-white/50 text-left text-base font-normal placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-                                  !field.value && 'text-muted-foreground',
-                                  form.formState.errors.dateOfPurchase
-                                    ? 'border-destructive focus-visible:ring-destructive'
-                                    : 'border-[#b47e00]'
-                                )}
-                              >
-                                <CalendarIcon className="mr-1 h-4 w-4 opacity-50" />
-                                {field.value ? (
-                                  format(field.value, 'PPP')
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single"
-                              captionLayout="dropdown-buttons"
-                              fromYear={currentYear! - 10}
-                              toYear={currentYear!}
-                              selected={field.value}
-                              onSelect={(date) => {
-                                field.onChange(date);
-                                setIsPurchaseDateOpen(false);
-                              }}
-                              disabled={(date) => date > new Date()}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="purchaseAmount"
-                    render={({ field }) => {
-                      const hasError = !!form.formState.errors.purchaseAmount;
-
-                      const formatInput = (value: string): string => {
-                        const cleaned = value.replace(/[^0-9.]/g, '');
-
-                        if (
-                          cleaned === '' ||
-                          cleaned === '.' ||
-                          /^0\.$/.test(cleaned)
-                        ) {
-                          return cleaned; // allow dot-only or zero-dot
-                        }
-
-                        const parts = cleaned.split('.');
-                        const [intPart, decPart] = parts;
-
-                        const intFormatted = intPart
-                          ? Number(intPart).toLocaleString('en-US')
-                          : '';
-
-                        // If there's a decimal, return full formatted with limited decimals
-                        return decPart !== undefined
-                          ? `${intFormatted}.${decPart.slice(0, 2)}`
-                          : intFormatted;
-                      };
-
-                      const parseInput = (val: string): number | string => {
-                        const cleaned = val.replace(/,/g, '');
-
-                        // Allow edge typing states like '.', '0.', etc.
-                        if (/^\d*\.$/.test(cleaned)) return cleaned; // typing decimal
-                        if (/^\d*\.\d{0,2}$/.test(cleaned)) return cleaned;
-
-                        const parsed = parseFloat(cleaned);
-                        return isNaN(parsed) ? '' : parsed;
-                      };
-
-                      const displayValue =
-                        typeof field.value === 'number'
-                          ? field.value.toLocaleString('en-US', {
-                              minimumFractionDigits: 0,
-                              maximumFractionDigits: 2,
-                            })
-                          : typeof field.value === 'string'
-                            ? formatInput(field.value)
-                            : '';
-
-                      return (
-                        <FormItem>
-                          <FormLabel>Purchase Amount</FormLabel>
+                        <FormLabel>Email Address</FormLabel>
+                        <div className="relative">
                           <FormControl>
                             <Input
-                              type="text"
-                              inputMode="decimal"
-                              autoComplete="off"
-                              name="purchaseAmounts"
-                              value={displayValue}
-                              maxLength={15}
-                              onChange={(e) => {
-                                const input = e.target.value;
-                                const parsed = parseInput(input);
-
-                                if (parsed === '') {
-                                  field.onChange(undefined);
-                                } else {
-                                  field.onChange(parsed);
-                                }
-                              }}
+                              {...field}
+                              maxLength={40}
+                              onFocus={() => setIsEmailFocused(true)}
+                              onBlur={() => setIsEmailFocused(false)}
                               className={cn(
-                                hasError
+                                form.formState.errors.email
                                   ? 'border-destructive focus-visible:ring-destructive'
                                   : 'border-[#b47e00]',
                                 'focus-visible:ring-2 focus-visible:ring-offset-1'
                               )}
                             />
                           </FormControl>
-                          {hasError && (
-                            <FormMessage>
-                              {form.formState.errors.purchaseAmount?.message}
-                            </FormMessage>
+                          {showGmailSuggestion && isEmailFocused && (
+                            <button
+                              type="button"
+                              className="absolute left-0 right-0 z-10 w-full truncate rounded-md border border-[#b47e00] bg-white px-3 py-2 text-left text-base font-medium text-muted-foreground shadow-lg"
+                              style={{ top: 'calc(100% + 5px)' }}
+                              onMouseDown={(e) => e.preventDefault()}
+                              onClick={() => {
+                                field.onChange(suggestedEmail);
+                              }}
+                              title={suggestedEmail}
+                            >
+                              <span className="block truncate">
+                                {suggestedEmail}
+                              </span>
+                            </button>
                           )}
-                        </FormItem>
-                      );
-                    }}
-                  />
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="birthdate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Birthdate</FormLabel>
+                      <Popover
+                        open={isBirthdateOpen}
+                        onOpenChange={setIsBirthdateOpen}
+                      >
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              ref={birthdateTriggerRef}
+                              variant={'outline'}
+                              className={cn(
+                                'flex h-10 w-full justify-start border bg-white/50 text-left text-base font-normal placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                !field.value && 'text-muted-foreground',
+                                form.formState.errors.birthdate
+                                  ? 'border-destructive focus-visible:ring-destructive'
+                                  : 'border-[#b47e00]'
+                              )}
+                            >
+                              <CalendarIcon className="mr-1 h-4 w-4 opacity-50" />
+                              {field.value ? (
+                                format(field.value, 'PPP')
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <MemoizedBirthdateCalendar
+                            field={field}
+                            setIsBirthdateOpen={setIsBirthdateOpen}
+                            toYear={currentYear!}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="md:col-span-2">
                   <FormField
                     control={form.control}
-                    name="receiptNumber"
+                    name="residentialAddress"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Receipt/Invoice Number</FormLabel>
+                        <FormLabel>Residential Address</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            maxLength={100}
+                            className={cn(
+                              form.formState.errors.residentialAddress
+                                ? 'border-destructive focus-visible:ring-destructive'
+                                : 'border-[#b47e00]',
+                              'focus-visible:ring-2 focus-visible:ring-offset-1'
+                            )}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4 pt-2">
+              <Separator className="bg-[#b47e00]" />
+              <h3 className="pt-2 text-center text-[20px] font-bold text-[#8a2b2b]">
+                Purchase Information
+              </h3>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="branch"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Branch</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        data-field-branch
+                      >
+                        <FormControl>
+                          <SelectTrigger
+                            className={cn(
+                              form.formState.errors.branch
+                                ? 'border-destructive focus-visible:ring-destructive'
+                                : 'border-[#b47e00]',
+                              'focus-visible:ring-2 focus-visible:ring-offset-1'
+                            )}
+                          >
+                            <SelectValue placeholder="Select Branch" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {branches.map((branch) => (
+                            <SelectItem key={branch} value={branch}>
+                              {branch}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="dateOfPurchase"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Date of Purchase</FormLabel>
+                      <Popover
+                        open={isPurchaseDateOpen}
+                        onOpenChange={setIsPurchaseDateOpen}
+                      >
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              ref={purchaseDateTriggerRef}
+                              variant={'outline'}
+                              className={cn(
+                                'flex h-10 w-full justify-start border bg-white/50 text-left text-base font-normal placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                !field.value && 'text-muted-foreground',
+                                form.formState.errors.dateOfPurchase
+                                  ? 'border-destructive focus-visible:ring-destructive'
+                                  : 'border-[#b47e00]'
+                              )}
+                            >
+                              <CalendarIcon className="mr-1 h-4 w-4 opacity-50" />
+                              {field.value ? (
+                                format(field.value, 'PPP')
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            captionLayout="dropdown-buttons"
+                            fromYear={currentYear! - 10}
+                            toYear={currentYear!}
+                            selected={field.value}
+                            onSelect={(date) => {
+                              field.onChange(date);
+                              setIsPurchaseDateOpen(false);
+                            }}
+                            disabled={(date) => date > new Date()}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="purchaseAmount"
+                  render={({ field }) => {
+                    const hasError = !!form.formState.errors.purchaseAmount;
+
+                    const formatInput = (value: string): string => {
+                      const cleaned = value.replace(/[^0-9.]/g, '');
+
+                      if (
+                        cleaned === '' ||
+                        cleaned === '.' ||
+                        /^0\.$/.test(cleaned)
+                      ) {
+                        return cleaned; // allow dot-only or zero-dot
+                      }
+
+                      const parts = cleaned.split('.');
+                      const [intPart, decPart] = parts;
+
+                      const intFormatted = intPart
+                        ? Number(intPart).toLocaleString('en-US')
+                        : '';
+
+                      // If there's a decimal, return full formatted with limited decimals
+                      return decPart !== undefined
+                        ? `${intFormatted}.${decPart.slice(0, 2)}`
+                        : intFormatted;
+                    };
+
+                    const parseInput = (val: string): number | string => {
+                      const cleaned = val.replace(/,/g, '');
+
+                      // Allow edge typing states like '.', '0.', etc.
+                      if (/^\d*\.$/.test(cleaned)) return cleaned; // typing decimal
+                      if (/^\d*\.\d{0,2}$/.test(cleaned)) return cleaned;
+
+                      const parsed = parseFloat(cleaned);
+                      return isNaN(parsed) ? '' : parsed;
+                    };
+
+                    const displayValue =
+                      typeof field.value === 'number'
+                        ? field.value.toLocaleString('en-US', {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2,
+                        })
+                        : typeof field.value === 'string'
+                          ? formatInput(field.value)
+                          : '';
+
+                    return (
+                      <FormItem>
+                        <FormLabel>Purchase Amount</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            {...field}
-                            maxLength={20}
-                            value={field.value ?? ''}
+                            inputMode="decimal"
+                            autoComplete="off"
+                            name="purchaseAmounts"
+                            value={displayValue}
+                            maxLength={15}
                             onChange={(e) => {
-                              let value = e.target.value;
+                              const input = e.target.value;
+                              const parsed = parseInput(input);
 
-                              // Allow only numbers and limit to 20 chars
-                              const regex = value.replace(/[^0-9]/g, '').slice(0, 20);
-
-                              field.onChange(regex);
+                              if (parsed === '') {
+                                field.onChange(undefined);
+                              } else {
+                                field.onChange(parsed);
+                              }
                             }}
                             className={cn(
-                              form.formState.errors.receiptNumber
+                              hasError
                                 ? 'border-destructive focus-visible:ring-destructive'
                                 : 'border-[#b47e00]',
                               'focus-visible:ring-2 focus-visible:ring-offset-1'
                             )}
                           />
                         </FormControl>
+                        {hasError && (
+                          <FormMessage>
+                            {form.formState.errors.purchaseAmount?.message}
+                          </FormMessage>
+                        )}
+                      </FormItem>
+                    );
+                  }}
+                />
+                <FormField
+                  control={form.control}
+                  name="receiptNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Receipt/Invoice Number</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          {...field}
+                          maxLength={20}
+                          value={field.value ?? ''}
+                          onChange={(e) => {
+                            let value = e.target.value;
+
+                            // Allow only numbers and limit to 20 chars
+                            const regex = value.replace(/[^0-9]/g, '').slice(0, 20);
+
+                            field.onChange(regex);
+                          }}
+                          className={cn(
+                            form.formState.errors.receiptNumber
+                              ? 'border-destructive focus-visible:ring-destructive'
+                              : 'border-[#b47e00]',
+                            'focus-visible:ring-2 focus-visible:ring-offset-1'
+                          )}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="flex flex-col space-y-2">
+                  <FormField
+                    control={form.control}
+                    name="receiptUpload"
+                    render={({
+                      field: { onChange, value, ...fieldProps },
+                    }) => (
+                      <FormItem>
+                        <FormLabel>Upload Receipt</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <label
+                              htmlFor="receipt-upload"
+                              ref={receiptUploadRef}
+                              tabIndex={0}
+                              className={cn(
+                                'flex h-10 w-full cursor-pointer items-center justify-between rounded border bg-white/50 px-3 py-2 text-base placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                form.formState.errors.receiptUpload
+                                  ? 'border-destructive focus-visible:ring-destructive'
+                                  : 'border-[#b47e00]'
+                              )}
+                            >
+                              <span className="truncate">
+                                {receiptFileNames || 'Select file(s)'}
+                              </span>
+                              <UploadCloud className="ml-2 h-5 w-5 text-muted-foreground" />
+                            </label>
+                            <Input
+                              id="receipt-upload"
+                              type="file"
+                              className="sr-only"
+                              key={fileInputKey}
+                              {...fieldProps}
+                              multiple
+                              onChange={handleFileChange}
+                              accept="image/png, image/jpeg, image/jpg, image/webp"
+                            />
+                          </div>
+                        </FormControl>
+                        <FormDescription>
+                          Max {MAX_FILES} files. Max per file size: 10MB.{' '}
+                          <br />
+                          Accepted formats: JPG, JPEG, PNG, WEBP.
+                        </FormDescription>
                         <FormMessage />
+                        {imagePreviews.length > 0 && (
+                          <div className="mt-2 grid grid-cols-2 gap-2 md:grid-cols-3">
+                            {imagePreviews.map((src, index) => (
+                              <div
+                                key={index}
+                                className="relative aspect-[2/3]"
+                              >
+                                {imageLoadStates[index] === 'loading' && (
+                                  <Skeleton className="h-full w-full rounded-md" />
+                                )}
+                                <Image
+                                  src={src}
+                                  alt={`Receipt preview ${index + 1}`}
+                                  fill
+                                  sizes="(max-width: 768px) 50vw, 33vw"
+                                  className={cn(
+                                    'rounded-md object-cover',
+                                    imageLoadStates[index] !== 'loading'
+                                      ? 'opacity-100'
+                                      : 'opacity-0'
+                                  )}
+                                  onLoad={() => handleImageLoad(index)}
+                                  onError={() => handleImageError(index)}
+                                />
+                                {imageLoadStates[index] === 'loaded' && (
+                                  <Button
+                                    type="button"
+                                    variant="destructive"
+                                    size="icon"
+                                    className="absolute right-1 top-1 h-6 w-6 rounded-full"
+                                    onClick={() => handleRemoveImage(index)}
+                                  >
+                                    <X className="h-4 w-4" />
+                                  </Button>
+                                )}
+                                {imageLoadStates[index] === 'error' && (
+                                  <div className="absolute inset-0 flex items-center justify-center rounded-md bg-destructive/20 p-2 text-center text-xs text-destructive">
+                                    Error loading image
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </FormItem>
                     )}
                   />
                 </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="flex flex-col space-y-2">
-                    <FormField
-                      control={form.control}
-                      name="receiptUpload"
-                      render={({
-                        field: { onChange, value, ...fieldProps },
-                      }) => (
-                        <FormItem>
-                          <FormLabel>Upload Receipt</FormLabel>
-                          <FormControl>
-                            <div className="relative">
-                              <label
-                                htmlFor="receipt-upload"
-                                ref={receiptUploadRef}
-                                tabIndex={0}
-                                className={cn(
-                                  'flex h-10 w-full cursor-pointer items-center justify-between rounded border bg-white/50 px-3 py-2 text-base placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-                                  form.formState.errors.receiptUpload
-                                    ? 'border-destructive focus-visible:ring-destructive'
-                                    : 'border-[#b47e00]'
-                                )}
-                              >
-                                <span className="truncate">
-                                  {receiptFileNames || 'Select file(s)'}
-                                </span>
-                                <UploadCloud className="ml-2 h-5 w-5 text-muted-foreground" />
-                              </label>
-                              <Input
-                                id="receipt-upload"
-                                type="file"
-                                className="sr-only"
-                                key={fileInputKey}
-                                {...fieldProps}
-                                multiple
-                                onChange={handleFileChange}
-                                accept="image/png, image/jpeg, image/jpg, image/webp"
-                              />
-                            </div>
-                          </FormControl>
-                          <FormDescription>
-                            Max {MAX_FILES} files. Max per file size: 10MB.{' '}
-                            <br />
-                            Accepted formats: JPG, JPEG, PNG, WEBP.
-                          </FormDescription>
-                          <FormMessage />
-                          {imagePreviews.length > 0 && (
-                            <div className="mt-2 grid grid-cols-2 gap-2 md:grid-cols-3">
-                              {imagePreviews.map((src, index) => (
-                                <div
-                                  key={index}
-                                  className="relative aspect-[2/3]"
-                                >
-                                  {imageLoadStates[index] === 'loading' && (
-                                    <Skeleton className="h-full w-full rounded-md" />
-                                  )}
-                                  <Image
-                                    src={src}
-                                    alt={`Receipt preview ${index + 1}`}
-                                    fill
-                                    sizes="(max-width: 768px) 50vw, 33vw"
-                                    className={cn(
-                                      'rounded-md object-cover',
-                                      imageLoadStates[index] !== 'loading'
-                                        ? 'opacity-100'
-                                        : 'opacity-0'
-                                    )}
-                                    onLoad={() => handleImageLoad(index)}
-                                    onError={() => handleImageError(index)}
-                                  />
-                                  {imageLoadStates[index] === 'loaded' && (
-                                    <Button
-                                      type="button"
-                                      variant="destructive"
-                                      size="icon"
-                                      className="absolute right-1 top-1 h-6 w-6 rounded-full"
-                                      onClick={() => handleRemoveImage(index)}
-                                    >
-                                      <X className="h-4 w-4" />
-                                    </Button>
-                                  )}
-                                  {imageLoadStates[index] === 'error' && (
-                                    <div className="absolute inset-0 flex items-center justify-center rounded-md bg-destructive/20 p-2 text-center text-xs text-destructive">
-                                      Error loading image
-                                    </div>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </FormItem>
-                      )}
+                <div className="space-y-2">
+                  <p className="text-base font-bold text-[#8a2b2b]">
+                    Sample Receipt
+                  </p>
+                  <div className="relative aspect-[2/3]">
+                    <Image
+                      src="/imgs/sample-receipt.jpg"
+                      alt="Sample Receipt"
+                      fill
+                      sizes="(max-width: 768px) 50vw, 33vw"
+                      className="object-cover"
+                      data-ai-hint="receipt"
+                      priority
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-base font-bold text-[#8a2b2b]">
-                      Sample Receipt
-                    </p>
-                    <div className="relative aspect-[2/3]">
-                      <Image
-                        src="/imgs/sample-receipt.jpg"
-                        alt="Sample Receipt"
-                        fill
-                        sizes="(max-width: 768px) 50vw, 33vw"
-                        className="object-cover"
-                        data-ai-hint="receipt"
-                        priority
-                      />
-                    </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className="mt-4 text-center text-sm text-gray-600">
-                <TermsPrivacy />
-              </div>
+            <div className="mt-4 text-center text-sm text-gray-600">
+              <TermsPrivacy />
+            </div>
 
-              <FormField
-                control={form.control}
-                name="agreeToTerms"
-                render={({ field }) => (
-                  <FormItem
-                    className="flex flex-row items-center justify-center space-x-3 space-y-0"
-                    data-field-agree-to-terms
-                  >
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        disabled={isSubmitting}
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel className="cursor-pointer font-normal text-black">
-                        Agree and Continue
-                      </FormLabel>
-                      <FormMessage />
-                    </div>
-                  </FormItem>
-                )}
-              />
+            <FormField
+              control={form.control}
+              name="agreeToTerms"
+              render={({ field }) => (
+                <FormItem
+                  className="flex flex-row items-center justify-center space-x-3 space-y-0"
+                  data-field-agree-to-terms
+                >
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel className="cursor-pointer font-normal text-black">
+                      Agree and Continue
+                    </FormLabel>
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
 
-              <Button
-                type="submit"
-                className="w-full py-6 text-lg"
-                disabled={!agreeToTermsValue || isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    Submitting
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  </>
-                ) : (
-                  'Submit'
-                )}
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
+            <Button
+              type="submit"
+              className="w-full py-6 text-lg"
+              disabled={!agreeToTermsValue || isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  Submitting
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                </>
+              ) : (
+                'Submit'
+              )}
+            </Button>
+          </form>
+        </Form>
+      </CardContent>
     </Card>
   );
 }

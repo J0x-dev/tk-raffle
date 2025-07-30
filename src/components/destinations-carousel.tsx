@@ -30,42 +30,41 @@ const destinations = [
     location: "Davao del Norte, Philippines",
     description: "Island garden city with untouched beaches and lush tropical landscapes",
     category: "Island Getaway",
-    image: "/imgs/destinations/samal-island-beach.png",
+    image: "/imgs/destinations/samal-island-beach.jpg",
   },
   {
     name: "Discovery Coron",
     location: "Palawan, Philippines",
     description: "Breathtaking limestone karsts, hidden lagoons, and pristine diving spots",
     category: "Natural Wonder",
-    image: "/imgs/destinations/coron-palawan-islands.png",
+    image: "/imgs/destinations/coron-palawan-islands.jpg",
   },
   {
     name: "Discovery Boracay",
     location: "Aklan, Philippines",
     description: "World-famous white sand beach with crystal clear waters and vibrant nightlife",
     category: "Beach Paradise",
-    image: "/imgs/destinations/boracay-beach.png",
+    image: "/imgs/destinations/boracay-beach.jpg",
   },
   {
     name: "Discovery Primea",
     location: "Makati, Manila",
     description: "Premium boutique hotel in the heart of the business district",
     category: "Business Hotel",
-    image: "/imgs/destinations/discovery-primea-landmark.png",
+    image: "/imgs/destinations/discovery-primea.jpg",
   },
   {
     name: "Discovery Suites",
     location: "Ortigas, Manila",
     description: "Luxury urban retreat with world-class amenities and city skyline views",
     category: "Luxury Hotel",
-    image: "/imgs/destinations/discovery-suites-view.png",
+    image: "/imgs/destinations/discovery-suites-view.jpg",
   },
 ]
 
 export function DestinationsCarousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [showTermsAlert, setShowTermsAlert] = useState(false)
   const raffleButtonRef = useRef<HTMLButtonElement>(null)
 
   const router = useRouter()
@@ -97,7 +96,7 @@ export function DestinationsCarousel() {
             Explore breathtaking destinations and create unforgettable memories in the Philippines
           </CardDescription>
         </CardHeader>
-         <Badge variant="secondary" className="mb-3 px-3 py-1 text-xs sm:text-sm font-medium rounded-full">
+        <Badge variant="secondary" className="mb-3 px-3 py-1 text-xs sm:text-sm font-medium rounded-full">
           ✈️ Travel Destinations
         </Badge>
       </div>
@@ -150,11 +149,10 @@ export function DestinationsCarousel() {
             className="flex flex-col items-center group cursor-pointer focus:outline-none"
           >
             <div
-              className={`relative overflow-hidden rounded-xl transition-all duration-300 w-[60px] h-[45px] sm:w-[80px] sm:h-[60px] ${
-                index === currentSlide
-                  ? "ring-2 ring-[#cc9900] scale-110 shadow-lg"
-                  : "ring-1 ring-gray-200 hover:ring-gray-300 hover:scale-105"
-              }`}
+              className={`relative overflow-hidden rounded-xl transition-all duration-300 w-[60px] h-[45px] sm:w-[80px] sm:h-[60px] ${index === currentSlide
+                ? "ring-2 ring-[#cc9900] scale-110 shadow-lg"
+                : "ring-1 ring-gray-200 hover:ring-gray-300 hover:scale-105"
+                }`}
             >
               <Image
                 src={destination.image || "/placeholder.svg"}
@@ -171,9 +169,8 @@ export function DestinationsCarousel() {
               )}
             </div>
             <span
-              className={`text-xs mt-2 transition-all duration-300 text-center max-w-[60px] sm:max-w-20 ${
-                index === currentSlide ? "text-[#cc9900] font-semibold" : "text-gray-500"
-              }`}
+              className={`text-xs mt-2 transition-all duration-300 text-center max-w-[60px] sm:max-w-20 ${index === currentSlide ? "text-[#cc9900] font-semibold" : "text-gray-500"
+                }`}
             >
               {destination.name}
             </span>
@@ -183,13 +180,6 @@ export function DestinationsCarousel() {
 
       {/* Join Raffle Button */}
       <div className="text-center mt-8">
-        {/* <Button
-          ref={raffleButtonRef}
-          onClick={handleJoinRaffleClick}
-          className="px-8 py-3 text-lg font-semibold bg-[#892a2b] hover:bg-[#a03a3b] text-white rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
-        >
-          Join Raffle Now! 🎉
-        </Button> */}
         <Button
           ref={raffleButtonRef}
           onClick={handleJoinRaffleClick}
@@ -377,42 +367,8 @@ export function DestinationsCarousel() {
               shall be resolved under Philippine jurisdiction.
             </p>
           </div>
-          {/* Terms and Conditions Checkbox - Moved to the end of the section */}
-          {/* <div className="flex items-center justify-center mt-8 sm:mt-10 space-x-2">
-            <Checkbox
-              id="terms"
-              checked={agreedToTerms}
-              onCheckedChange={handleCheckboxChange}
-              className="w-5 h-5 border-[#892a2b] data-[state=checked]:bg-[#892a2b] data-[state=checked]:text-white"
-            />
-            <Label htmlFor="terms" className="text-sm sm:text-base text-gray-700 cursor-pointer">
-              I agree to the Terms and Conditions
-            </Label>
-          </div> */}
         </div>
       </div>
-
-      {/* Custom Alert Dialog for Terms and Conditions */}
-      <AlertDialog open={showTermsAlert} onOpenChange={setShowTermsAlert}>
-        <AlertDialogContent className="rounded-xl">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-center text-xl font-bold text-[#892a2b]">
-              Terms and Conditions Required
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-center text-gray-700">
-              Read and accept the Terms and Conditions to join the raffle.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="justify-center">
-            <AlertDialogAction
-              onClick={() => setShowTermsAlert(false)}
-              className="bg-[#892a2b] hover:bg-[#a03a3b] text-white rounded-full px-6 py-2"
-            >
-              OK
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   )
 }
