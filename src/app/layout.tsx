@@ -6,7 +6,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
   description: "Eat, Explore, and Escape with Tapa King!",
-  
+
   openGraph: {
     title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
     description: "Eat, Explore, and Escape with Tapa King!",
@@ -67,7 +67,7 @@ export default function RootLayout({
         {children}
         {/* Copyright Footer */}
         <footer className="w-full text-center py-6 text-xs text-gray-500">
-          © 2025 Tapa King. All rights reserved.
+          &copy; 2025 Tapa King. All rights reserved.
         </footer>
         <Toaster />
       </body>

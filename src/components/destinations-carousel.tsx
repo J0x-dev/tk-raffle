@@ -111,6 +111,7 @@ export function DestinationsCarousel() {
                       width={800}
                       height={500}
                       className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover rounded-2xl"
+                      loading="eager"
                       priority={true}
                     />
                     {/* Overlay for title and description */}
@@ -164,7 +165,8 @@ export function DestinationsCarousel() {
                 fill
                 className="object-cover rounded-xl"
                 sizes="(min-width: 640px) 80px, 60px"
-                priority
+                loading="eager"
+                priority={true}
               />
 
               {/* Active overlay */}
@@ -191,6 +193,30 @@ export function DestinationsCarousel() {
         >
           Join Raffle Now! 🎉
         </Button>
+      </div>
+
+      {/* Sponsor Logos Section */}
+      <div className="w-full max-w-lg mx-auto mt-12 mb-4 bg-white rounded-2xl shadow-lg p-6">
+        <h4 className="text-center text-base font-semibold text-[#8a2a2b] mb-4">Sponsored by</h4>
+        <div className="grid grid-cols-3 gap-6 mb-4">
+          <div className="flex justify-center items-center">
+            <Image src="/imgs/logo/discovery-boracay-logo.png" alt="Discovery Boracay" width={100} height={60} className="object-contain h-[60px]" />
+          </div>
+          <div className="flex justify-center items-center">
+            <Image src="/imgs/logo/discovery-coron-logo.png" alt="Discovery Coron" width={100} height={60} className="object-contain h-[60px]" />
+          </div>
+          <div className="flex justify-center items-center">
+            <Image src="/imgs/logo/discovery-samal-logo.png" alt="Discovery Samal" width={100} height={60} className="object-contain h-[60px]" />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-6">
+          <div className="flex justify-center items-center">
+            <Image src="/imgs/logo/discovery-primea-logo.png" alt="Discovery Primea" width={100} height={60} className="object-contain h-[60px]" />
+          </div>
+          <div className="flex justify-center items-center">
+            <Image src="/imgs/logo/discovery-suites-logo.png" alt="Discovery Suites" width={100} height={60} className="object-contain h-[60px]" />
+          </div>
+        </div>
       </div>
 
       {/* Consolation Prizes Grid */}
