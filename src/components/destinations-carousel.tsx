@@ -1,6 +1,6 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Carousel,
   CarouselContent,
@@ -28,18 +28,18 @@ import {
 
 const destinations = [
   {
-    name: "Discovery Coron",
-    location: "Palawan, Philippines",
-    description: "Breathtaking limestone karsts, hidden lagoons, and pristine diving spots",
-    category: "Natural Wonder",
-    image: "/imgs/destinations/coron-palawan-islands.png",
-  },
-  {
     name: "Discovery Samal",
     location: "Davao del Norte, Philippines",
     description: "Island garden city with untouched beaches and lush tropical landscapes",
     category: "Island Getaway",
     image: "/imgs/destinations/samal-island-beach.png",
+  },
+  {
+    name: "Discovery Coron",
+    location: "Palawan, Philippines",
+    description: "Breathtaking limestone karsts, hidden lagoons, and pristine diving spots",
+    category: "Natural Wonder",
+    image: "/imgs/destinations/coron-palawan-islands.png",
   },
   {
     name: "Discovery Boracay",
@@ -108,17 +108,25 @@ export function DestinationsCarousel() {
   // }
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-4 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen">
-      <div className="text-center mb-8 sm:mb-12">
-        <Badge variant="secondary" className="mb-3 px-3 py-1 text-xs sm:text-sm font-medium rounded-full">
-          ✈️ Travel Destinations
-        </Badge>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#892a2b] mb-2 sm:mb-4">
-          Discover the Philippines
+    <div className="w-full max-w-6xl mx-auto px-4 pb-10 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen">
+      <div className="text-center">
+        {/* <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#892a2b] mb-2 sm:mb-4">
+          
         </h1>
         <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-          Explore breathtaking destinations and create unforgettable memories in the Philippines
-        </p>
+          
+        </p> */}
+        <CardHeader className="px-0">
+          <CardTitle className="text-center font-headline text-[28px] font-bold leading-[40px] text-[#8a2a2b] tracking-wide">
+            Discover the Philippines
+          </CardTitle>
+          <CardDescription className="text-center text-base text-[#8a2b2b]">
+            Explore breathtaking destinations and create unforgettable memories in the Philippines
+          </CardDescription>
+        </CardHeader>
+         <Badge variant="secondary" className="mb-3 px-3 py-1 text-xs sm:text-sm font-medium rounded-full">
+          ✈️ Travel Destinations
+        </Badge>
       </div>
 
       <Carousel className="w-full" setApi={setApi}>
@@ -275,11 +283,11 @@ export function DestinationsCarousel() {
               <li>
                 <strong>Major Prizes - Eight (8) Winners:</strong>
                 <ul className="list-circle pl-6">
-                  <li>Discovery Coron Package for two (2)</li>
                   <li>Discovery Samal Package for two (2)</li>
+                  <li>Discovery Coron Package for two (2)</li>
                   <li>Discovery Boracay Package for two (2)</li>
-                  <li>Discovery Suites (1)</li>
-                  <li>Discovery Primea (1)</li>
+                  <li>Discovery Suites Package for one (1)</li>
+                  <li>Discovery Primea Package for one (1)</li>
                 </ul>
               </li>
               <li>
