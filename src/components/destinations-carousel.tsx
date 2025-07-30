@@ -14,15 +14,6 @@ import Image from "next/image"
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
 
 const destinations = [
   {
@@ -31,6 +22,7 @@ const destinations = [
     description: "Island garden city with untouched beaches and lush tropical landscapes",
     category: "Island Getaway",
     image: "/imgs/destinations/samal-island-beach.jpg",
+    winners: '2 Winners of Discovery Samal Package for two (2)'
   },
   {
     name: "Discovery Coron",
@@ -38,6 +30,7 @@ const destinations = [
     description: "Breathtaking limestone karsts, hidden lagoons, and pristine diving spots",
     category: "Natural Wonder",
     image: "/imgs/destinations/coron-palawan-islands.jpg",
+    winners: '2 Winners of Discovery Coron Package for two (2)'
   },
   {
     name: "Discovery Boracay",
@@ -45,6 +38,7 @@ const destinations = [
     description: "World-famous white sand beach with crystal clear waters and vibrant nightlife",
     category: "Beach Paradise",
     image: "/imgs/destinations/boracay-beach.jpg",
+    winners: '2 Winners of Discovery Boracay Package for two (2)'
   },
   {
     name: "Discovery Primea",
@@ -52,6 +46,7 @@ const destinations = [
     description: "Premium boutique hotel in the heart of the business district",
     category: "Business Hotel",
     image: "/imgs/destinations/discovery-primea.jpg",
+    winners: '1 Winner of Discovery Suites Package for two (2)'
   },
   {
     name: "Discovery Suites",
@@ -59,6 +54,7 @@ const destinations = [
     description: "Luxury urban retreat with world-class amenities and city skyline views",
     category: "Luxury Hotel",
     image: "/imgs/destinations/discovery-suites-view.jpg",
+    winners: '1 Winner of Discovery Primea Package for two (2)'
   },
 ]
 
@@ -140,6 +136,13 @@ export function DestinationsCarousel() {
         <CarouselNext className="right-2 sm:right-4 md:right-8 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 hover:bg-white border-0 shadow-lg rounded-full" />
       </Carousel>
 
+      {/* Winners text info as Badge */}
+      <div className="mt-4 text-center">
+        <Badge variant="secondary" className="px-4 py-2 text-xs sm:text-sm font-semibold rounded-full shadow-lg">
+          {destinations[currentSlide].winners}
+        </Badge>
+      </div>
+
       {/* Thumbnail Preview Indicators */}
       <div className="flex justify-center mt-6 sm:mt-8 gap-x-3 gap-y-4">
         {destinations.map((destination, index) => (
@@ -187,6 +190,17 @@ export function DestinationsCarousel() {
         >
           Join Raffle Now! 🎉
         </Button>
+      </div>
+      
+      {/* Consolation Prizes Grid */}
+      <div className="max-w-xl mx-auto mt-8">
+        <h4 className="text-lg font-bold text-[#8a2a2b] mb-4 text-center">Consolation Prizes <span className="text-xs font-normal">(38 Winners)</span></h4>
+        <div className="grid grid-cols-2 gap-4">
+          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow text-center">10 winners of Gift Box #9</Badge>
+          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow text-center">10 winners of ₱1,000 Gift Certificates</Badge>
+          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow text-center">10 winners of ₱1,500 Gift Certificates</Badge>
+          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow text-center">8 winners of ₱2,000 Gift Certificates</Badge>
+        </div>
       </div>
 
       {/* Terms and Conditions Section */}
