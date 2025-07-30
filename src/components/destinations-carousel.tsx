@@ -14,8 +14,8 @@ import Image from "next/image"
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
+// import { Checkbox } from "@/components/ui/checkbox"
+// import { Label } from "@/components/ui/label"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,21 +28,21 @@ import {
 
 const destinations = [
   {
-    name: "Coron Palawan",
+    name: "Discovery Coron",
     location: "Palawan, Philippines",
     description: "Breathtaking limestone karsts, hidden lagoons, and pristine diving spots",
     category: "Natural Wonder",
     image: "/imgs/destinations/coron-palawan-islands.png",
   },
   {
-    name: "Samal Island",
+    name: "Discovery Samal",
     location: "Davao del Norte, Philippines",
     description: "Island garden city with untouched beaches and lush tropical landscapes",
     category: "Island Getaway",
     image: "/imgs/destinations/samal-island-beach.png",
   },
   {
-    name: "Boracay Beach",
+    name: "Discovery Boracay",
     location: "Aklan, Philippines",
     description: "World-famous white sand beach with crystal clear waters and vibrant nightlife",
     category: "Beach Paradise",
