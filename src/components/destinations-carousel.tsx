@@ -191,15 +191,15 @@ export function DestinationsCarousel() {
           Join Raffle Now! 🎉
         </Button>
       </div>
-      
+
       {/* Consolation Prizes Grid */}
       <div className="max-w-xl mx-auto mt-8">
         <h4 className="text-lg font-bold text-[#8a2a2b] mb-4 text-center">Consolation Prizes <span className="text-xs font-normal">(38 Winners)</span></h4>
         <div className="grid grid-cols-2 gap-4">
-          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow text-center">10 winners of Gift Box #9</Badge>
-          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow text-center">10 winners of ₱1,000 Gift Certificates</Badge>
-          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow text-center">10 winners of ₱1,500 Gift Certificates</Badge>
-          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow text-center">8 winners of ₱2,000 Gift Certificates</Badge>
+          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow flex justify-center items-center text-center">10 winners of <br /> Gift Box #9</Badge>
+          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow flex justify-center items-center text-center">10 winners of ₱1,000 <br /> Gift Certificates</Badge>
+          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow flex justify-center items-center text-center">10 winners of ₱1,500 <br /> Gift Certificates</Badge>
+          <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow flex justify-center items-center text-center">8 winners of ₱2,000 <br /> Gift Certificates</Badge>
         </div>
       </div>
 
