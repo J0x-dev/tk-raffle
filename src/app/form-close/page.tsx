@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { X } from 'lucide-react';
 
@@ -16,12 +17,21 @@ export default function FormClosePage() {
       <div className="flex flex-1 items-center justify-center">
         <Card className="relative mx-auto w-full max-w-2xl bg-white/90 shadow-xl">
           <div className="flex flex-col items-center justify-center px-6 py-8">
-            <h1 className="mb-4 text-center font-headline text-[28px] font-bold leading-[32px] text-[#8a2a2b]">
+            <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#ffd7d7]">
+              <X className="h-8 w-8 text-[#d14124]" />
+            </span>
+            <h1 className="mb-2 text-center font-headline text-[28px] font-bold leading-[32px] text-[#8a2a2b]">
               Form Closed
             </h1>
-            <p className="mb-2 text-center text-lg text-[#8a2b2b]">
-              This form is no longer accepting submission.
+            <p className="text-center text-lg text-[#8a2b2b]">
+              This form is no longer available for submission.
             </p>
+            <Link
+              href="/"
+              className="mt-6 inline-block rounded-full bg-[#d14124] px-6 py-3 text-base font-semibold text-white shadow hover:bg-[#b32e1c] transition-colors"
+            >
+              Go back to Homepage
+            </Link>
           </div>
         </Card>
       </div>
