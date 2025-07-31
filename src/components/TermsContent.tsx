@@ -51,21 +51,19 @@ export default function TermsContent() {
       <h3 className="mt-4 mb-1 font-bold">3. Prizes</h3>
       <ul className="list-disc space-y-2 pl-4">
         <li>
-          <strong>Major Prizes - Eight (8) Winners:</strong>
+          <strong>Major Prizes - (8) Winners:</strong>
+          <br />
+          <strong>Each destinations is Package for two (2)</strong>
           <ul className="list-circle">
-            <li className="inline">2 Winners - Discovery Samal Package for two (2)</li>
-            <br />
-            <li className="inline">2 Winners - Discovery Coron Package for two (2)</li>
-            <br />
-            <li className="inline">2 Winners - Discovery Boracay Package for two (2)</li>
-            <br />
-            <li className="inline">1 Winner - Discovery Suites Package for two (2)</li>
-            <br />
-            <li className="inline">1 Winner - Discovery Primea Package for two (2)</li>
+            <li>2 Winners - Discovery Samal</li>
+            <li>2 Winners - Discovery Coron</li>
+            <li>2 Winners - Discovery Boracay</li>
+            <li>1 Winner - Discovery Suites</li>
+            <li>1 Winner - Discovery Primea</li>
           </ul>
         </li>
         <li>
-          <strong>Consolation Prizes - Thirty-Eight (38) Winners:</strong>
+          <strong className="inline">Consolation Prizes - (38) Winners:</strong>
           <ul className="list-circle">
             <li>10 winners of Gift Box #9</li>
             <li>10 winners of ₱1,000 Gift Certificates</li>

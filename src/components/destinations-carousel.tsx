@@ -44,10 +44,11 @@ export function DestinationsCarousel() {
             Explore breathtaking destinations and create unforgettable memories in the Philippines
           </CardDescription>
         </CardHeader>
-        <Badge variant="secondary" className="mb-3 px-3 py-1 text-xs sm:text-sm font-medium rounded-full">
+        <Badge variant="secondary" className="text-[#444] mb-3 px-3 py-1 text-xs sm:text-sm font-medium rounded-full">
           ✈️ Travel Destinations
         </Badge>
       </div>
+
 
       <Carousel className="w-full" setApi={setApi}>
         <CarouselContent className="-ml-2 sm:-ml-4">
