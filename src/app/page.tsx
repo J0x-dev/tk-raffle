@@ -1,8 +1,13 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { destinationsData, sponsorLogos } from "@/components/destinations-data";
 
 export default function Home() {
+  const isMobile = useIsMobile();
+
   return (
     <div className="max-w-5xl w-full">
       <div className="relative w-full min-h-[230px]">
@@ -30,14 +35,15 @@ export default function Home() {
           <Link className="font-headline bg-[#d14124] rounded-full py-1 px-6 text-base sm:text-lg mt-2 text-white mx-auto block w-fit" href={'/raffle-form'}>Join Now</Link>
         </div>
       </div>
-      
-      <h2 className="text-center font-headline italic text-[#d14124] text-lg mt-20 mb-4 sm:text-2xl">Eat, Explore & Escape with Tapa King</h2>
+
+      <h2 className="text-center font-headline italic text-[#d14124] text-lg mt-20 mb-4 sm:text-2xl sm:mt-24">Eat, Explore & Escape with Tapa King</h2>
       <p className="sm:max-w-xl mx-auto text-[#8a2a2b] text-center text-sm sm:text-base px-4">
         8 Lucky winners will win 3D2N stays (airfare included) in partnership with Discovery Hotels & Resorts. Earn 1 raffle entry for every 750 dine-in spend.
       </p>
 
-      <h2 className="text-center text-gray-600 text-sm sm:text-base my-10 mb-3">In partnership with</h2>
-      <div className="px-4 max-w-lg mx-auto">
+      <h2 className="text-center text-gray-600 text-sm sm:text-base my-10 mb-3 sm:mb-5">In partnership with</h2>
+
+      {isMobile ? (<div className="px-4 max-w-lg mx-auto">
         <div className="grid grid-cols-3 gap-6 mb-4">
           {sponsorLogos.slice(0, 3).map((logo) => (
             <div key={logo.alt} className="flex justify-center items-center relative h-[60px]">
@@ -66,28 +72,41 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </div>
+      </div>) : <div className="flex justify-center items-center gap-8">
+        {sponsorLogos.map((logo) => (
+          <div key={logo.alt} className="flex justify-center items-center relative w-[140px] h-auto">
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              width={140}
+              height={94}
+              className="object-contain"
+              priority={true}
+            />
+          </div>
+        ))}
+      </div>}
 
-      <div className="flex gap-3 justify-center mt-10 sm:gap-6">
-        {destinationsData.slice(0, 3).map((destination) => (
-          <div className="w-[110px] sm:w-[150px]" key={destination.name}>
+      <div className="flex flex-wrap gap-8 justify-center mt-10">
+        {destinationsData.map((destination) => (
+          <div className="w-[330px] sm:w-[450px]" key={destination.name}>
             <Image
               src={destination.image}
               alt={destination.name}
-              width={150}
-              height={150}
-              className="w-[110px] h-[110px] sm:w-[150px] sm:h-[150px] object-cover rounded-md"
+              width={450}
+              height={300}
+              className="w-[330px] sm:w-[450px] h-[203px] sm:h-[300px] object-cover rounded-md shadow-lg"
               priority={true}
             />
             <div className="flex justify-between mt-1">
-              <div className="text-[11px] text-[#d14124]">{destination.name}</div>
-              <div className="text-[11px] text-[#8a2a2b]">{destination.winners}</div>
+              <div className="text-[#d14124]">{destination.name}</div>
+              <div className="text-[#8a2a2b]">{destination.winners}</div>
             </div>
-            <p className="text-[10px] text-[#8a2a2b]">{destination.location}</p>
+            <p className=" text-[#8a2a2b]">{destination.location}</p>
           </div>
         ))}
       </div>
-      <div className="flex gap-3 justify-center sm:gap-6 mt-3 sm:mt-6">
+      {/* <div className="flex gap-3 justify-center sm:gap-6 mt-3 sm:mt-6">
         {destinationsData.slice(3).map((destination) => (
           <div className="w-[110px] sm:w-[150px]" key={destination.name}>
             <Image
@@ -105,7 +124,7 @@ export default function Home() {
             <p className="text-[10px] text-[#8a2a2b]">{destination.location}</p>
           </div>
         ))}
-      </div>
+      </div> */}
 
       <div className="min-h-[500px] bg-[#b47e00] mt-12"></div>
     </div>
