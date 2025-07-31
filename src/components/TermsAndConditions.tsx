@@ -23,15 +23,15 @@ export function TermsAndConditions() {
       </DialogTrigger>
       <DialogContent className="flex h-full max-h-[80vh] max-w-4xl flex-col border-none p-5 sm:p-8">
         <DialogHeader>
-          <DialogTitle>Tapa King's Discover Philippines Travel Raffle Promo</DialogTitle>
+          <DialogTitle>Tapa King's Discover the Philippines Travel Raffle Promo</DialogTitle>
           <DialogDescription>
             Terms of Use for E-Raffle System Participation
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="-mx-6 h-full pr-4 sm:-mx-8">
-          <div className="space-y-4 px-6 pb-6 text-left text-sm sm:px-8">
+          <div className="space-y-4 px-6 pb-6 text-left text-sm sm:px-8 font-inter">
             <p>
-              <strong>Promo Period:</strong> Aug 18, 2025 to Oct 31, 2025
+              <strong>Promo Period:</strong> August 18, 2025 to October 31, 2025
               <br />
               <strong>DTI Fair Trade Permit No.</strong> XXXX XXXX XXXX
             </p>

@@ -10,69 +10,14 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 import Image from "next/image"
-import { useState, useEffect, useRef } from "react"
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-
-const destinations = [
-  {
-    name: "Discovery Samal",
-    location: "Davao del Norte, Philippines",
-    description: "Island garden city with untouched beaches and lush tropical landscapes",
-    category: "Island Getaway",
-    image: "/imgs/destinations/samal-island-beach.jpg",
-    winners: '2 Winners of Discovery Samal Package for two (2)'
-  },
-  {
-    name: "Discovery Coron",
-    location: "Palawan, Philippines",
-    description: "Breathtaking limestone karsts, hidden lagoons, and pristine diving spots",
-    category: "Natural Wonder",
-    image: "/imgs/destinations/coron-palawan-islands.jpg",
-    winners: '2 Winners of Discovery Coron Package for two (2)'
-  },
-  {
-    name: "Discovery Boracay",
-    location: "Aklan, Philippines",
-    description: "World-famous white sand beach with crystal clear waters and vibrant nightlife",
-    category: "Beach Paradise",
-    image: "/imgs/destinations/boracay-beach.jpg",
-    winners: '2 Winners of Discovery Boracay Package for two (2)'
-  },
-  {
-    name: "Discovery Primea",
-    location: "Makati, Manila",
-    description: "Premium boutique hotel in the heart of the business district",
-    category: "Business Hotel",
-    image: "/imgs/destinations/discovery-primea.jpg",
-    winners: '1 Winner of Discovery Suites Package for two (2)'
-  },
-  {
-    name: "Discovery Suites",
-    location: "Ortigas, Manila",
-    description: "Luxury urban retreat with world-class amenities and city skyline views",
-    category: "Luxury Hotel",
-    image: "/imgs/destinations/discovery-suites-view.jpg",
-    winners: '1 Winner of Discovery Primea Package for two (2)'
-  },
-]
-
-const sponsorLogos = [
-  { src: "/imgs/logo/discovery-samal-logo.png", alt: "Discovery Samal" },
-  { src: "/imgs/logo/discovery-coron-logo.png", alt: "Discovery Coron" },
-  { src: "/imgs/logo/discovery-boracay-logo.png", alt: "Discovery Boracay" },
-  { src: "/imgs/logo/discovery-primea-logo.png", alt: "Discovery Primea" },
-  { src: "/imgs/logo/discovery-suites-logo.png", alt: "Discovery Suites" },
-]
+import { useState, useEffect } from "react"
+import { destinations, sponsorLogos } from "./destinations-data"
 
 export function DestinationsCarousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [loading, setLoading] = useState(false)
-  const raffleButtonRef = useRef<HTMLButtonElement>(null)
-
-  const router = useRouter()
 
   useEffect(() => {
     if (!api) {
@@ -86,28 +31,9 @@ export function DestinationsCarousel() {
     setCurrentSlide(api.selectedScrollSnap())
   }, [api])
 
-  const handleJoinRaffleClick = () => {
-    setLoading(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => {
-      router.push('/raffle-form');
-    }, 1200);
-  }
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 bg-[#ece5d2] min-h-screen relative">
-      {loading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-90">
-          <div className="flex flex-col items-center">
-            <div className="relative w-20 h-20 mb-4">
-              <span className="absolute inset-0 rounded-full border-4 border-[#ffd700] animate-spin-slow"></span>
-              <span className="absolute inset-2 rounded-full border-4 border-[#8a2a2b] border-t-transparent animate-spin"></span>
-              <span className="absolute inset-4 rounded-full border-2 border-[#8a2a2b] opacity-30"></span>
-            </div>
-            <span className="text-lg font-semibold text-[#8a2a2b]">Loading...</span>
-          </div>
-        </div>
-      )}
       <div className="text-center">
         <CardHeader className="px-0">
           <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-[#8a2a2b] tracking-wide">
@@ -135,7 +61,8 @@ export function DestinationsCarousel() {
                       width={800}
                       height={500}
                       className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover rounded-2xl"
-                      loading="lazy"
+                      loading="eager"
+                      priority={true}
                     />
                     {/* Overlay for title and description */}
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 rounded-b-2xl sm:p-6">
@@ -208,18 +135,17 @@ export function DestinationsCarousel() {
       </div>
 
       {/* Join Raffle Button */}
-      <div className="text-center mt-8">
-        <Button
-          ref={raffleButtonRef}
-          onClick={handleJoinRaffleClick}
-          className="animate-bounce px-8 py-3 text-lg font-semibold bg-[#892a2b] hover:bg-[#a03a3b] text-white rounded-full shadow-lg transition-all duration-800 transform hover:scale-105"
+      <div className="text-center mt-10">
+        <Link
+          href="/raffle-form"
+          className="animate-bounce px-8 py-2 text-lg font-semibold bg-[#892a2b] hover:bg-[#a03a3b] text-white rounded-full shadow-lg transition-all duration-800 transform hover:scale-105 inline-block"
         >
           Join Raffle Now! 🎉
-        </Button>
+        </Link>
       </div>
 
       {/* Sponsor Logos Section */}
-      <div className="w-full max-w-lg mx-auto mt-12 mb-4 bg-white rounded-2xl shadow-lg p-6">
+      <div className="w-full max-w-lg mx-auto mt-12 bg-white rounded-2xl shadow-lg p-6">
         <h4 className="text-center text-base font-semibold text-[#8a2a2b] mb-4">In Partnership with</h4>
         <>
           <div className="grid grid-cols-3 gap-6 mb-4">
@@ -236,7 +162,7 @@ export function DestinationsCarousel() {
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 px-6">
             {sponsorLogos.slice(3).map((logo) => (
               <div key={logo.alt} className="flex justify-center items-center relative h-[60px]">
                 <Image
@@ -254,7 +180,7 @@ export function DestinationsCarousel() {
       </div>
 
       {/* Consolation Prizes Grid */}
-      <div className="max-w-xl mx-auto mt-8">
+      <div className="max-w-xl mx-auto mt-12">
         <h4 className="text-lg font-bold text-[#8a2a2b] mb-4 text-center">Consolation Prizes <span className="text-xs font-normal">(38 Winners)</span></h4>
         <div className="grid grid-cols-2 gap-4">
           <Badge variant="secondary" className="w-full py-4 text-sm font-semibold rounded-xl shadow flex justify-center items-center text-center">10 winners of <br /> Gift Box #9</Badge>
@@ -270,10 +196,9 @@ export function DestinationsCarousel() {
           <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
             Terms of Use for E-Raffle System Participation
           </h3>
-          <h3 className="text-center"></h3>
-          <div className="space-y-4 text-left text-sm sm:px-4">
+          <div className="space-y-4 text-left text-sm sm:px-4 font-inter">
             <p>
-              <strong>Promo Period:</strong> Aug 18, 2025 to Oct 31, 2025
+              <strong>Promo Period:</strong> August 18, 2025 to October 31, 2025
               <br />
               <strong>DTI Fair Trade Permit No.</strong> XXXX XXXX XXXX
             </p>

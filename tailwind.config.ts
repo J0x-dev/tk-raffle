@@ -10,6 +10,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        inter: ['Inter', 'sans-serif'],
         body: ['Squad-Bold', 'Inter', 'sans-serif'],
         headline: ['Squad-Heavy', 'Inter Fallback', 'sans-serif'],
         code: ['monospace'],
