@@ -1,4 +1,3 @@
-// Data for destinations and sponsor logos used in DestinationsCarousel
 export const destinations = [
   {
     name: "Discovery Samal",
@@ -6,7 +5,7 @@ export const destinations = [
     description: "Island garden city with untouched beaches and lush tropical landscapes",
     category: "Island Getaway",
     image: "/imgs/destinations/samal-island-beach.jpg",
-    winners: '2 Winners of Discovery Samal Package for two (2)'
+    winners: '2 Winners - Discovery Samal Package for two (2)'
   },
   {
     name: "Discovery Coron",
@@ -14,7 +13,7 @@ export const destinations = [
     description: "Breathtaking limestone karsts, hidden lagoons, and pristine diving spots",
     category: "Natural Wonder",
     image: "/imgs/destinations/coron-palawan-islands.jpg",
-    winners: '2 Winners of Discovery Coron Package for two (2)'
+    winners: '2 Winners - Discovery Coron Package for two (2)'
   },
   {
     name: "Discovery Boracay",
@@ -22,7 +21,7 @@ export const destinations = [
     description: "World-famous white sand beach with crystal clear waters and vibrant nightlife",
     category: "Beach Paradise",
     image: "/imgs/destinations/boracay-beach.jpg",
-    winners: '2 Winners of Discovery Boracay Package for two (2)'
+    winners: '2 Winners - Discovery Boracay Package for two (2)'
   },
   {
     name: "Discovery Primea",
@@ -30,7 +29,7 @@ export const destinations = [
     description: "Premium boutique hotel in the heart of the business district",
     category: "Business Hotel",
     image: "/imgs/destinations/discovery-primea.jpg",
-    winners: '1 Winner of Discovery Suites Package for two (2)'
+    winners: '1 Winner - Discovery Suites Package for two (2)'
   },
   {
     name: "Discovery Suites",
@@ -38,7 +37,7 @@ export const destinations = [
     description: "Luxury urban retreat with world-class amenities and city skyline views",
     category: "Luxury Hotel",
     image: "/imgs/destinations/discovery-suites-view.jpg",
-    winners: '1 Winner of Discovery Primea Package for two (2)'
+    winners: '1 Winner - Discovery Primea Package for two (2)'
   },
 ]
 

@@ -1,4 +1,3 @@
-// TermsPrivacy.tsx
 import React from 'react';
 import { PrivacyPolicy } from './PrivacyPolicy';
 import { TermsAndConditions } from './TermsAndConditions';

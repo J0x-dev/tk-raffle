@@ -1,4 +1,3 @@
-// src/components/branches.ts
 export const branches = [
   'A.T. Yuchengco Centre',
   'Aseana Parañaque',
