@@ -41,17 +41,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-body antialiased">
-        <div className="flex h-[100px] w-full items-center justify-center bg-[#d14124]">
-          <Image
-            src="/imgs/tk-white.png"
-            alt="Tapa King Logo"
-            width={200}
-            height={50}
-            className="h-[50px] w-[200px]"
-            priority
-          />
-        </div>
-        {children}
+        <main className='min-h-screen w-full flex items-center flex-col'>
+          {children}
+        </main>
         {/* Copyright Footer */}
         <footer className="w-full text-center py-6 text-xs text-gray-600">
           &copy; 2025 Tapa King. All rights reserved.

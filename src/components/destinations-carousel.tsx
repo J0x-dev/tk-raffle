@@ -10,7 +10,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { Badge } from "@/components/ui/badge"
-import TermsContent from "./TermsContent"
+import TermsContent from "../app/raffle-form/TermsContent"
 import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"

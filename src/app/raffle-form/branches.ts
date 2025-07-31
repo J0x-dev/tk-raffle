@@ -1,4 +1,4 @@
-export const branches = [
+export default [
   'A.T. Yuchengco Centre',
   'Aseana Parañaque',
   'Avida Paco',
