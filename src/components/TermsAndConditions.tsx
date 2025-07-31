@@ -21,7 +21,7 @@ export function TermsAndConditions() {
           Terms and Conditions
         </Button>
       </DialogTrigger>
-      <DialogContent className="flex h-full max-h-[80vh] max-w-4xl flex-col border-none p-5 sm:p-8">
+      <DialogContent className="flex h-full max-h-[80vh] max-w-4xl flex-col border-none p-5 sm:p-8 text-[#111]">
         <DialogHeader>
           <DialogTitle>Tapa King's Discover the Philippines Travel Raffle Promo</DialogTitle>
           <DialogDescription>

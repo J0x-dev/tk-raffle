@@ -3,9 +3,10 @@ import React from 'react';
 export default function TermsContent() {
   return (
     <>
-      <p className="inline">
+      <p>
         <strong>Promo Period:</strong> August 18, 2025 to October 31, 2025
-        <br />
+      </p>
+      <p>
         <strong>DTI Fair Trade Permit No.</strong> XXXX XXXX XXXX
       </p>
       <p className="mt-4">

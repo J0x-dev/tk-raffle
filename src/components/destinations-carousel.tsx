@@ -198,7 +198,7 @@ export function DestinationsCarousel() {
           <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
             Terms of Use for E-Raffle System Participation
           </h3>
-          <div className="text-left text-sm sm:px-4 font-inter">
+          <div className="text-left text-sm sm:px-4 font-inter text-[#111]">
             <TermsContent />
           </div>
         </div>

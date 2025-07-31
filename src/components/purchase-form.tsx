@@ -763,7 +763,11 @@ export function PurchaseForm() {
                               'focus-visible:ring-2 focus-visible:ring-offset-1'
                             )}
                           >
-                            <SelectValue placeholder="Select Branch" />
+                            <SelectValue
+                              placeholder={
+                                <span className="text-muted-foreground">Select Branch</span>
+                              }
+                            />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -980,7 +984,7 @@ export function PurchaseForm() {
                                   : 'border-[#b47e00]'
                               )}
                             >
-                              <span className="truncate">
+                              <span className="truncate text-muted-foreground">
                                 {receiptFileNames || 'Select file(s)'}
                               </span>
                               <UploadCloud className="ml-2 h-5 w-5 text-muted-foreground" />
