@@ -41,6 +41,39 @@ export const destinations = [
   },
 ]
 
+export const destinationsData = [
+  {
+    name: "Samal",
+    location: "Samal, Davao del Norte",
+    image: "/imgs/destinations/samal-island-beach.jpg",
+    winners: '2 Winners'
+  },
+  {
+    name: "Coron",
+    location: "Coron, Palawan",
+    image: "/imgs/destinations/coron-palawan-islands.jpg",
+    winners: '2 Winners'
+  },
+  {
+    name: "Boracay",
+    location: "Boracay Island, Aklan",
+    image: "/imgs/destinations/boracay-beach.jpg",
+    winners: '2 Winners'
+  },
+  {
+    name: "Primea",
+    location: "Ayala ave, Makati",
+    image: "/imgs/destinations/discovery-primea.jpg",
+    winners: '1 Winner'
+  },
+  {
+    name: "Suites",
+    location: "Ortigas, Pasig",
+    image: "/imgs/destinations/discovery-suites-view.jpg",
+    winners: '1 Winner'
+  },
+]
+
 export const sponsorLogos = [
   { src: "/imgs/logo/discovery-samal-logo.png", alt: "Discovery Samal" },
   { src: "/imgs/logo/discovery-coron-logo.png", alt: "Discovery Coron" },

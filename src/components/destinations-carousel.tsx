@@ -156,8 +156,8 @@ export function DestinationsCarousel() {
                 <Image
                   src={logo.src}
                   alt={logo.alt}
-                  fill
-                  sizes="(max-width: 768px) 80px, (max-width: 1024px) 100px, 120px"
+                  width={120}
+                  height={60}
                   className="object-contain"
                   priority={true}
                 />

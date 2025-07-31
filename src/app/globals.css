@@ -98,7 +98,7 @@
   }
   body {
     @apply bg-background text-gray-600;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Squad Bold', 'Inter', sans-serif;
     background-color: #ede5d2;
   }
 }
