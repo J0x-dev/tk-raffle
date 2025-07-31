@@ -45,9 +45,9 @@ export default function RootLayout({
           {children}
         </main>
         {/* Copyright Footer */}
-        <footer className="w-full text-center py-6 text-xs text-[#8a2a2b]">
+        {/* <footer className="w-full text-center py-6 text-xs text-[#8a2a2b]">
           &copy; 2025 Tapa King Inc.
-        </footer>
+        </footer> */}
         <Toaster />
       </body>
     </html>

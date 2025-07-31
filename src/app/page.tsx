@@ -36,76 +36,80 @@ export default function Home() {
         </div>
       </div>
 
-      <h2 className="text-center font-headline italic text-[#d14124] text-lg mt-20 mb-2 sm:mb-4 sm:text-2xl sm:mt-24">Eat, Explore & Escape with Tapa King</h2>
-      <p className="sm:max-w-xl mx-auto text-[#8a2a2b] text-center text-sm sm:text-base px-4">
-        8 Lucky winners will win 3D2N stays (airfare included) in partnership with Discovery Hotels & Resorts. Earn 1 raffle entry for every 750 dine-in spend.
-      </p>
+      <div className="w-full relative">
+        <div style={{ backgroundImage: "url('/imgs/border.png')", backgroundSize: '100%' }} className="w-3 sm:w-4 h-full bg-cover absolute top-0 left-0 z-10"></div>
+        <div style={{ backgroundImage: "url('/imgs/border.png')", backgroundSize: '100%' }} className="w-3 sm:w-4 h-full bg-cover absolute top-0 right-0 z-10"></div>
 
-      <h2 className="text-center text-gray-600 text-sm sm:text-base my-10 mb-3 sm:mb-5">In partnership with</h2>
+        <h2 className="text-center font-headline italic text-[#d14124] text-lg pt-20 mb-2 sm:mb-4 sm:text-2xl sm:pt-24">Eat, Explore & Escape with Tapa King</h2>
+        <p className="sm:max-w-xl mx-auto text-[#8a2a2b] text-center text-sm sm:text-base px-4">
+          8 Lucky winners will win 3D2N stays (airfare included) in partnership with Discovery Hotels & Resorts. Earn 1 raffle entry for every 750 dine-in spend.
+        </p>
 
-      {isMobile ? (<div className="px-4 max-w-lg mx-auto">
-        <div className="grid grid-cols-3 gap-6 mb-4">
-          {sponsorLogos.slice(0, 3).map((logo) => (
-            <div key={logo.alt} className="flex justify-center items-center relative h-[60px]">
+        <h2 className="text-center text-gray-600 text-sm sm:text-base my-10 mb-3 sm:mb-5">In partnership with</h2>
+
+        {isMobile ? (<div className="px-4 max-w-lg mx-auto">
+          <div className="grid grid-cols-3 gap-6 mb-4">
+            {sponsorLogos.slice(0, 3).map((logo) => (
+              <div key={logo.alt} className="flex justify-center items-center relative h-[60px]">
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={120}
+                  height={60}
+                  className="object-contain"
+                  priority={true}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 px-6">
+            {sponsorLogos.slice(3).map((logo) => (
+              <div key={logo.alt} className="flex justify-center items-center relative h-[60px]">
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  fill
+                  sizes="(max-width: 768px) 80px, (max-width: 1024px) 100px, 120px"
+                  className="object-contain"
+                  priority={true}
+                />
+              </div>
+            ))}
+          </div>
+        </div>) : <div className="flex justify-center items-center gap-8">
+          {sponsorLogos.map((logo) => (
+            <div key={logo.alt} className="flex justify-center items-center relative w-[140px] h-auto">
               <Image
                 src={logo.src}
                 alt={logo.alt}
-                width={120}
-                height={60}
+                width={140}
+                height={94}
                 className="object-contain"
                 priority={true}
               />
             </div>
           ))}
-        </div>
-        <div className="grid grid-cols-2 px-6">
-          {sponsorLogos.slice(3).map((logo) => (
-            <div key={logo.alt} className="flex justify-center items-center relative h-[60px]">
+        </div>}
+
+        <div className="flex flex-wrap gap-8 justify-center mt-10">
+          {destinationsData.map((destination) => (
+            <div className="w-[330px] sm:w-[450px]" key={destination.name}>
               <Image
-                src={logo.src}
-                alt={logo.alt}
-                fill
-                sizes="(max-width: 768px) 80px, (max-width: 1024px) 100px, 120px"
-                className="object-contain"
+                src={destination.image}
+                alt={destination.name}
+                width={450}
+                height={300}
+                className="w-[330px] sm:w-[450px] h-[203px] sm:h-[300px] object-cover rounded-md shadow-lg"
                 priority={true}
               />
+              <div className="flex justify-between mt-1">
+                <div className="text-[#d14124]">{destination.name}</div>
+                <div className="text-[#8a2a2b]">{destination.winners}</div>
+              </div>
+              <p className=" text-[#8a2a2b]">{destination.location}</p>
             </div>
           ))}
         </div>
-      </div>) : <div className="flex justify-center items-center gap-8">
-        {sponsorLogos.map((logo) => (
-          <div key={logo.alt} className="flex justify-center items-center relative w-[140px] h-auto">
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={140}
-              height={94}
-              className="object-contain"
-              priority={true}
-            />
-          </div>
-        ))}
-      </div>}
-
-      <div className="flex flex-wrap gap-8 justify-center mt-10">
-        {destinationsData.map((destination) => (
-          <div className="w-[330px] sm:w-[450px]" key={destination.name}>
-            <Image
-              src={destination.image}
-              alt={destination.name}
-              width={450}
-              height={300}
-              className="w-[330px] sm:w-[450px] h-[203px] sm:h-[300px] object-cover rounded-md shadow-lg"
-              priority={true}
-            />
-            <div className="flex justify-between mt-1">
-              <div className="text-[#d14124]">{destination.name}</div>
-              <div className="text-[#8a2a2b]">{destination.winners}</div>
-            </div>
-            <p className=" text-[#8a2a2b]">{destination.location}</p>
-          </div>
-        ))}
-      </div>
 
         <div className="w-full min-h-[300px] max-w-3xl mt-12 mx-auto p-6">
           <h2 className="text-center text-[#8a2a2b] text-2xl font-bold mb-6">Frequently Asked Questions</h2>
@@ -124,6 +128,12 @@ export default function Home() {
             </details>
           </div>
         </div>
-    </div>
+
+        {/* Copyright Footer */}
+        <footer className="w-full text-center py-6 text-xs text-[#8a2a2b]">
+          &copy; 2025 Tapa King Inc.
+        </footer>
+      </div>
+    </div >
   );
 }
