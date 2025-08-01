@@ -50,14 +50,14 @@ export default function Home() {
             backgroundImage: "url('/imgs/border.png')",
             backgroundSize: '100%',
           }}
-          className="absolute left-0 top-0 z-10 h-full w-3 bg-cover"
+          className="absolute left-0 top-0 z-10 h-full w-3 bg-cover sm:w-4"
         ></div>
         <div
           style={{
             backgroundImage: "url('/imgs/border.png')",
             backgroundSize: '100%',
           }}
-          className="absolute right-0 top-0 z-10 h-full w-3 bg-cover"
+          className="absolute right-0 top-0 z-10 h-full w-3 bg-cover sm:w-4"
         ></div>
 
         <h2 className="mb-2 text-center font-headline text-lg italic text-[#d14124] sm:mb-4 sm:text-2xl">
