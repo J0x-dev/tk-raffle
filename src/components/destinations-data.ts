@@ -43,31 +43,31 @@ export const destinations = [
 
 export const destinationsData = [
   {
-    name: "Samal",
+    name: "Discovery Samal",
     location: "Samal, Davao del Norte",
     image: "/imgs/destinations/samal-island-beach.jpg",
     winners: '2 Winners'
   },
   {
-    name: "Coron",
+    name: "Discovery Coron",
     location: "Coron, Palawan",
     image: "/imgs/destinations/coron-palawan-islands.jpg",
     winners: '2 Winners'
   },
   {
-    name: "Boracay",
+    name: "Discovery Boracay",
     location: "Boracay Island, Aklan",
     image: "/imgs/destinations/boracay-beach.jpg",
     winners: '2 Winners'
   },
   {
-    name: "Primea",
+    name: "Discovery Primea",
     location: "Ayala ave, Makati",
     image: "/imgs/destinations/discovery-primea.jpg",
     winners: '1 Winner'
   },
   {
-    name: "Suites",
+    name: "Discovery Suites",
     location: "Ortigas, Pasig",
     image: "/imgs/destinations/discovery-suites-view.jpg",
     winners: '1 Winner'

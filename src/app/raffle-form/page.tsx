@@ -536,8 +536,8 @@ export default function RaffleForm() {
 
   const receiptFileNames = receiptFileRef
     ? Array.from(receiptFileRef as FileList)
-      .map((file: any) => file.name)
-      .join(', ')
+        .map((file: any) => file.name)
+        .join(', ')
     : '';
 
   if (currentYear === null) {
@@ -553,12 +553,12 @@ export default function RaffleForm() {
           width={200}
           height={50}
           className="h-[50px] w-[200px]"
-          priority
+          priority={true}
         />
       </div>
       <Card className="w-full max-w-4xl bg-transparent">
-        <CardHeader className='px-5'>
-          <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-[#d14124] tracking-wide">
+        <CardHeader className="px-5">
+          <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] tracking-wide text-[#d14124]">
             Join Tapa King's Discover the Philippines Travel Raffle Promo
           </CardTitle>
           <CardDescription className="text-center text-base text-[#8a2b2b]">
@@ -569,7 +569,7 @@ export default function RaffleForm() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit, onError)}
-              className="space-y-6 mt-2"
+              className="mt-2 space-y-6"
             >
               <div className="space-y-4">
                 <h3 className="text-center text-[20px] font-bold text-[#8a2a2b]">
@@ -777,7 +777,9 @@ export default function RaffleForm() {
                             >
                               <SelectValue
                                 placeholder={
-                                  <span className="text-muted-foreground">Select Branch</span>
+                                  <span className="text-muted-foreground">
+                                    Select Branch
+                                  </span>
                                 }
                               />
                             </SelectTrigger>
@@ -890,9 +892,9 @@ export default function RaffleForm() {
                       const displayValue =
                         typeof field.value === 'number'
                           ? field.value.toLocaleString('en-US', {
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 2,
-                          })
+                              minimumFractionDigits: 0,
+                              maximumFractionDigits: 2,
+                            })
                           : typeof field.value === 'string'
                             ? formatInput(field.value)
                             : '';
@@ -953,7 +955,9 @@ export default function RaffleForm() {
                               let value = e.target.value;
 
                               // Allow only numbers and limit to 20 chars
-                              const regex = value.replace(/[^0-9]/g, '').slice(0, 20);
+                              const regex = value
+                                .replace(/[^0-9]/g, '')
+                                .slice(0, 20);
 
                               field.onChange(regex);
                             }}
@@ -1133,6 +1137,19 @@ export default function RaffleForm() {
           </Form>
         </CardContent>
       </Card>
+      {/* Copyright Footer */}
+      <footer className="w-full py-6 text-center text-xs text-[#8a2a2b]">
+        <Image
+          src="/imgs/tk-red.png"
+          alt="Tapa King Logo"
+          width={100}
+          height={26}
+          className="mx-auto mb-2 h-auto w-[100px]"
+          priority={true}
+        />
+        <p>Copyright &copy; 2025 Tapa King Inc.</p>
+        <p>All rights reserved.</p>
+      </footer>
     </>
   );
 }

@@ -5,19 +5,19 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
-  description: "Eat, Explore, and Escape with Tapa King!",
+  description: 'Eat, Explore, and Escape with Tapa King!',
 
   openGraph: {
     title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
-    description: "Eat, Explore, and Escape with Tapa King!",
-    url: "http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg",
-    siteName: "Tapa King",
+    description: 'Eat, Explore, and Escape with Tapa King!',
+    url: 'http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg',
+    siteName: 'Tapa King',
     images: [
       {
-        url: "http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg",
+        url: 'http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg',
         width: 850,
         height: 1278,
-        alt: "Tapa King Discover Philippines Promo Banner",
+        alt: 'Tapa King Discover Philippines Promo Banner',
       },
     ],
     locale: 'en_PH',
@@ -25,11 +25,11 @@ export const metadata: Metadata = {
   },
 
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
     title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
-    description: "Eat, Explore, and Escape with Tapa King!",
-    images: ["http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg"],
-    site: "@TapaKingPHL",
+    description: 'Eat, Explore, and Escape with Tapa King!',
+    images: ['http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg'],
+    site: '@TapaKingPHL',
   },
 };
 
@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-body antialiased">
-        <main className='min-h-screen w-full flex items-center flex-col'>
+        <main className="flex min-h-screen w-full flex-col items-center">
           {children}
         </main>
         {/* Copyright Footer */}
