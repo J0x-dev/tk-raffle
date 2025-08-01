@@ -31,7 +31,7 @@ export default [
   {
     question: 'What are the prizes?',
     answer:
-      '🎉 Grand Prizes (8 winners):\nEach grand prize includes roundtrip airfare and 3D2N accommodation for two (2) people (the winner + one companion):\n\n• 2 Winners: Discovery Samal\n• 2 Winners: Discovery Coron\n• 2 Winners: Discovery Boracay\n• 1 Winner: Discovery Primea\n• 1 Winner: Discovery Suites\n\n🎁 Consolation Prizes (38 winners):\nGift Certificates worth ₱2,000 to ₱10,000\nGift Boxes and more',
+      '🎉 Grand Prizes (8 winners):\n\nEach grand prize includes roundtrip airfare and 3D2N accommodation for two (2) people (the winner + one companion):\n\n• 2 Winners: Discovery Samal\n• 2 Winners: Discovery Coron\n• 2 Winners: Discovery Boracay\n• 1 Winner: Discovery Primea\n• 1 Winner: Discovery Suites\n\n🎁 Consolation Prizes (38 winners):\nGift Certificates worth ₱2,000 to ₱10,000\nGift Boxes and more',
   },
   {
     question: 'Can winners bring a companion?',

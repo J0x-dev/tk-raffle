@@ -62,7 +62,7 @@ function AccordionItem({ title, content }: AccordionItemProps) {
 
 export default function Accordion() {
   return (
-    <div className="mx-auto mt-2 max-w-3xl rounded-2xl bg-white p-4 shadow">
+    <div className="mx-auto mt-2 max-w-5xl rounded-2xl bg-white p-4 shadow">
       {faqData.map((item, index) => (
         <AccordionItem
           key={index}
