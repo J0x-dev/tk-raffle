@@ -26,7 +26,7 @@ export default function Home() {
           priority={true}
         />
 
-        <div className="absolute -bottom-16 left-1/2 z-20 w-full max-w-[330px] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4">
+        <div className="absolute -bottom-16 left-1/2 z-20 w-full max-w-[calc(100%-40px)] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4 md:max-w-2xl">
           <h2 className="mb-1 text-center font-headline text-base font-bold tracking-wide text-[#d14124] sm:text-3xl">
             Discover the Philippines
           </h2>
@@ -37,7 +37,7 @@ export default function Home() {
           </p>
           <Link
             href="/raffle-form"
-            className="duration-800 mx-auto mt-3 block w-fit animate-bounce rounded-full bg-[#d14124] px-6 py-1 font-headline text-base text-white sm:mt-5 sm:px-8 sm:py-2 sm:text-xl"
+            className="duration-800 mx-auto mt-3 block w-fit animate-bounce cursor-pointer rounded-full bg-[#d14124] px-6 py-1 font-headline text-base text-white sm:mt-5 sm:px-8 sm:py-2 sm:text-xl"
           >
             Join Now
           </Link>
@@ -73,7 +73,7 @@ export default function Home() {
 
         <TravelDestinations />
 
-        <div className="mt-12 min-h-[300px] w-full bg-[#d14124] p-6 text-white shadow-lg">
+        <div className="mt-12 min-h-[300px] w-full bg-[#d14124] p-5 text-white shadow-lg">
           <h2 className="text-center text-xl font-bold text-white">
             Frequently Asked Questions (FAQs)
           </h2>

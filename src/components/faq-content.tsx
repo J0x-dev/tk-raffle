@@ -55,7 +55,7 @@ function AccordionItem({ title, content }: AccordionItemProps) {
         className="overflow-hidden transition-[max-height] duration-500 ease-in-out"
       >
         <div
-          className="mt-2 text-sm text-muted-foreground"
+          className="mt-2 text-sm text-black"
           dangerouslySetInnerHTML={{ __html: content }}
         ></div>
       </div>
@@ -65,7 +65,7 @@ function AccordionItem({ title, content }: AccordionItemProps) {
 
 export default function Accordion() {
   return (
-    <div className="mx-auto mt-2 max-w-5xl rounded-2xl bg-white p-4 shadow">
+    <div className="mx-auto mt-2 max-w-4xl rounded-2xl bg-white p-4 shadow">
       {faqData.map((item, index) => (
         <AccordionItem
           key={index}

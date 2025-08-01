@@ -7,7 +7,7 @@ export default [
   {
     question: 'When is the promo period?',
     answer:
-      'August 1 to October 31, 2025. All qualified dine-in transactions within this period are eligible.',
+      'August 18 to October 31, 2025. All qualified dine-in transactions within this period are eligible.',
   },
   {
     question: 'Who can join the promo?',

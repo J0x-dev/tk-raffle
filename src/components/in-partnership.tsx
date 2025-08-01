@@ -8,14 +8,14 @@ export default function InPartnership() {
         In partnership with
       </h2>
 
-      <div className="grid grid-cols-3 grid-rows-2 items-center justify-items-center gap-8 px-6 sm:px-20 md:grid-cols-5 md:grid-rows-1">
+      <div className="grid grid-cols-3 grid-rows-2 items-center justify-items-center gap-8 px-5 sm:px-20 md:grid-cols-5 md:grid-rows-1 md:px-12">
         {sponsorLogos.map((logo, index) => {
           if (index === 3 || index === 4) return null;
 
           return (
             <div
               key={logo.alt}
-              className="relative flex h-[60px] w-auto items-center justify-center sm:h-auto sm:w-[140px]"
+              className="relative flex h-[60px] w-auto items-center justify-center sm:h-auto sm:w-[130px]"
             >
               <Image
                 src={logo.src}
@@ -34,7 +34,7 @@ export default function InPartnership() {
           {sponsorLogos.slice(3).map((logo) => (
             <div
               key={logo.alt}
-              className="relative flex h-[60px] w-auto items-center justify-center sm:h-auto sm:w-[140px]"
+              className="relative flex h-[60px] w-auto items-center justify-center sm:h-auto sm:w-[130px]"
             >
               <Image
                 src={logo.src}
@@ -52,7 +52,7 @@ export default function InPartnership() {
         {[sponsorLogos[3], sponsorLogos[4]].map((logo) => (
           <div
             key={`${logo.alt}-desktop`}
-            className="relative hidden h-[60px] w-auto items-center justify-center sm:h-auto sm:w-[140px] md:flex"
+            className="relative hidden h-[60px] w-auto items-center justify-center sm:h-auto sm:w-[130px] md:flex"
           >
             <Image
               src={logo.src}
