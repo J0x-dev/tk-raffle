@@ -14,17 +14,17 @@ export default function Home() {
           width={100}
           height={85}
           className="absolute right-2 top-2 z-10 h-auto w-[50px] flex-shrink-0 sm:right-4 sm:top-4 sm:w-[100px]"
-          priority={true}
+          loading="lazy"
         />
 
-        <div className="w-full">
+        <div className="min-h-[230px] w-full">
           <Image
             src="/imgs/destinations/samal-island-beach.jpg"
             alt="Discovery Samal Island"
             width={1575}
             height={1278}
             className="h-auto w-full"
-            priority={true}
+            loading="lazy"
           />
         </div>
 
