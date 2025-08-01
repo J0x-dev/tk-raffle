@@ -6,37 +6,40 @@ import FaqContent from '@/components/faq-content';
 
 export default function Home() {
   return (
-    <div className="w-full">
-      <div className="relative min-h-[230px] w-full">
+    <>
+      <div className="relative w-full">
         <Image
           src="/imgs/38th-tk-logo.png"
           alt="Discovery Samal Island"
           width={100}
           height={85}
-          className="absolute right-2 top-2 z-10 h-auto w-[50px] sm:right-4 sm:top-4 sm:w-[100px]"
-          priority={true}
-        />
-        <Image
-          src="/imgs/destinations/samal-island-beach.jpg"
-          alt="Discovery Samal Island"
-          width={1575}
-          height={1278}
-          className="h-auto w-full"
-          priority={true}
+          className="absolute right-2 top-2 z-10 h-auto w-[50px] flex-shrink-0 sm:right-4 sm:top-4 sm:w-[100px]"
+          priority
         />
 
-        <div className="absolute -bottom-16 left-1/2 mx-auto w-full max-w-[330px] -translate-x-1/2 transform rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4">
+        <div className="min-h-[230px] w-full">
+          <Image
+            src="/imgs/destinations/samal-island-beach.jpg"
+            alt="Discovery Samal Island"
+            width={1575}
+            height={1278}
+            className="h-auto w-full"
+            priority
+          />
+        </div>
+
+        <div className="absolute -bottom-16 left-1/2 w-full max-w-[330px] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4">
           <h2 className="mb-1 text-center font-headline text-base font-bold tracking-wide text-[#d14124] sm:text-3xl">
             Discover the Philippines
           </h2>
           <p className="text-center text-xs text-[#d25d1c] sm:text-lg">
             In Celebration of our 38th Anniversary, get a chance to experience
-            an esacape with Tapa King's Discover the Philippines: Travel Raffle
+            an escape with Tapa King's Discover the Philippines: Travel Raffle
             Promo!
           </p>
           <Link
+            href="/raffle-form"
             className="duration-800 mx-auto mt-3 block w-fit animate-bounce rounded-full bg-[#d14124] px-6 py-1 font-headline text-base text-white sm:mt-5 sm:px-8 sm:py-2 sm:text-xl"
-            href={'/raffle-form'}
           >
             Join Now
           </Link>
@@ -96,6 +99,6 @@ export default function Home() {
           <p>All rights reserved.</p>
         </footer>
       </div>
-    </div>
+    </>
   );
 }
