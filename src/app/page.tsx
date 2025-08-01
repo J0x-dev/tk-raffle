@@ -14,19 +14,18 @@ export default function Home() {
           width={100}
           height={85}
           className="absolute right-2 top-2 z-10 h-auto w-[50px] flex-shrink-0 sm:right-4 sm:top-4 sm:w-[100px]"
-          loading="lazy"
+          priority={true}
         />
 
-        <div className="min-h-[230px] w-full">
-          <Image
-            src="/imgs/destinations/samal-island-beach.jpg"
-            alt="Discovery Samal Island"
-            width={1575}
-            height={1278}
-            className="h-auto w-full"
-            loading="lazy"
-          />
-        </div>
+        <Image
+          src="/imgs/destinations/samal-island-beach.jpg"
+          alt="Discovery Samal Island"
+          width={1575}
+          height={1278}
+          layout="intrinsic"
+          className="h-auto w-full"
+          priority={true}
+        />
 
         <div className="absolute -bottom-16 left-1/2 w-full max-w-[330px] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4">
           <h2 className="mb-1 text-center font-headline text-base font-bold tracking-wide text-[#d14124] sm:text-3xl">
