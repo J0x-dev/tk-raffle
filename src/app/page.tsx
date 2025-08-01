@@ -7,14 +7,14 @@ import { destinationsData, sponsorLogos } from '@/components/destinations-data';
 
 export default function Home() {
   return (
-    <div className="w-full max-w-5xl">
+    <div className="w-full">
       <div className="relative min-h-[230px] w-full sm:min-h-[400px]">
         <Image
           src="/imgs/38th-tk-logo.png"
           alt="Discovery Samal Island"
-          width={50}
-          height={43}
-          className="absolute right-2 top-2 z-10 h-auto w-[50px] sm:right-4 sm:top-4 sm:w-[70px]"
+          width={100}
+          height={85}
+          className="absolute right-2 top-2 z-10 h-auto w-[50px] sm:right-4 sm:top-4 sm:w-[100px]"
           priority={true}
         />
         <Image
@@ -73,7 +73,7 @@ export default function Home() {
           In partnership with
         </h2>
 
-        <div className="grid grid-cols-3 grid-rows-2 items-center justify-items-center gap-8 px-6 sm:px-7 md:grid-cols-5 md:grid-rows-1">
+        <div className="grid grid-cols-3 grid-rows-2 items-center justify-items-center gap-8 px-6 sm:px-20 md:grid-cols-5 md:grid-rows-1">
           {sponsorLogos.map((logo, index) => {
             if (index === 3 || index === 4) return null;
 

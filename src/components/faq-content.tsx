@@ -31,9 +31,9 @@ function AccordionItem({ title, content }: AccordionItemProps) {
         aria-expanded={isOpen}
         aria-controls={`accordion-content-${title}`}
       >
-        <span>{title}</span>
+        <span className="flex-1 pr-4">{title}</span>
         <svg
-          className={`h-5 w-5 transform transition-transform duration-300 ${
+          className={`h-5 w-5 flex-shrink-0 transform transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
           }`}
           fill="none"
@@ -54,7 +54,7 @@ function AccordionItem({ title, content }: AccordionItemProps) {
         style={{ maxHeight: height }}
         className="overflow-hidden transition-[max-height] duration-500 ease-in-out"
       >
-        <div className="mt-2 text-black">{content}</div>
+        <div className="mt-2 text-sm text-muted-foreground">{content}</div>
       </div>
     </div>
   );
