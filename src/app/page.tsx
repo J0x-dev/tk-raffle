@@ -26,17 +26,17 @@ export default function Home() {
           priority={true}
         />
 
-        <div className="absolute -bottom-16 left-1/2 mx-auto w-full max-w-[330px] -translate-x-1/2 transform rounded-2xl bg-white p-3 shadow-lg sm:max-w-xl sm:p-4">
-          <h2 className="mb-1 text-center font-headline text-base font-bold tracking-wide text-[#d14124] sm:text-xl">
+        <div className="absolute -bottom-16 left-1/2 mx-auto w-full max-w-[330px] -translate-x-1/2 transform rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4">
+          <h2 className="mb-1 text-center font-headline text-base font-bold tracking-wide text-[#d14124] sm:text-3xl">
             Discover the Philippines
           </h2>
-          <p className="text-center text-xs text-[#d25d1c] sm:text-sm">
+          <p className="text-center text-xs text-[#d25d1c] sm:text-lg">
             In Celebration of our 38th Anniversary, get a chance to experience
             an esacape with Tapa King's Discover the Philippines: Travel Raffle
             Promo!
           </p>
           <Link
-            className="duration-800 mx-auto mt-3 block w-fit animate-bounce rounded-full bg-[#d14124] px-6 py-1 font-headline text-base text-white sm:text-lg"
+            className="duration-800 mx-auto mt-3 block w-fit animate-bounce rounded-full bg-[#d14124] px-6 py-1 font-headline text-base text-white sm:mt-5 sm:px-8 sm:py-2 sm:text-xl"
             href={'/raffle-form'}
           >
             Join Now
@@ -44,7 +44,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative w-full pt-20 sm:pt-24">
+      <div className="relative w-full pt-20 sm:pt-28">
         <div
           style={{
             backgroundImage: "url('/imgs/border.png')",
@@ -60,16 +60,16 @@ export default function Home() {
           className="absolute right-0 top-0 z-10 h-full w-3 bg-cover sm:w-4"
         ></div>
 
-        <h2 className="mb-2 text-center font-headline text-lg italic text-[#d14124] sm:mb-4 sm:text-2xl">
+        <h2 className="mb-2 text-center font-headline text-lg italic text-[#d14124] sm:mb-4 sm:text-4xl">
           Eat, Explore & Escape with Tapa King
         </h2>
-        <p className="mx-auto px-5 text-center text-sm text-[#8a2a2b] sm:max-w-xl sm:text-base">
+        <p className="mx-auto px-5 text-center text-sm text-[#8a2a2b] sm:max-w-xl sm:text-lg">
           8 Lucky winners will win 3D2N stays (airfare included) in partnership
           with Discovery Hotels & Resorts. <br /> Earn 1 raffle entry for every
           750 dine-in spend.
         </p>
 
-        <h2 className="my-12 mb-3 text-center text-sm sm:text-base">
+        <h2 className="my-12 mb-3 text-center text-sm sm:text-lg">
           In partnership with
         </h2>
 
