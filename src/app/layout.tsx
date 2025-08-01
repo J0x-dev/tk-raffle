@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         url: 'http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg',
         width: 850,
         height: 1278,
-        alt: 'Tapa King Discover Philippines Promo Banner',
+        alt: 'Tapa King Discover the Philippines Promo Banner',
       },
     ],
     locale: 'en_PH',

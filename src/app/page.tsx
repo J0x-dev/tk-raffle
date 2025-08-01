@@ -28,7 +28,7 @@ export default function Home() {
           priority={true}
         />
 
-        <div className="absolute -bottom-16 left-1/2 w-full max-w-[330px] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4">
+        <div className="absolute -bottom-16 left-1/2 z-20 w-full max-w-[330px] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4">
           <h2 className="mb-1 text-center font-headline text-base font-bold tracking-wide text-[#d14124] sm:text-3xl">
             Discover the Philippines
           </h2>
