@@ -3,6 +3,7 @@ import Image from 'next/image';
 import InPartnership from '@/components/in-partnership';
 import TravelDestinations from '@/components/travel-destinations';
 import FaqContent from '@/components/faq-content';
+import TermsContent from './raffle-form/TermsContent';
 
 export default function Home() {
   return (
@@ -82,6 +83,21 @@ export default function Home() {
             Tapa King - Discover the Philippines: The Royal Escape Travel Raffle
           </h3>
           <FaqContent />
+        </div>
+
+        {/* Terms and Conditions Section */}
+        <div
+          id="terms-and-conditions"
+          className="mx-auto mt-12 max-w-4xl sm:mt-16"
+        >
+          <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-8">
+            <h3 className="mb-4 text-center text-xl font-bold text-gray-800 sm:mb-6 sm:text-2xl">
+              Terms of Use for E-Raffle System Participation
+            </h3>
+            <div className="text-left font-inter text-sm text-[#111] sm:px-4">
+              <TermsContent />
+            </div>
+          </div>
         </div>
 
         {/* Copyright Footer */}

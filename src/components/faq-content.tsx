@@ -54,7 +54,10 @@ function AccordionItem({ title, content }: AccordionItemProps) {
         style={{ maxHeight: height }}
         className="overflow-hidden transition-[max-height] duration-500 ease-in-out"
       >
-        <div className="mt-2 text-sm text-muted-foreground">{content}</div>
+        <div
+          className="mt-2 text-sm text-muted-foreground"
+          dangerouslySetInnerHTML={{ __html: content }}
+        ></div>
       </div>
     </div>
   );
