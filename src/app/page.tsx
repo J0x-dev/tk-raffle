@@ -8,7 +8,7 @@ import TermsContent from './raffle-form/TermsContent';
 export default function Home() {
   return (
     <>
-      <div className="relative w-full">
+      <div className="relative aspect-[3122/1916] w-full">
         <Image
           src="/imgs/38th-tk-logo.png"
           alt="Discovery Samal Island"
@@ -21,10 +21,8 @@ export default function Home() {
         <Image
           src="/imgs/destinations/samal-island-beach.jpg"
           alt="Discovery Samal Island"
-          width={1575}
-          height={1278}
-          layout="intrinsic"
-          className="h-auto w-full"
+          fill
+          className="object-cover"
           priority={true}
         />
 
