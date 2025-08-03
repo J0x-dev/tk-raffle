@@ -546,7 +546,7 @@ export default function RaffleForm() {
 
   return (
     <>
-      <div className="flex h-[100px] w-full items-center justify-center bg-[#d14124]">
+      <div className="bg-warm-red flex h-[100px] w-full items-center justify-center">
         <Image
           src="/imgs/tk-white.png"
           alt="Tapa King Logo"
@@ -558,10 +558,10 @@ export default function RaffleForm() {
       </div>
       <Card className="w-full max-w-4xl bg-transparent">
         <CardHeader className="px-5">
-          <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] tracking-wide text-[#d14124]">
+          <CardTitle className="text-warm-red text-center font-headline text-[22px] font-bold leading-[30px]">
             Join Tapa King's Discover the Philippines Travel Raffle Promo
           </CardTitle>
-          <CardDescription className="text-center text-base text-[#8a2b2b]">
+          <CardDescription className="text-maroon text-center text-base">
             Eat, Explore, and Escape with Tapa King!
           </CardDescription>
         </CardHeader>
@@ -572,7 +572,7 @@ export default function RaffleForm() {
               className="mt-2 space-y-6"
             >
               <div className="space-y-4">
-                <h3 className="text-center text-[20px] font-bold text-[#8a2a2b]">
+                <h3 className="text-maroon text-center text-[20px] font-bold">
                   Contact Details
                 </h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -1137,15 +1137,14 @@ export default function RaffleForm() {
           </Form>
         </CardContent>
       </Card>
-      {/* Copyright Footer */}
-      <footer className="w-full py-6 text-center text-xs text-[#8a2a2b]">
+      <footer className="text-maroon w-full py-6 text-center text-xs">
         <Image
           src="/imgs/tk-red.png"
           alt="Tapa King Logo"
           width={100}
-          height={26}
+          height={25}
           className="mx-auto mb-2 h-auto w-[100px]"
-          priority={true}
+          priority
         />
         <p>Copyright &copy; 2025 Tapa King Inc.</p>
         <p>All rights reserved.</p>

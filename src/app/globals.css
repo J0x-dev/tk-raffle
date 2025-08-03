@@ -3,18 +3,34 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Squad-Heavy';
-  src: url('/font/Fontfabric-Squad-Heavy.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'Squad';
+  src: url('/fonts/Squad-Bold.woff2') format('woff2');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Squad-Bold';
-  src: url('/font/Fontfabric-Squad-Bold.woff2') format('woff2');
+  font-family: 'Squad';
+  src: url('/fonts/Squad-Bold-Italic.woff2') format('woff2');
   font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Squad';
+  src: url('/fonts/Squad-Heavy.woff2') format('woff2');
+  font-weight: 800;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Squad';
+  src: url('/fonts/Squad-Heavy-Italic.woff2') format('woff2');
+  font-weight: 800;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -97,9 +113,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-gray-600;
-    font-family: 'Squad Bold', 'Inter', sans-serif;
+    @apply font-sans;
     background-color: #ede5d2;
+    letter-spacing: -0.025em;
+    font-weight: 700;
   }
 }
 

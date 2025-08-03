@@ -11,11 +11,14 @@ export default {
     extend: {
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
-        body: ['Squad-Bold', 'Inter', 'sans-serif'],
-        headline: ['Squad-Heavy', 'Inter Fallback', 'sans-serif'],
+        sans: ['Squad', 'Inter', 'sans-serif'],
+        headline: ['Squad', 'Inter Fallback', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
+        'warm-red': '#d14124',
+        'warm-orange': '#d25d1c',
+        maroon: '#8a2a2b',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

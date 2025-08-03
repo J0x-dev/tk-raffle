@@ -84,7 +84,7 @@ export default function SuccessPage() {
             Winners will be announced after the raffle draw. Good luck!
           </p>
           <Button asChild className="w-full">
-            <Link href="/">Back to Form</Link>
+            <Link href="/">Back to Homepage</Link>
           </Button>
         </CardContent>
       </Card>

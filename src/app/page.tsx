@@ -1,50 +1,53 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import React from 'react';
+import HeadingText from '@/components/heading-text';
+import FaqContent from '@/components/faq-content';
 import InPartnership from '@/components/in-partnership';
 import TravelDestinations from '@/components/travel-destinations';
-import FaqContent from '@/components/faq-content';
-import TermsContent from './raffle-form/TermsContent';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <>
-      <div className="relative aspect-[3122/1916] w-full">
+      <div className="relative aspect-[3902/1866] w-full">
         <Image
           src="/imgs/38th-tk-logo.png"
-          alt="Discovery Samal Island"
-          width={100}
-          height={85}
-          className="absolute right-2 top-2 z-10 h-auto w-[50px] flex-shrink-0 sm:right-4 sm:top-4 sm:w-[100px]"
-          priority={true}
+          alt="Tapa King Logo"
+          width={150}
+          height={127}
+          className="absolute right-2 top-2 z-10 h-auto w-[60px] flex-shrink-0 sm:right-4 sm:top-4 sm:w-[150px]"
+          priority
         />
 
         <Image
-          src="/imgs/destinations/samal-island-beach.jpg"
+          src="/imgs/discovery-samal-island.jpg"
           alt="Discovery Samal Island"
           fill
           className="object-cover"
-          priority={true}
+          priority
         />
 
-        <div className="absolute -bottom-16 left-1/2 z-20 w-full max-w-[calc(100%-40px)] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4 md:max-w-2xl">
-          <h2 className="mb-1 text-center font-headline text-base font-bold tracking-wide text-[#d14124] sm:text-3xl">
+        <div className="text-warm-red absolute -bottom-16 left-1/2 z-20 w-[calc(100%-70px)] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4 md:max-w-3xl md:px-6">
+          <h2 className="text-center text-base font-extrabold sm:text-3xl">
             Discover the Philippines
           </h2>
-          <p className="text-center text-xs text-[#d25d1c] sm:text-lg">
-            In Celebration of our 38th Anniversary, get a chance to experience
-            an escape with Tapa King's Discover the Philippines: Travel Raffle
-            Promo!
+          <p className="text-warm-orange mt-2 text-center text-xs sm:text-xl">
+            In celebration of our 38th Anniversary, get a chance to experience
+            an escape with Tapa King's{' '}
+            <span className="italic">
+              Discover Philippines: Travel Raffle Promo!
+            </span>
           </p>
           <Link
             href="/raffle-form"
-            className="duration-800 mx-auto mt-3 block w-fit animate-bounce cursor-pointer rounded-full bg-[#d14124] px-6 py-1 font-headline text-base text-white sm:mt-5 sm:px-8 sm:py-2 sm:text-xl"
+            className="bg-warm-red duration-800 mx-auto mt-3 block w-fit cursor-pointer rounded-full px-6 py-1 text-base font-extrabold text-white sm:mt-5 sm:px-8 sm:py-2 sm:text-2xl"
           >
             Join Now
           </Link>
         </div>
       </div>
 
-      <div className="relative w-full pt-20 sm:pt-28">
+      <div className="relative w-full pt-24 sm:pt-32">
         <div
           style={{
             backgroundImage: "url('/imgs/border.png')",
@@ -60,53 +63,19 @@ export default function Home() {
           className="absolute right-0 top-0 z-10 h-full w-3 bg-cover sm:w-4"
         ></div>
 
-        <h2 className="mb-2 text-center font-headline text-lg italic text-[#d14124] sm:mb-4 sm:text-4xl">
-          Eat, Explore & Escape with Tapa King
-        </h2>
-        <p className="mx-auto px-5 text-center text-sm text-[#8a2a2b] sm:max-w-xl sm:text-lg">
-          8 Lucky winners will win 3D2N stays (airfare included) in partnership
-          with Discovery Hotels & Resorts. <br /> Earn 1 raffle entry for every
-          750 dine-in spend.
-        </p>
-
+        <HeadingText />
         <InPartnership />
-
         <TravelDestinations />
+        <FaqContent />
 
-        <div className="mt-12 min-h-[300px] w-full bg-[#d14124] p-5 text-white shadow-lg">
-          <h2 className="text-center text-xl font-bold text-white">
-            Frequently Asked Questions (FAQs)
-          </h2>
-          <h3 className="text-center text-white">
-            Tapa King - Discover the Philippines: The Royal Escape Travel Raffle
-          </h3>
-          <FaqContent />
-        </div>
-
-        {/* Terms and Conditions Section */}
-        <div
-          id="terms-and-conditions"
-          className="mx-auto mt-12 max-w-4xl sm:mt-16"
-        >
-          <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-8">
-            <h3 className="mb-4 text-center text-xl font-bold text-gray-800 sm:mb-6 sm:text-2xl">
-              Terms of Use for E-Raffle System Participation
-            </h3>
-            <div className="text-left font-inter text-sm text-[#111] sm:px-4">
-              <TermsContent />
-            </div>
-          </div>
-        </div>
-
-        {/* Copyright Footer */}
-        <footer className="w-full py-6 text-center text-xs text-[#8a2a2b]">
+        <footer className="text-maroon w-full py-6 text-center text-xs">
           <Image
             src="/imgs/tk-red.png"
             alt="Tapa King Logo"
             width={100}
-            height={26}
+            height={25}
             className="mx-auto mb-2 h-auto w-[100px]"
-            priority={true}
+            priority
           />
           <p>Copyright &copy; 2025 Tapa King Inc.</p>
           <p>All rights reserved.</p>

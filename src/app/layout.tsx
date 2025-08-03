@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
@@ -10,11 +9,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
     description: 'Eat, Explore, and Escape with Tapa King!',
-    url: 'http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg',
+    url: 'http://tkdiscoverphraffle.netlify.app/imgs/tk-travel-raffle-promo.jpg',
     siteName: 'Tapa King',
     images: [
       {
-        url: 'http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg',
+        url: 'http://tkdiscoverphraffle.netlify.app/imgs/tk-travel-raffle-promo.jpg',
         width: 850,
         height: 1278,
         alt: 'Tapa King Discover the Philippines Promo Banner',
@@ -28,26 +27,24 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Join Tapa King's Discover the Philippines Travel Raffle Promo",
     description: 'Eat, Explore, and Escape with Tapa King!',
-    images: ['http://tkdiscoverphraffle.netlify.app/imgs/tk-promo-banner.jpg'],
+    images: [
+      'http://tkdiscoverphraffle.netlify.app/imgs/tk-travel-raffle-promo.jpg',
+    ],
     site: '@TapaKingPHL',
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className="font-body antialiased">
+      <body className="antialiased">
         <main className="flex min-h-screen w-full flex-col items-center">
           {children}
         </main>
-        {/* Copyright Footer */}
-        {/* <footer className="w-full text-center py-6 text-xs text-[#8a2a2b]">
-          &copy; 2025 Tapa King Inc.
-        </footer> */}
         <Toaster />
       </body>
     </html>

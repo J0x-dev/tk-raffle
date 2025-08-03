@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import faqData from './faq-data';
+import faqData from '../data/faq-data';
 
 interface AccordionItemProps {
   title: string;
@@ -27,7 +27,7 @@ function AccordionItem({ title, content }: AccordionItemProps) {
     <div className="py-3">
       <button
         onClick={toggleAccordion}
-        className="flex w-full cursor-pointer items-center justify-between text-left font-semibold text-[#8a2a2b] focus:outline-none"
+        className="text-warm-red flex w-full cursor-pointer items-center justify-between text-left font-semibold focus:outline-none"
         aria-expanded={isOpen}
         aria-controls={`accordion-content-${title}`}
       >
@@ -55,24 +55,32 @@ function AccordionItem({ title, content }: AccordionItemProps) {
         className="overflow-hidden transition-[max-height] duration-500 ease-in-out"
       >
         <div
-          className="mt-2 text-sm text-black"
+          className="text-maroon mt-2 text-sm"
           dangerouslySetInnerHTML={{ __html: content }}
-        ></div>
+        />
       </div>
     </div>
   );
 }
 
-export default function Accordion() {
+export default function FaqContent() {
   return (
-    <div className="mx-auto mt-2 max-w-4xl rounded-2xl bg-white p-4 shadow">
-      {faqData.map((item, index) => (
-        <AccordionItem
-          key={index}
-          title={item.question}
-          content={item.answer}
-        />
-      ))}
+    <div className="bg-warm-red mt-12 min-h-[300px] w-full px-5 pb-8 pt-4 text-white shadow-lg sm:px-8">
+      <h2 className="text-center text-xl font-bold text-white">
+        Frequently Asked Questions (FAQs)
+      </h2>
+      <h3 className="mx-auto text-center text-white sm:max-w-4xl">
+        Tapa King - Discover the Philippines: The Royal Escape Travel Raffle
+      </h3>
+      <div className="mx-auto mt-2 w-full rounded-2xl bg-white p-4 shadow sm:max-w-4xl">
+        {faqData.map((item, index) => (
+          <AccordionItem
+            key={index}
+            title={item.question}
+            content={item.answer}
+          />
+        ))}
+      </div>
     </div>
   );
 }
