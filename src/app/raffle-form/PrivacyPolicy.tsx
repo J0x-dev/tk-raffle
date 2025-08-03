@@ -15,7 +15,7 @@ export function PrivacyPolicy() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="link" className="h-auto p-0 text-[#8a2a2b] underline">
+        <Button variant="link" className="h-auto p-0 text-maroon underline">
           Privacy Policy
         </Button>
       </DialogTrigger>

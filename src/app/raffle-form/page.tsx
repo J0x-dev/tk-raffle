@@ -552,10 +552,10 @@ export default function RaffleForm() {
 
       <Card className="w-full max-w-4xl bg-transparent">
         <CardHeader className="px-5">
-          <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-warm-red">
+          <CardTitle className="text-center text-[22px] font-bold leading-[30px] -tracking-wide text-warm-red sm:text-3xl">
             Join Tapa King's Discover the Philippines Travel Raffle Promo
           </CardTitle>
-          <CardDescription className="text-center text-base text-maroon">
+          <CardDescription className="text-center text-base -tracking-wide text-maroon sm:text-xl">
             Eat, Explore, and Escape with Tapa King!
           </CardDescription>
         </CardHeader>
@@ -745,7 +745,7 @@ export default function RaffleForm() {
 
               <div className="space-y-4 pt-2">
                 <Separator className="bg-[#b47e00]" />
-                <h3 className="pt-2 text-center text-[20px] font-bold text-[#8a2b2b]">
+                <h3 className="pt-2 text-center text-[20px] font-bold text-maroon">
                   Purchase Information
                 </h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -1066,7 +1066,7 @@ export default function RaffleForm() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <p className="text-base font-bold text-[#8a2b2b]">
+                    <p className="text-base font-bold text-maroon">
                       Sample Receipt
                     </p>
                     <div className="relative aspect-[2/3]">

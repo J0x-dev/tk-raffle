@@ -15,7 +15,7 @@ export default function FormClosePage() {
             <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#ffd7d7]">
               <X className="h-8 w-8 text-warm-red" />
             </span>
-            <h1 className="mb-2 text-center font-headline text-[28px] font-bold leading-[32px] text-maroon">
+            <h1 className="mb-2 text-center text-[28px] font-bold leading-[32px] text-maroon">
               Form Closed
             </h1>
             <p className="text-center text-lg text-maroon">
