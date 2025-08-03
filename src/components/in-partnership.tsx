@@ -9,7 +9,7 @@ interface SponsorLogo {
 export default function InPartnership() {
   return (
     <>
-      <h2 className="mt-16 sm:mt-18 mb-5 text-center text-sm sm:text-lg">
+      <h2 className="mt-16 mb-5 text-center text-sm sm:text-lg">
         In partnership with
       </h2>
 
