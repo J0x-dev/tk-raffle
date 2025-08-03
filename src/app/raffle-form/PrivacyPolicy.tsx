@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Dialog,
   DialogTrigger,
@@ -20,13 +19,15 @@ export function PrivacyPolicy() {
           Privacy Policy
         </Button>
       </DialogTrigger>
-      <DialogContent className="flex h-full max-h-[80vh] max-w-4xl flex-col border-none p-5 sm:p-8 text-[#111]">
+      <DialogContent className="flex h-full max-h-[80vh] max-w-4xl flex-col border-none p-5 text-[#111] sm:p-8">
         <DialogHeader>
-          <DialogTitle>Privacy Policy</DialogTitle>
-          <DialogDescription>Our Privacy commitment</DialogDescription>
+          <DialogTitle className="text-warm-red">Privacy Policy</DialogTitle>
+          <DialogDescription className="text-maroon">
+            Our Privacy commitment
+          </DialogDescription>
         </DialogHeader>
         <ScrollArea className="-mx-6 h-full pr-4 sm:-mx-8">
-          <div className="px-6 pb-6 text-left text-sm sm:px-8 font-inter">
+          <div className="px-6 pb-6 text-left text-sm text-maroon sm:px-8">
             <p>
               TAPA KING, INC. (Tapa King) is committed to protecting and
               safeguarding your privacy when you visit and access our website
@@ -100,29 +101,30 @@ export function PrivacyPolicy() {
                 investigative proceedings.
               </li>
             </ul>
-            <div className="space-y-4 mt-4">
+            <div className="mt-4 space-y-4">
               <p>
-                We do not sell your Personal Data and only share your information
-                as described in this Privacy Policy.
+                We do not sell your Personal Data and only share your
+                information as described in this Privacy Policy.
               </p>
               <p>
-                Tapa King may share Personal Data to its subsidiaries, affiliates,
-                and franchisees, which may be situated outside of the Philippines,
-                on a need-to-know basis. Use of your information by these entities
-                will comply with this Privacy Policy.
+                Tapa King may share Personal Data to its subsidiaries,
+                affiliates, and franchisees, which may be situated outside of
+                the Philippines, on a need-to-know basis. Use of your
+                information by these entities will comply with this Privacy
+                Policy.
               </p>
               <p>
                 We may also share your Personal Data and other information to
                 trusted third-party entities engaged by Tapa King to undertake
-                variety of tasks, which includes but not limited to, accomplishing
-                orders, assist in marketing, technical support for our online
-                services on various online platforms, and similar functions. These
-                entities may have access to your Personal Data in order to perform
-                their tasks. While we endeavor to require these entities to
-                conform with appropriate privacy policies, you agree that we are
-                not responsible for any violations, nor for actions, omissions or
-                negligence of any such entities in violation of this Privacy
-                Policy.
+                variety of tasks, which includes but not limited to,
+                accomplishing orders, assist in marketing, technical support for
+                our online services on various online platforms, and similar
+                functions. These entities may have access to your Personal Data
+                in order to perform their tasks. While we endeavor to require
+                these entities to conform with appropriate privacy policies, you
+                agree that we are not responsible for any violations, nor for
+                actions, omissions or negligence of any such entities in
+                violation of this Privacy Policy.
               </p>
               <p>
                 Tapa King may ask you to receive marketing materials from our
@@ -130,9 +132,9 @@ export function PrivacyPolicy() {
                 King will send you mail or e-mail on behalf of the partners.
               </p>
               <p>
-                Tapa King reserves the right to use or disclose any information to
-                comply with any law, regulation or legal request, or to cooperate
-                in any law enforcement investigation.
+                Tapa King reserves the right to use or disclose any information
+                to comply with any law, regulation or legal request, or to
+                cooperate in any law enforcement investigation.
               </p>
             </div>
             <h3 className="mt-4 font-bold">
@@ -199,7 +201,8 @@ export function PrivacyPolicy() {
             <h3 className="mt-4 font-bold">How to Contact Us</h3>
             <p>
               For questions or more information about our Privacy Policy, you
-              may contact us through our email: <span className='text-blue-900'>mktg@tapakinginc.com</span>
+              may contact us through our email:{' '}
+              <span className="text-blue-900">mktg@tapakinginc.com</span>
             </p>
           </div>
         </ScrollArea>

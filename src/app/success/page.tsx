@@ -5,7 +5,6 @@ import Confetti from 'react-confetti';
 // @ts-ignore
 import { useWindowSize } from 'react-use';
 
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -16,6 +15,8 @@ import {
 import { CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import FooterContent from '@/components/footer-content';
+import HeaderContent from '@/components/header-content';
 
 interface SubmissionData {
   fullName: string;
@@ -41,53 +42,64 @@ export default function SuccessPage() {
   const raffleEntries = data?.raffleEntries || '0';
 
   return (
-    <main className="flex min-h-dvh w-full flex-col items-center justify-center p-4">
-      {showConfetti && (
-        <Confetti
-          width={width}
-          height={height}
-          numberOfPieces={250}
-          recycle={false}
-        />
-      )}
-      <Card className="w-full max-w-md rounded-md border text-center shadow-lg">
-        <CardHeader className="p-6">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-            <CheckCircle2 className="h-10 w-10 text-green-600" />
-          </div>
-          <div className="mt-4">
-            <CardTitle className="text-2xl font-bold text-[#8a2a2b]">
-              Submission Successful!
-            </CardTitle>
-            <CardDescription className="mt-2 text-base text-foreground">
-              Hi <span className="font-bold">{fullName}</span> <br />✨ Thank
-              you for joining the Tapa King Royal Escape 38th Anniversary
-              Vacation Raffle! Based on your recent purchase of{' '}
-              <span className="font-bold">{purchaseAmount}</span>, you have
-              earned <span className="font-bold">{raffleEntries}</span> raffle
-              entries!
-            </CardDescription>
-          </div>
-        </CardHeader>
-        <CardContent className="p-6 pt-0">
-          <div className="mb-6 rounded bg-slate-100 p-3 text-left text-sm">
-            <p className="mb-3">
-              🧾 Total Spent:{' '}
-              <span className="font-bold">{purchaseAmount}</span>
-            </p>
-            <p>
-              🎟️ Raffle Entries Earned:{' '}
-              <span className="font-bold">{raffleEntries}</span>
-            </p>
-          </div>
-          <p className="mb-6 text-sm text-gray-600">
-            Winners will be announced after the raffle draw. Good luck!
-          </p>
-          <Button asChild className="w-full">
-            <Link href="/">Back to Homepage</Link>
-          </Button>
-        </CardContent>
-      </Card>
-    </main>
+    <>
+      <HeaderContent />
+
+      <main className="flex w-full flex-1 flex-col p-4">
+        {showConfetti && (
+          <Confetti
+            width={width}
+            height={height}
+            numberOfPieces={250}
+            recycle={false}
+          />
+        )}
+        <div className="flex flex-1 items-center justify-center">
+          <Card className="h-fit w-full max-w-md rounded-md border text-center shadow-lg">
+            <CardHeader className="p-6">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                <CheckCircle2 className="h-10 w-10 text-green-600" />
+              </div>
+              <div className="mt-4">
+                <CardTitle className="text-2xl font-bold text-warm-red">
+                  Submission Successful!
+                </CardTitle>
+                <CardDescription className="mt-2 text-base text-maroon">
+                  Hi <span className="font-bold">{fullName}</span> <br />✨
+                  Thank you for joining the Tapa King Royal Escape 38th
+                  Anniversary Vacation Raffle! Based on your recent purchase of{' '}
+                  <span className="font-bold">{purchaseAmount}</span>, you have
+                  earned <span className="font-bold">{raffleEntries}</span>{' '}
+                  raffle entries!
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="p-6 pt-0">
+              <div className="mb-6 rounded bg-slate-100 p-3 text-left text-sm text-maroon">
+                <p className="mb-3">
+                  🧾 Total Spent:{' '}
+                  <span className="font-bold">{purchaseAmount}</span>
+                </p>
+                <p>
+                  🎟️ Raffle Entries Earned:{' '}
+                  <span className="font-bold">{raffleEntries}</span>
+                </p>
+              </div>
+              <p className="mb-6 text-sm text-maroon">
+                Winners will be announced after the raffle draw. Good luck!
+              </p>
+              <Link
+                href="/"
+                className="inline-block rounded-full bg-[#d14124] px-6 py-3 text-base font-semibold text-white shadow transition-colors hover:bg-[#b32e1c]"
+              >
+                Go back to Homepage
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      </main>
+
+      <FooterContent />
+    </>
   );
 }

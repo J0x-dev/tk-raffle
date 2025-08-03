@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogClose,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -21,15 +20,14 @@ export function TermsAndConditions() {
           Terms and Conditions
         </Button>
       </DialogTrigger>
-      <DialogContent className="flex h-full max-h-[80vh] max-w-4xl flex-col border-none p-5 sm:p-8 text-[#111]">
+      <DialogContent className="flex h-full max-h-[80vh] max-w-4xl flex-col border-none p-5 text-[#111] sm:p-8">
         <DialogHeader>
-          <DialogTitle>Tapa King's Discover the Philippines Travel Raffle Promo</DialogTitle>
-          <DialogDescription>
-            Terms of Use for E-Raffle System Participation
-          </DialogDescription>
+          <DialogTitle className="text-warm-red">
+            Tapa King Nationwide E-Raffle Promo
+          </DialogTitle>
         </DialogHeader>
         <ScrollArea className="-mx-6 h-full pr-4 sm:-mx-8">
-          <div className="px-6 text-left text-sm sm:px-8 font-inter">
+          <div className="px-6 text-left text-sm text-maroon sm:px-8">
             <TermsContent />
           </div>
         </ScrollArea>

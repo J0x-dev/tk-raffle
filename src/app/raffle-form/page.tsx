@@ -55,6 +55,8 @@ import { useToast } from '@/hooks/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
+import HeaderContent from '@/components/header-content';
+import FooterContent from '@/components/footer-content';
 import TermsPrivacy from '@/app/raffle-form/TermsPrivacy';
 import branches from './branches';
 
@@ -546,22 +548,14 @@ export default function RaffleForm() {
 
   return (
     <>
-      <div className="bg-warm-red flex h-[100px] w-full items-center justify-center">
-        <Image
-          src="/imgs/tk-white.png"
-          alt="Tapa King Logo"
-          width={200}
-          height={50}
-          className="h-[50px] w-[200px]"
-          priority={true}
-        />
-      </div>
+      <HeaderContent />
+
       <Card className="w-full max-w-4xl bg-transparent">
         <CardHeader className="px-5">
-          <CardTitle className="text-warm-red text-center font-headline text-[22px] font-bold leading-[30px]">
+          <CardTitle className="text-center font-headline text-[22px] font-bold leading-[30px] text-warm-red">
             Join Tapa King's Discover the Philippines Travel Raffle Promo
           </CardTitle>
-          <CardDescription className="text-maroon text-center text-base">
+          <CardDescription className="text-center text-base text-maroon">
             Eat, Explore, and Escape with Tapa King!
           </CardDescription>
         </CardHeader>
@@ -572,7 +566,7 @@ export default function RaffleForm() {
               className="mt-2 space-y-6"
             >
               <div className="space-y-4">
-                <h3 className="text-maroon text-center text-[20px] font-bold">
+                <h3 className="text-center text-[20px] font-bold text-maroon">
                   Contact Details
                 </h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -1121,7 +1115,7 @@ export default function RaffleForm() {
 
               <Button
                 type="submit"
-                className="w-full py-6 text-lg"
+                className="w-full bg-warm-red py-6 text-lg hover:bg-warm-red/90"
                 disabled={!agreeToTermsValue || isSubmitting}
               >
                 {isSubmitting ? (
@@ -1137,18 +1131,8 @@ export default function RaffleForm() {
           </Form>
         </CardContent>
       </Card>
-      <footer className="text-maroon w-full py-6 text-center text-xs">
-        <Image
-          src="/imgs/tk-red.png"
-          alt="Tapa King Logo"
-          width={100}
-          height={25}
-          className="mx-auto mb-2 h-auto w-[100px]"
-          priority
-        />
-        <p>Copyright &copy; 2025 Tapa King Inc.</p>
-        <p>All rights reserved.</p>
-      </footer>
+
+      <FooterContent />
     </>
   );
 }

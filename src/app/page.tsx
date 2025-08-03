@@ -1,4 +1,3 @@
-import React from 'react';
 import HeadingText from '@/components/heading-text';
 import FaqContent from '@/components/faq-content';
 import InPartnership from '@/components/in-partnership';
@@ -6,6 +5,7 @@ import TravelDestinations from '@/components/travel-destinations';
 import Image from 'next/image';
 import Link from 'next/link';
 import { blurSamalIsland } from '@/data/blurData';
+import FooterContent from '@/components/footer-content';
 
 export default function Home() {
   return (
@@ -69,20 +69,9 @@ export default function Home() {
         <InPartnership />
         <TravelDestinations />
         <FaqContent />
-
-        <footer className="w-full py-6 text-center text-xs text-maroon">
-          <Image
-            src="/imgs/tk-red.png"
-            alt="Tapa King Logo"
-            width={100}
-            height={25}
-            className="mx-auto mb-2 h-auto w-[100px]"
-            priority
-          />
-          <p>Copyright &copy; 2025 Tapa King Inc.</p>
-          <p>All rights reserved.</p>
-        </footer>
       </div>
+
+      <FooterContent />
     </>
   );
 }
