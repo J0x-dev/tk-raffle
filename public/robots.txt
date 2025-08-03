@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: http://tkdiscoverphraffle.netlify.app
+
+# Sitemaps
+Sitemap: http://tkdiscoverphraffle.netlify.app/sitemap.xml
