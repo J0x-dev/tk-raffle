@@ -6,7 +6,7 @@ export default function JumpLink() {
       <h2 className="text-center text-xl font-extrabold sm:text-3xl">
         Discover the Philippines
       </h2>
-      <p className="mt-2 text-center text-sm text-warm-orange sm:text-xl">
+      <p className="mt-2 text-center text-sm leading-[18px] text-warm-orange sm:text-xl">
         In celebration of our 38th Anniversary, get a chance to experience an
         escape with Tapa King's{' '}
         <span className="italic">
