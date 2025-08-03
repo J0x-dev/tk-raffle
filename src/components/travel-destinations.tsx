@@ -13,7 +13,7 @@ interface Destination {
 export default function TravelDestinations() {
   return (
     <>
-      <h2 className="mb-5 mt-16 text-center text-lg font-extrabold text-warm-red sm:text-2xl">
+      <h2 className="mb-5 mt-16 text-center text-lg font-extrabold text-warm-red sm:text-3xl">
         Major Prizes
       </h2>
 
