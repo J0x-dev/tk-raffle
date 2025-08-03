@@ -6,6 +6,7 @@ interface Destination {
   name: string;
   image: string;
   location: string;
+  blurDataURL: string;
   winners: string;
 }
 
@@ -21,17 +22,18 @@ export default function TravelDestinations() {
               fill
               sizes="(max-width: 450px) 100vw, 450px"
               className="object-cover object-center"
-              priority
+              placeholder="blur"
+              blurDataURL={destination.blurDataURL}
             />
           </div>
           <div className="mt-1 flex justify-between">
             <div className="text-warm-red">{destination.name}</div>
-            <div className="text-warm-red font-extrabold">
+            <div className="font-extrabold text-warm-red">
               {destination.winners}
             </div>
           </div>
-          <div className="text-maroon flex items-center text-sm">
-            <MapPin size={14} color="#8a2a2b" className="mr-0.5 mb-1" />
+          <div className="flex items-center text-sm text-maroon">
+            <MapPin size={14} color="#8a2a2b" className="mb-1 mr-0.5" />
             {destination.location}
           </div>
         </div>

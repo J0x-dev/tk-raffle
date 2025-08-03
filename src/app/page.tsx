@@ -5,6 +5,7 @@ import InPartnership from '@/components/in-partnership';
 import TravelDestinations from '@/components/travel-destinations';
 import Image from 'next/image';
 import Link from 'next/link';
+import { blurSamalIsland } from '@/data/blurData';
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
           width={150}
           height={127}
           className="absolute right-2 top-2 z-10 h-auto w-[60px] flex-shrink-0 sm:right-4 sm:top-4 sm:w-[150px]"
-          priority
+          priority={true}
         />
 
         <Image
@@ -24,14 +25,15 @@ export default function Home() {
           alt="Discovery Samal Island"
           fill
           className="object-cover"
-          priority
+          placeholder="blur"
+          blurDataURL={blurSamalIsland}
         />
 
-        <div className="text-warm-red absolute -bottom-16 left-1/2 z-20 w-[calc(100%-70px)] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-lg sm:max-w-3xl sm:p-4 md:max-w-3xl md:px-6">
+        <div className="absolute -bottom-16 left-1/2 z-20 w-[calc(100%-70px)] -translate-x-1/2 rounded-2xl bg-white p-3 text-warm-red shadow-lg sm:max-w-3xl sm:p-4 md:max-w-3xl md:px-6">
           <h2 className="text-center text-base font-extrabold sm:text-3xl">
             Discover the Philippines
           </h2>
-          <p className="text-warm-orange mt-2 text-center text-xs sm:text-xl">
+          <p className="mt-2 text-center text-xs text-warm-orange sm:text-xl">
             In celebration of our 38th Anniversary, get a chance to experience
             an escape with Tapa King's{' '}
             <span className="italic">
@@ -40,7 +42,7 @@ export default function Home() {
           </p>
           <Link
             href="/raffle-form"
-            className="bg-warm-red duration-800 mx-auto mt-3 block w-fit cursor-pointer rounded-full px-6 py-1 text-base font-extrabold text-white sm:mt-5 sm:px-8 sm:py-2 sm:text-2xl"
+            className="duration-800 mx-auto mt-3 block w-fit cursor-pointer rounded-full bg-warm-red px-6 py-1 text-base font-extrabold text-white sm:mt-5 sm:px-8 sm:py-2 sm:text-2xl"
           >
             Join Now
           </Link>
@@ -68,7 +70,7 @@ export default function Home() {
         <TravelDestinations />
         <FaqContent />
 
-        <footer className="text-maroon w-full py-6 text-center text-xs">
+        <footer className="w-full py-6 text-center text-xs text-maroon">
           <Image
             src="/imgs/tk-red.png"
             alt="Tapa King Logo"
