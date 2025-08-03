@@ -32,7 +32,7 @@ export default function Home() {
         <JumpLink />
       </div>
 
-      <div className="relative w-full pt-28 sm:pt-32">
+      <div className="relative w-full pt-26 sm:pt-32">
         <div
           style={{
             backgroundImage: "url('/imgs/border.png')",
