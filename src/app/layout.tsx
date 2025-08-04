@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Toaster } from '@/components/ui/toaster';
 import Analytics from '@/components/analytics';
 import './globals.css';
@@ -35,6 +36,8 @@ export const metadata: Metadata = {
   },
 };
 
+const GA_TRACKING_ID = 'G-YDLTRXCFVB';
+
 export default function RootLayout({
   children,
 }: {
@@ -43,6 +46,28 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+        {/* Load GA script */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        />
+
+        {/* Init GA */}
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+
         <main className="flex min-h-screen w-full flex-col items-center">
           {children}
         </main>

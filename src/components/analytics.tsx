@@ -1,17 +1,16 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
-// GA Tracking ID
-export const GA_TRACKING_ID = 'G-YDLTRXCFVB';
+const GA_TRACKING_ID = 'G-YDLTRXCFVB'; // Replace with your real GA Measurement ID
 
-// Pageview tracker
-const pageview = (url: string) => {
+// Function to send a pageview event to Google Analytics
+function pageview(url: string) {
   window.gtag?.('config', GA_TRACKING_ID, {
     page_path: url,
   });
-};
+}
 
 export default function Analytics() {
   const pathname = usePathname();
