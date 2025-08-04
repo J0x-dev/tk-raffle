@@ -65,11 +65,11 @@ function AccordionItem({ title, content }: AccordionItemProps) {
 
 export default function FaqContent() {
   return (
-    <div className="mt-12 min-h-[300px] w-full bg-warm-red px-5 pb-8 pt-4 text-white shadow-lg sm:px-8">
-      <h2 className="text-center text-xl sm:text-2xl text-white mb-3">
+    <div className="mt-12 min-h-[300px] w-full bg-warm-red px-5 pb-8 pt-6 text-white shadow-lg sm:px-8">
+      <h2 className="mb-4 text-center text-xl text-white sm:text-3xl">
         Frequently Asked Questions (FAQs)
       </h2>
-      <div className="mx-auto mt-2 w-full rounded-2xl bg-white p-4 sm:px-8 shadow sm:max-w-5xl md:max-w-6xl">
+      <div className="mx-auto w-full rounded-2xl bg-white px-4 py-2 shadow sm:max-w-5xl sm:px-8 sm:py-4 md:max-w-6xl">
         {faqData.map((item, index) => (
           <AccordionItem
             key={index}
