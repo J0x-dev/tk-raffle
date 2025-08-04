@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export default function JumpLink() {
   return (
-    <div className="absolute -bottom-[72px] left-1/2 z-20 w-[calc(100%-60px)] -translate-x-1/2 rounded-2xl bg-white p-3 text-warm-red shadow-lg sm:-bottom-[92px] sm:max-w-3xl sm:p-6 md:w-[calc(100%-90px)] md:max-w-3xl md:px-6">
-      <h2 className="text-center text-xl font-extrabold sm:text-3xl">
+    <div className="absolute -bottom-[72px] left-1/2 z-20 w-[calc(100%-60px)] -translate-x-1/2 rounded-2xl bg-white p-3 text-warm-red shadow-lg sm:-bottom-[92px] sm:max-w-3xl sm:p-6 sm:py-7 md:w-[calc(100%-90px)] md:max-w-3xl md:px-6">
+      <h2 className="text-center text-xl font-extrabold sm:text-4xl">
         Discover the Philippines
       </h2>
       <p className="mt-2 text-center text-sm leading-[16px] text-warm-orange sm:text-xl">
@@ -15,7 +15,7 @@ export default function JumpLink() {
       </p>
       <Link
         href="/raffle-form"
-        className="duration-800 mx-auto mt-3 block w-fit cursor-pointer rounded-full bg-warm-red px-6 py-1 text-base font-extrabold text-white sm:mt-5 sm:px-8 sm:py-2 sm:text-2xl"
+        className="duration-800 mx-auto mt-3 block w-fit cursor-pointer rounded-full bg-warm-red px-6 py-1 text-base font-extrabold text-white sm:mt-6 sm:px-8 sm:py-2 sm:text-2xl"
       >
         Join Now
       </Link>
