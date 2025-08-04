@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function FooterContent() {
   return (
-    <footer className="w-full py-6 text-center text-xs text-maroon">
+    <footer className="flex h-[115px] w-full flex-col items-center justify-center text-center text-xs text-maroon">
       <Image
         src="/imgs/tk-red.png"
         alt="Tapa King Logo"

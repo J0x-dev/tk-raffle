@@ -9,8 +9,8 @@ export default function FormClosePage() {
     <>
       <HeaderContent />
 
-      <main className="flex flex-1 items-center justify-center">
-        <Card className="h-fit relative mx-5 w-full max-w-2xl rounded-xl bg-white/90">
+      <main className="flex h-[calc(100dvh-215px)] items-center justify-center">
+        <Card className="relative mx-5 h-fit w-full max-w-2xl rounded-xl bg-white/90">
           <div className="flex flex-col items-center justify-center px-6 py-8">
             <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#ffd7d7]">
               <X className="h-8 w-8 text-warm-red" />

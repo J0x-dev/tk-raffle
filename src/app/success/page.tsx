@@ -45,7 +45,7 @@ export default function SuccessPage() {
     <>
       <HeaderContent />
 
-      <main className="flex w-full flex-1 flex-col p-4">
+      <main className="flex w-full h-[calc(100dvh-215px)] flex-col p-4">
         {showConfetti && (
           <Confetti
             width={width}
