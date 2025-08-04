@@ -57,7 +57,7 @@ export default [
   },
   {
     question: 'How will I know if I won?',
-    answer: `Winners will be notified via their registered mobile number, email, and mail.<br/><br/>
+    answer: `Winners will be notified via their registered mobile number or email.<br/><br/>
             The list of verified winners will be posted on Tapa King’s official website and social media channels.`,
   },
   {
