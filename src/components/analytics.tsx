@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 // GA Tracking ID
-export const GA_TRACKING_ID = 'G-XXXXXXXXXX'; // Same as layout
+export const GA_TRACKING_ID = 'G-YDLTRXCFVB';
 
 // Pageview tracker
 const pageview = (url: string) => {
