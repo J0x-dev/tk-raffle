@@ -1,3 +1,5 @@
+import Script from 'next/script';
+
 export const GA_TRACKING_ID = 'G-YDLTRXCFVB';
 
 export default function Head() {
@@ -14,23 +16,25 @@ export default function Head() {
         rel="stylesheet"
       />
 
-      {/* Load gtag.js script */}
-      <script
-        async
+      {/* Google Analytics: Load gtag.js */}
+      <Script
+        strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-      ></script>
+      />
 
-      {/* Initialize gtag */}
-      <script
+      {/* Google Analytics: Init config */}
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
         }}
       />
     </>
