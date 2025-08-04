@@ -3,17 +3,25 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
+// ✅ Define your GA tracking ID here
+export const GA_TRACKING_ID = 'G-YDLTRXCFVB';
+
+// ✅ Pageview function
+const pageview = (url: string) => {
+  window.gtag?.('config', GA_TRACKING_ID, {
+    page_path: url,
+  });
+};
+
 export default function Analytics() {
-  const pathname = usePathname(); // <-- gets current path, e.g., "/about"
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!window.gtag) return; // make sure gtag is loaded
+    if (!GA_TRACKING_ID) return;
+    if (!window.gtag) return;
 
-    // Send a pageview event to GA with the current path
-    window.gtag('config', 'G-YDLTRXCFVB', {
-      page_path: pathname,
-    });
-  }, [pathname]); // run this effect every time pathname changes
+    pageview(pathname);
+  }, [pathname]);
 
   return null;
 }
