@@ -22,7 +22,7 @@ export default function JumpLink() {
       </p>
       <Link
         href="/raffle-form"
-        className="mx-auto mt-3 block w-fit cursor-pointer rounded-full bg-warm-red px-6 py-1 text-base font-extrabold text-white sm:mt-2 sm:px-8 sm:py-2 sm:text-2xl"
+        className="mx-auto mt-3 block w-fit cursor-pointer rounded-full bg-warm-red px-6 py-1 text-base font-extrabold text-white sm:mt-3 sm:px-8 sm:py-2 sm:text-2xl"
       >
         Join Now
       </Link>
