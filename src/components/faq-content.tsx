@@ -72,7 +72,7 @@ export default function FaqContent() {
       <h3 className="mx-auto mt-1 text-center text-white sm:max-w-4xl">
         Tapa King - Discover the Philippines: Travel Raffle Promo
       </h3>
-      <div className="mx-auto mt-2 w-full rounded-2xl bg-white p-4 shadow sm:max-w-5xl md:max-w-7xl">
+      <div className="mx-auto mt-2 w-full rounded-2xl bg-white p-4 shadow sm:max-w-5xl md:max-w-6xl">
         {faqData.map((item, index) => (
           <AccordionItem
             key={index}
