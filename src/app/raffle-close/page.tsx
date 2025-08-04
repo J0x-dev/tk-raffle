@@ -9,7 +9,7 @@ export default function FormClosePage() {
     <>
       <HeaderContent />
 
-      <main className="flex h-[calc(100dvh-215px)] items-center justify-center">
+      <main className="flex min-h-[calc(100dvh-215px)] items-center justify-center">
         <Card className="relative mx-5 h-fit w-full max-w-2xl rounded-xl bg-white/90">
           <div className="flex flex-col items-center justify-center px-6 py-8">
             <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#ffd7d7]">
@@ -23,7 +23,7 @@ export default function FormClosePage() {
             </p>
             <Link
               href="/"
-              className="mt-6 inline-block rounded-full bg-[#d14124] px-6 py-3 text-base font-semibold text-white shadow transition-colors hover:bg-[#b32e1c]"
+              className="mt-6 inline-block rounded-full bg-warm-red px-6 py-3 text-base font-semibold text-white shadow transition-colors hover:bg-[#b32e1c]"
             >
               Go back to Homepage
             </Link>

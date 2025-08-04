@@ -45,58 +45,57 @@ export default function SuccessPage() {
     <>
       <HeaderContent />
 
-      <main className="flex w-full h-[calc(100dvh-215px)] flex-col p-4">
+      <main className="flex min-h-[calc(100dvh-215px)] w-full items-center justify-center p-4">
         {showConfetti && (
           <Confetti
             width={width}
             height={height}
-            numberOfPieces={250}
+            numberOfPieces={300}
             recycle={false}
           />
         )}
-        <div className="flex flex-1 items-center justify-center">
-          <Card className="h-fit w-full max-w-md rounded-md border text-center shadow-lg">
-            <CardHeader className="p-6">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <CheckCircle2 className="h-10 w-10 text-green-600" />
-              </div>
-              <div className="mt-4">
-                <CardTitle className="text-2xl font-bold text-warm-red">
-                  Submission Successful!
-                </CardTitle>
-                <CardDescription className="mt-2 text-base text-maroon">
-                  Hi <span className="font-bold">{fullName}</span> <br />✨
-                  Thank you for joining the Tapa King Royal Escape 38th
-                  Anniversary Vacation Raffle! Based on your recent purchase of{' '}
-                  <span className="font-bold">{purchaseAmount}</span>, you have
-                  earned <span className="font-bold">{raffleEntries}</span>{' '}
-                  raffle entries!
-                </CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="p-6 pt-0">
-              <div className="mb-6 rounded bg-slate-100 p-3 text-left text-sm text-maroon">
-                <p className="mb-3">
-                  🧾 Total Spent:{' '}
-                  <span className="font-bold">{purchaseAmount}</span>
-                </p>
-                <p>
-                  🎟️ Raffle Entries Earned:{' '}
-                  <span className="font-bold">{raffleEntries}</span>
-                </p>
-              </div>
-              <p className="mb-6 text-sm text-maroon">
-                Winners will be announced after the raffle draw. Good luck!
+
+        <Card className="h-fit w-full max-w-md rounded-md border text-center shadow-lg">
+          <CardHeader className="p-6">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+              <CheckCircle2 className="h-10 w-10 text-green-600" />
+            </div>
+            <div className="mt-4">
+              <CardTitle className="text-2xl font-bold text-warm-red">
+                Submission Successful!
+              </CardTitle>
+              <CardDescription className="mt-2 text-base text-maroon">
+                Hi <span className="font-bold">{fullName}</span> <br />✨ Thank
+                you for joining the Tapa King Royal Escape 38th Anniversary
+                Vacation Raffle! Based on your recent purchase of{' '}
+                <span className="font-bold">{purchaseAmount}</span>, you have
+                earned <span className="font-bold">{raffleEntries}</span> raffle
+                entries!
+              </CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent className="p-6 pt-0">
+            <div className="mb-6 rounded bg-slate-100 p-3 text-left text-sm text-maroon">
+              <p className="mb-3">
+                🧾 Total Spent:{' '}
+                <span className="font-bold">{purchaseAmount}</span>
               </p>
-              <Link
-                href="/"
-                className="inline-block rounded-full bg-[#d14124] px-6 py-3 text-base font-semibold text-white shadow transition-colors hover:bg-[#b32e1c]"
-              >
-                Go back to Homepage
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
+              <p>
+                🎟️ Raffle Entries Earned:{' '}
+                <span className="font-bold">{raffleEntries}</span>
+              </p>
+            </div>
+            <p className="mb-6 text-sm text-maroon">
+              Winners will be announced after the raffle draw. Good luck!
+            </p>
+            <Link
+              href="/"
+              className="inline-block rounded-full bg-warm-red px-6 py-3 text-base font-semibold text-white shadow transition-colors hover:bg-[#b32e1c]"
+            >
+              Go back to Homepage
+            </Link>
+          </CardContent>
+        </Card>
       </main>
 
       <FooterContent />
