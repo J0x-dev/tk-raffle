@@ -68,7 +68,7 @@ export default function RootLayout({
           }}
         />
 
-        <main className="flex min-h-screen w-full flex-col items-center">
+        <main className="flex min-h-dvh w-full flex-col items-center">
           {children}
         </main>
         <Toaster />
