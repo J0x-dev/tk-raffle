@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function JumpLink() {
   return (
-    <div className="absolute -bottom-[72px] left-1/2 z-20 w-[calc(100%-60px)] -translate-x-1/2 rounded-2xl bg-white p-3 text-warm-red shadow-lg sm:-bottom-[92px] sm:max-w-3xl sm:p-6 sm:py-7 md:w-[calc(100%-90px)] md:max-w-3xl md:px-6">
+    <div className="absolute -bottom-[72px] left-1/2 z-20 w-[calc(100%-60px)] -translate-x-1/2 rounded-2xl bg-white p-3 text-warm-red shadow-lg sm:-bottom-[95px] sm:max-w-3xl sm:p-6 sm:py-4 md:w-[calc(100%-90px)] md:max-w-3xl md:px-6">
       <h2 className="text-center text-xl font-extrabold sm:text-4xl">
         Discover the Philippines
       </h2>
