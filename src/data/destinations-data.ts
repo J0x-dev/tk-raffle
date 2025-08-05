@@ -1,50 +1,3 @@
-// export const destinations = [
-//   {
-//     name: 'Discovery Samal',
-//     location: 'Davao del Norte, Philippines',
-//     description:
-//       'Island garden city with untouched beaches and lush tropical landscapes',
-//     category: 'Island Getaway',
-//     image: '/imgs/destinations/samal-island-beach.jpg',
-//     winners: '2 Winners - Discovery Samal Package for two (2)',
-//   },
-//   {
-//     name: 'Discovery Coron',
-//     location: 'Palawan, Philippines',
-//     description:
-//       'Breathtaking limestone karsts, hidden lagoons, and pristine diving spots',
-//     category: 'Natural Wonder',
-//     image: '/imgs/destinations/coron-palawan-islands.jpg',
-//     winners: '2 Winners - Discovery Coron Package for two (2)',
-//   },
-//   {
-//     name: 'Discovery Boracay',
-//     location: 'Aklan, Philippines',
-//     description:
-//       'World-famous white sand beach with crystal clear waters and vibrant nightlife',
-//     category: 'Beach Paradise',
-//     image: '/imgs/destinations/boracay-beach.jpg',
-//     winners: '2 Winners - Discovery Boracay Package for two (2)',
-//   },
-//   {
-//     name: 'Discovery Primea',
-//     location: 'Makati, Manila',
-//     description: 'Premium boutique hotel in the heart of the business district',
-//     category: 'Business Hotel',
-//     image: '/imgs/destinations/discovery-primea.jpg',
-//     winners: '1 Winner - Discovery Suites Package for two (2)',
-//   },
-//   {
-//     name: 'Discovery Suites',
-//     location: 'Ortigas, Manila',
-//     description:
-//       'Luxury urban retreat with world-class amenities and city skyline views',
-//     category: 'Luxury Hotel',
-//     image: '/imgs/destinations/discovery-suites-view.jpg',
-//     winners: '1 Winner - Discovery Primea Package for two (2)',
-//   },
-// ];
-
 import {
   blurImgSamal,
   blurImgCoron,
@@ -64,7 +17,7 @@ export const destinationsData = [
   {
     name: 'Discovery Coron',
     location: 'Coron, Palawan',
-    image: '/imgs/destinations/coron-palawan-islands.jpg',
+    image: '/imgs/destinations/coron-palawan-island.jpg',
     blurDataURL: blurImgCoron,
     winners: '2 Winners',
   },
@@ -85,7 +38,7 @@ export const destinationsData = [
   {
     name: 'Discovery Suites',
     location: 'Ortigas, Pasig',
-    image: '/imgs/destinations/discovery-suites-view.jpg',
+    image: '/imgs/destinations/discovery-suites.jpg',
     blurDataURL: blurImgSuites,
     winners: '1 Winner',
   },

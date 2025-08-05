@@ -9,11 +9,11 @@ export default function NotFound() {
 
       <main className="flex min-h-[calc(100dvh-215px)] flex-col items-center justify-center">
         <h1 className="mb-4 text-6xl font-bold">404</h1>
-        <p className="mb-8 text-xl text-gray-600">Oops! Page not found.</p>
+        <p className="text-xl text-gray-600">Oops! Page not found.</p>
 
         <Link
           href="/"
-          className="mt-6 inline-block rounded-full bg-warm-red px-6 py-3 text-base font-semibold text-white shadow transition-colors hover:bg-[#b32e1c]"
+          className="mt-8 inline-block rounded-full bg-warm-red px-6 py-3 text-base font-semibold text-white shadow transition-colors hover:bg-[#b32e1c]"
         >
           Go back to Homepage
         </Link>
