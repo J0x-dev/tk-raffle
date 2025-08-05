@@ -66,8 +66,7 @@ export default function SuccessPage() {
               </CardTitle>
               <CardDescription className="mt-2 text-base text-maroon">
                 Hi <span className="font-bold">{fullName}</span> <br />✨ Thank
-                you for joining the Tapa King Royal Escape 38th Anniversary
-                Vacation Raffle! Based on your recent purchase of{' '}
+                you for joining the Tapa King's Discover the Philippines Travel Raffle Promo! <br/> Based on your recent purchase of{' '}
                 <span className="font-bold">{purchaseAmount}</span>, you have
                 earned <span className="font-bold">{raffleEntries}</span> raffle
                 entries!
