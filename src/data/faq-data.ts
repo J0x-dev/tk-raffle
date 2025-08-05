@@ -41,8 +41,10 @@ export default [
             • 1 Winner: Discovery Suites<br/>
             <br/>
             🎁 Consolation Prizes (38 winners):<br/>
-            Gift Certificates worth ₱2,000 to ₱10,000<br/>
-            Gift Boxes and more`,
+            • 10 Winners of Gift Box<br/>
+            • 10 Winners of ₱1,000 Gift Certificates<br/>
+            • 10 Winners of ₱1,5000 Gift Certificates<br/>
+            • 8 Winners of ₱2,000 Gift Certificates<br/>`,
   },
   {
     question: 'Can winners bring a companion?',

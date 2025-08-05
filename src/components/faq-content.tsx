@@ -65,7 +65,7 @@ function AccordionItem({ title, content }: AccordionItemProps) {
 
 export default function FaqContent() {
   return (
-    <div className="mt-12 min-h-[300px] w-full bg-warm-red px-5 pb-8 pt-6 text-white shadow-lg sm:px-8">
+    <div className="mt-8 min-h-[300px] w-full bg-warm-red px-5 pb-8 pt-6 text-white shadow-lg sm:mt-12 sm:px-8">
       <h2 className="mb-4 text-center text-xl text-white sm:text-2xl">
         Frequently Asked Questions (FAQs)
       </h2>
