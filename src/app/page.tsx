@@ -1,11 +1,12 @@
+import Image from 'next/image';
+import JumpLink from '@/components/jump-link';
 import HeadingText from '@/components/heading-text';
-import FaqContent from '@/components/faq-content';
 import InPartnership from '@/components/in-partnership';
 import TravelDestinations from '@/components/travel-destinations';
-import Image from 'next/image';
-import { blurSamalIsland } from '@/data/blurData';
+import ConsolationPrize from '@/components/consolation-prize';
+import FaqContent from '@/components/faq-content';
 import FooterContent from '@/components/footer-content';
-import JumpLink from '@/components/jump-link';
+import { blurSamalIsland } from '@/data/blurData';
 
 export default function Home() {
   return (
@@ -51,6 +52,7 @@ export default function Home() {
         <HeadingText />
         <InPartnership />
         <TravelDestinations />
+        <ConsolationPrize />
         <FaqContent />
       </div>
 
