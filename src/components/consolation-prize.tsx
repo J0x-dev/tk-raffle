@@ -10,7 +10,7 @@ export default function consolationPrize() {
         </h3>
       </div>
       <div className="flex flex-1 flex-col items-center justify-center pt-1 sm:pt-0">
-        <h2 className="text-center text-[22px] font-extrabold text-white sm:text-3xl">
+        <h2 className="text-center text-[22px] font-extrabold leading-[20px] text-white sm:text-3xl">
           Consolation Prize
         </h2>
         <h3 className="text-center text-lg text-white sm:text-2xl">
