@@ -1,6 +1,6 @@
 export default function consolationPrize() {
   return (
-    <div className="mx-auto mt-12 flex min-h-20 w-[calc(100%-40px)] max-w-xl gap-2 rounded-2xl bg-warm-red p-2">
+    <div className="mx-auto mt-12 flex min-h-20 w-[calc(100%-40px)] max-w-[450px] gap-2 rounded-2xl bg-warm-red p-2">
       <div className="flex h-[75px] w-[80px] flex-col items-center justify-center rounded-xl border-2 border-white pt-1.5 sm:h-[85px] sm:w-[90px] sm:pt-2">
         <h2 className="text-[53px] font-extrabold leading-[40px] -tracking-wide text-white sm:text-[58px] sm:leading-[45px]">
           38
