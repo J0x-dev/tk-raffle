@@ -1,4 +1,4 @@
-export default function consolationPrize() {
+export default function ConsolationPrize() {
   return (
     <div className="mx-auto mt-8 flex min-h-20 w-[310px] gap-2 rounded-2xl bg-warm-red p-2 sm:mt-12 sm:w-[450px]">
       <div className="flex h-[65px] w-[70px] flex-col items-center justify-center rounded-xl border-2 border-white pt-2 sm:h-[85px] sm:w-[90px] sm:pt-3">

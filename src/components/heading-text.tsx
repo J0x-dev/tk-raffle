@@ -2,7 +2,7 @@
 
 import { useIsMobile } from '@/hooks/use-mobile';
 
-export default function ExampleText() {
+export default function HeadingText() {
   const isMobile = useIsMobile();
 
   return (
