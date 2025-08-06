@@ -1,45 +1,32 @@
-import {
-  blurImgSamal,
-  blurImgCoron,
-  blurImgBoracay,
-  blurImgPrimea,
-  blurImgSuites,
-} from '@/data/blurData';
-
 export const destinationsData = [
   {
     name: 'Discovery Samal',
     location: 'Samal, Davao del Norte',
-    image: '/imgs/destinations/samal-island-beach.jpg',
-    blurDataURL: blurImgSamal,
+    image: '/imgs/destinations/samal-island-beach.webp',
     winners: '2 Winners',
   },
   {
     name: 'Discovery Coron',
     location: 'Coron, Palawan',
-    image: '/imgs/destinations/coron-palawan-island.jpg',
-    blurDataURL: blurImgCoron,
+    image: '/imgs/destinations/coron-palawan-island.webp',
     winners: '2 Winners',
   },
   {
     name: 'Discovery Boracay',
     location: 'Boracay Island, Aklan',
-    image: '/imgs/destinations/boracay-beach.jpg',
-    blurDataURL: blurImgBoracay,
+    image: '/imgs/destinations/boracay-beach.webp',
     winners: '2 Winners',
   },
   {
     name: 'Discovery Primea',
     location: 'Ayala, Makati',
-    image: '/imgs/destinations/discovery-primea.jpg',
-    blurDataURL: blurImgPrimea,
+    image: '/imgs/destinations/discovery-primea.webp',
     winners: '1 Winner',
   },
   {
     name: 'Discovery Suites',
     location: 'Ortigas, Pasig',
-    image: '/imgs/destinations/discovery-suites.jpg',
-    blurDataURL: blurImgSuites,
+    image: '/imgs/destinations/discovery-suites.webp',
     winners: '1 Winner',
   },
 ];

@@ -6,14 +6,14 @@ import TravelDestinations from '@/components/travel-destinations';
 import ConsolationPrize from '@/components/consolation-prize';
 import FaqContent from '@/components/faq-content';
 import FooterContent from '@/components/footer-content';
-import { blurSamalIsland } from '@/data/blurData';
+import CustomImage from '@/components/custom-image';
 
 export default function Home() {
   return (
     <>
       <div className="relative aspect-[3902/1866] w-full">
         <Image
-          src="/imgs/38th-tk-logo.png"
+          src="/imgs/38th-tk-logo.webp"
           alt="Tapa King Logo"
           width={150}
           height={127}
@@ -21,14 +21,13 @@ export default function Home() {
           priority={true}
         />
 
-        <Image
-          src="/imgs/discovery-samal-island.jpg"
+        <CustomImage
+          src="/imgs/discovery-samal-island.webp"
           alt="Discovery Samal Island"
           fill
           className="object-cover"
-          placeholder="blur"
+          fetchPriority="high"
           priority={true}
-          blurDataURL={blurSamalIsland}
         />
 
         <JumpLink />
@@ -37,14 +36,14 @@ export default function Home() {
       <div className="relative w-full pt-24 sm:pt-[140px]">
         <div
           style={{
-            backgroundImage: "url('/imgs/border.png')",
+            backgroundImage: "url('/imgs/border.webp')",
             backgroundSize: '100%',
           }}
           className="absolute left-0 top-0 z-10 h-full w-3 sm:w-5"
         ></div>
         <div
           style={{
-            backgroundImage: "url('/imgs/border.png')",
+            backgroundImage: "url('/imgs/border.webp')",
             backgroundSize: '100%',
           }}
           className="absolute right-0 top-0 z-10 h-full w-3 sm:w-5"

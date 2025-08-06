@@ -1,12 +1,11 @@
-import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 import { destinationsData } from '../data/destinations-data';
+import CustomImage from './custom-image';
 
 interface Destination {
   name: string;
   image: string;
   location: string;
-  blurDataURL: string;
   winners: string;
 }
 
@@ -21,15 +20,12 @@ export default function TravelDestinations() {
         {destinationsData.map((destination: Destination) => (
           <div className="w-[340px] sm:w-[450px]" key={destination.name}>
             <div className="relative aspect-[450/300] overflow-hidden rounded-md bg-white shadow-lg">
-              <Image
+              <CustomImage
                 src={destination.image}
                 alt={destination.name}
                 fill
                 sizes="(max-width: 450px) 100vw, 450px"
                 className="object-cover object-center"
-                priority={true}
-                placeholder="blur"
-                blurDataURL={destination.blurDataURL}
               />
             </div>
             <div className="mt-1 flex justify-between">
