@@ -32,9 +32,9 @@ export const destinationsData = [
 ];
 
 export const sponsorLogos = [
-  { src: '/imgs/logo/discovery-samal-logo.png', alt: 'Discovery Samal' },
-  { src: '/imgs/logo/discovery-coron-logo.png', alt: 'Discovery Coron' },
-  { src: '/imgs/logo/discovery-boracay-logo.png', alt: 'Discovery Boracay' },
-  { src: '/imgs/logo/discovery-primea-logo.png', alt: 'Discovery Primea' },
-  { src: '/imgs/logo/discovery-suites-logo.png', alt: 'Discovery Suites' },
+  { src: '/imgs/logo/discovery-samal-logo.webp', alt: 'Discovery Samal' },
+  { src: '/imgs/logo/discovery-coron-logo.webp', alt: 'Discovery Coron' },
+  { src: '/imgs/logo/discovery-boracay-logo.webp', alt: 'Discovery Boracay' },
+  { src: '/imgs/logo/discovery-primea-logo.webp', alt: 'Discovery Primea' },
+  { src: '/imgs/logo/discovery-suites-logo.webp', alt: 'Discovery Suites' },
 ];

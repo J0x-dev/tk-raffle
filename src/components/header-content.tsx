@@ -4,7 +4,7 @@ export default function HeaderContent() {
   return (
     <div className="flex h-[100px] w-full items-center justify-center bg-warm-red">
       <Image
-        src="/imgs/tk-white.png"
+        src="/imgs/tk-white.webp"
         alt="Tapa King Logo"
         width={200}
         height={50}

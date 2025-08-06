@@ -3,9 +3,7 @@ import React from 'react';
 export default function TermsContent() {
   return (
     <>
-      <h2 className="text-lg font-bold text-warm-red sm:text-xl">
-        Promo Period:
-      </h2>
+      <h2>Promo Period:</h2>
       <ul className="ml-6 list-disc">
         <li>Starts: August 18, 2025, at 12:01 AM</li>
         <li>Ends: October 31, 2025, at 11:59 PM</li>
@@ -18,7 +16,7 @@ export default function TermsContent() {
         <li>Residents of the Philippines above 13 years of age.</li>
         <li>
           Not eligible: Employees and family members of Tapa King Inc.,
-          Franchisees, Suppliers, and Agencies, including their relatives up to
+          franchisees, suppliers, and agencies, including their relatives up to
           the second degree of consanguinity or affinity.
         </li>
       </ul>
@@ -27,37 +25,73 @@ export default function TermsContent() {
       </h2>
       <ul className="ml-6 list-disc">
         <li>
-          For every P750 dine-in purchase on a single receipt, a customer is
-          entitled to 1 E-raffle entry.
+          For every P750.00 dine-in purchase on a single receipt at any Tapa
+          King branch, the customer is entitled to one (1) e-raffle entry.
         </li>
         <li>
-          Only e-raffle entries submitted until October 31, 2025, 11:59 PM, will
-          qualify.
+          Customers must submit their entry online by scanning the QR code
+          provided at the store or by visiting the official Tapa King E-Raffle
+          Registration Page: www.tkdiscoverphraffle.com.
+        </li>
+        <li>
+          Participants must complete the online form and upload a clear photo of
+          their official receipt.
+        </li>
+        <li>
+          Only e-raffle entries submitted on or before October 31, 2025, at
+          11:59 PM will be considered valid.
         </li>
       </ul>
       <h2 className="mt-4 text-lg font-bold text-warm-red sm:text-xl">
         Prizes:
       </h2>
+      <p>
+        A total of eight (8) major prizes and thirty-eight (38) consolation
+        prizes will be awarded to eligible winners.
+      </p>
+      <h3 className="font-bold">Major Prizes (8 Winners)</h3>
       <ul className="ml-6 list-disc">
         <li>
-          Grand Prizes (for two people with accommodation of Tapa King's
-          choice):
-          <ul className="ml-6 list-disc">
-            <li>2 Winners - Discovery Samal</li>
-            <li>2 Winners - Discovery Coron</li>
-            <li>2 Winners - Discovery Boracay</li>
-            <li>1 Winner - Discovery Suites</li>
-            <li>1 Winner - Discovery Primea</li>
-          </ul>
+          Trip for two (2) to Discovery Samal: This prize will be awarded to two
+          (2) winners. Each winner's prize package includes a 3-day, 2-night
+          stay in a Junior Suite with breakfast and airport transfers.
         </li>
-        <li className="mt-4">
-          Consolation Prizes (38 winners):
-          <ul className="ml-6 list-disc">
-            <li>10 winners of P1,000 Gift Certificates</li>
-            <li>10 winners of Gift Box #9</li>
-            <li>10 winners of P1,500 Gift Certificates</li>
-            <li>8 winners of P2,000 Gift Certificates</li>
-          </ul>
+        <li>
+          Trip for two (2) to Discovery Coron: This prize will be awarded to two
+          (2) winners. Each winner's prize package includes a 3-day, 2-night
+          stay in a Junior Suite with breakfast and airport transfers.
+        </li>
+        <li>
+          Trip for two (2) to Discovery Boracay: This prize will be awarded to
+          two (2) winners. Each winner's prize package includes a 3-day, 2-night
+          stay in a Junior Suite with breakfast and airport transfers.
+        </li>
+        <li>
+          Two (2) Overnight Stay for two (2) at Discovery Primea: This prize
+          will be awarded to one (1) winner. The prize includes breakfast.
+        </li>
+        <li>
+          Two (2) Overnight Stay for two (2) at Discovery Suites: This prize
+          will be awarded to one (1) winner. The prize includes breakfast.
+        </li>
+      </ul>
+      <h3 className="font-bold">Consolation Prizes (38 Winners)</h3>
+      <ul className="ml-6 list-disc">
+        <li>
+          Ten (10) winners will each receive a P1,000 Tapa King Gift
+          Certificate.
+        </li>
+        <li>
+          Ten (10) winners will each receive a P1,500 Tapa King Gift
+          Certificate.
+        </li>
+        <li>
+          Ten (10) winners will each receive a Tapa King products gift box,
+          valued at P1,300 each.
+        </li>
+        <li>
+          Eight (8) winners will each receive a P2,000 Tapa King Gift
+          Certificate.
         </li>
       </ul>
       <h2 className="mt-4 text-lg font-bold text-warm-red sm:text-xl">
@@ -65,33 +99,50 @@ export default function TermsContent() {
       </h2>
       <ul className="ml-6 list-disc">
         <li>
-          International destination will be handled by Tapa King Incorporation's
-          accredited travel agency while local destinations will be handled by
-          Tapa King Marketing personnel.
+          Local destination prize fulfillment will be handled by Tapa King
+          Marketing personnel.
         </li>
         <li>
-          Any resulting fees from changes by the winner will be shouldered by
-          the winner.
+          Any additional fees incurred from prize changes initiated by the
+          winner, including but not limited to travel dates or accommodations,
+          will be the sole responsibility of the winner.
         </li>
         <li>
-          Strictly 4 days and 3 nights (including travel time). Any extensions
-          and related expenses will be shouldered by the winner.
+          The travel prize includes a strict 3-day, 2-night stay (exclusive of
+          travel time) in a Junior Suite, with breakfast and airport transfers.
+          Any extension or related expenses are to be shouldered by the winner.
         </li>
         <li>
-          Winners below 18 years old must be accompanied by a parent/legal
-          guardian with proper legal forms compliant with Philippine government
+          The transportation coverage for the air travel prizes is as follows:
+          <ul className="ml-6 list-disc">
+            <li>Discovery Boracay: Manila-Boracay-Manila</li>
+            <li>Discovery Coron: Manila-Coron-Palawan</li>
+            <li>Discovery Samal: Manila-Davao-Manila</li>
+            <li>
+              Discovery Primea & Discovery Suites are located in Metro Manila.
+              No transportation coverage.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Winners who are below eighteen (18) years of age must be accompanied
+          by a parent or legal guardian. The winner and the guardian must
+          present proper legal forms that comply with all Philippine government
           travel requirements.
+        </li>
+        <li>
+          The travel prize must be redeemed within one (1) year from the date
+          the prize certificate is issued.
         </li>
       </ul>
       <h2 className="mt-4 text-lg font-bold text-warm-red sm:text-xl">
         E-Raffle Draw:
       </h2>
       <ul className="ml-6 list-disc">
-        <li>Date: November 10, 2025 (10 calendar days after promo end)</li>
-        <li>Time: 3:00 PM</li>
+        <li>Date: November 7, 2025; Time: 3:00 PM</li>
         <li>
-          Location: Tapa King Head Office, 16 Armal Compound, Francisco Legapsi
-          St., Mayunga, Pasig City.
+          Location: Tapa King Head Office, #16 Armal Compound, Francisco Legaspi
+          St., Brgy. Maybunga, Pasig City
         </li>
         <li>Will be witnessed by a DTI representative.</li>
       </ul>
@@ -100,8 +151,7 @@ export default function TermsContent() {
       </h2>
       <ul className="ml-6 list-disc">
         <li>
-          Winners will be notified through telephone, registered mail, and
-          email.
+          Winners will be notified through mobile, registered mail, and email.
         </li>
         <li>
           The list of verified winners will be released once verification is
@@ -120,38 +170,32 @@ export default function TermsContent() {
       <h2 className="mt-4 text-lg font-bold text-warm-red sm:text-xl">
         Claiming Prizes:
       </h2>
+      <p>Winner/s must present the following when claiming prize:</p>
       <ul className="ml-6 list-disc">
+        <li>Letter of notification from Tapa King</li>
         <li>
-          Requirements:
-          <ul className="ml-6 list-disc">
-            <li>Letter of notification from Tapa King.</li>
-            <li>
-              Two (2) valid government IDs with a picture (Passport, Driver’s
-              License, SSS or GSIS ID, Postal, Voter’s ID, NBI Clearance, or
-              Company ID).
-            </li>
-            <li>
-              Original receipt and registered mobile number used during entry
-              registration. Duplicated receipts will not be accepted.
-            </li>
-            <li>
-              Winners below 18 years old must be accompanied by a
-              parent/guardian with valid IDs.
-            </li>
-          </ul>
+          Two (2) valid government IDs with a picture (Passport, Driver’s
+          License, SSS or GSIS ID, Postal, Voter’s ID, NBI Clearance, or Company
+          ID)
         </li>
         <li>
-          Claim Location:
-          <ul className="ml-6 list-disc">
-            <li>
-              Tapa King Head Office (16 Armal Compound, Francisco Legapsi St.,
-              Mayunga, Pasig City).
-            </li>
-            <li>
-              Provincial winners may claim their prize at a Tapa King Store
-              branch within their area.
-            </li>
-          </ul>
+          Original receipt and registered mobile number used during entry
+          registration. Duplicated receipts will not be accepted.
+        </li>
+        <li>
+          Winners below 18 years old must be accompanied by a parent/guardian
+          with valid IDs.
+        </li>
+      </ul>
+      <p>Winner/s may claim prize at:</p>
+      <ul className="ml-6 list-disc">
+        <li>
+          Tapa King Head Office (#16 Armal Compound, Francisco Legaspi St.,
+          Brgy. Maybunga, Pasig City)
+        </li>
+        <li>
+          Provincial winners may claim their prize at a Tapa King store branch
+          within their area.
         </li>
         <li>
           Prizes unclaimed sixty (60) days after receipt of notification will be
@@ -171,14 +215,7 @@ export default function TermsContent() {
           winner.
         </li>
         <li>Prizes are transferable but not convertible to cash.</li>
-        <li>
-          Senior citizens can avail of the promotional discount or the discount
-          under the Expanded Senior Citizens Act of 2010, whichever is higher.
-        </li>
       </ul>
-      <p className="mt-4 font-bold">
-        DTI Fair Trade Permit No.: FTEB0000000Series of 2025.
-      </p>
     </>
   );
 }

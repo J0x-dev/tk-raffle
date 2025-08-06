@@ -4,7 +4,7 @@ export default function FooterContent() {
   return (
     <footer className="flex h-[115px] w-full flex-col items-center justify-center text-center text-xs text-maroon">
       <Image
-        src="/imgs/tk-red.png"
+        src="/imgs/tk-red.webp"
         alt="Tapa King Logo"
         width={100}
         height={25}
