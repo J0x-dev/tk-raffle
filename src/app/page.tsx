@@ -25,7 +25,7 @@ export default function Home() {
           src="/imgs/discovery-samal-island.webp"
           alt="Discovery Samal Island"
           fill
-          className="object-cover"
+          fetchPriority="high"
           priority={true}
         />
 

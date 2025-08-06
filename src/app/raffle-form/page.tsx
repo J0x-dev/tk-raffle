@@ -156,9 +156,9 @@ const MemoizedBirthdateCalendar = React.memo(
 MemoizedBirthdateCalendar.displayName = 'MemoizedBirthdateCalendar';
 
 export default function RaffleForm() {
-  const [isEmailFocused, setIsEmailFocused] = React.useState(false);
-  const { toast } = useToast();
   const router = useRouter();
+  const { toast } = useToast();
+  const [isEmailFocused, setIsEmailFocused] = React.useState(false);
   const [isBirthdateOpen, setIsBirthdateOpen] = React.useState(false);
   const [isPurchaseDateOpen, setIsPurchaseDateOpen] = React.useState(false);
   const [imagePreviews, setImagePreviews] = React.useState<string[]>([]);
