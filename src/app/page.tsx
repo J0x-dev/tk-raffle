@@ -26,8 +26,6 @@ export default function Home() {
           alt="Discovery Samal Island"
           fill
           className="object-cover"
-          fetchPriority="high"
-          priority={true}
         />
 
         <JumpLink />
