@@ -27,6 +27,7 @@ export default function TravelDestinations() {
                 fill
                 sizes="(max-width: 450px) 100vw, 450px"
                 className="object-cover object-center"
+                priority={true}
                 placeholder="blur"
                 blurDataURL={destination.blurDataURL}
               />

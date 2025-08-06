@@ -9,7 +9,7 @@ interface SponsorLogo {
 export default function InPartnership() {
   return (
     <>
-      <h2 className="mt-16 mb-5 text-center text-sm sm:text-lg">
+      <h2 className="mb-5 mt-16 text-center text-sm sm:text-lg">
         In partnership with
       </h2>
 
@@ -28,7 +28,7 @@ export default function InPartnership() {
                 width={140}
                 height={94}
                 className="h-full w-auto"
-                priority
+                priority={true}
               />
             </div>
           );
@@ -47,7 +47,7 @@ export default function InPartnership() {
                 width={140}
                 height={94}
                 className="h-full w-auto"
-                priority
+                priority={true}
               />
             </div>
           ))}
@@ -65,7 +65,7 @@ export default function InPartnership() {
               width={140}
               height={94}
               className="h-full w-auto"
-              priority
+              priority={true}
             />
           </div>
         ))}
