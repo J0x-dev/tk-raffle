@@ -1,6 +1,5 @@
 import Image, { ImageProps } from 'next/image';
 import { getBase64 } from '@/lib/getBase64';
-import React from 'react';
 
 type CustomImageProps = Omit<ImageProps, 'placeholder' | 'blurDataURL'> & {
   src: string; // path relative to public folder, e.g., "images/example.jpg"
