@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "echo \"Version: $(git rev-parse --short HEAD)\nBuilt at: $(date -u +'%Y-%m-%dT%H:%M:%SZ')\" > public/version.txt && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
