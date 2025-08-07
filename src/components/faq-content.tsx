@@ -24,16 +24,14 @@ function AccordionItem({ title, content }: AccordionItemProps) {
   }, [isOpen]);
 
   return (
-    <div className="py-3">
-      <div className="flex w-full items-center justify-between">
-        <button
-          onClick={toggleAccordion}
-          className="flex-1 cursor-pointer pr-4 text-left font-semibold text-warm-red focus:outline-none"
-          aria-expanded={isOpen}
-          aria-controls={`accordion-content-${title}`}
-        >
-          {title}
-        </button>
+    <>
+      <button
+        onClick={toggleAccordion}
+        className="mt-3 flex w-full cursor-pointer items-center justify-between space-y-3 text-left font-semibold text-warm-red focus:outline-none"
+        aria-expanded={isOpen}
+        aria-controls={`accordion-content-${title}`}
+      >
+        <span className="flex-1 pr-4">{title}</span>
         <svg
           className={`h-5 w-5 flex-shrink-0 transform transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
@@ -49,19 +47,19 @@ function AccordionItem({ title, content }: AccordionItemProps) {
             d="M19 9l-7 7-7-7"
           />
         </svg>
-      </div>
+      </button>
       <div
         id={`accordion-content-${title}`}
         ref={contentRef}
         style={{ maxHeight: height }}
-        className="overflow-hidden transition-[max-height] duration-500 ease-in-out"
+        className="space-y-3 overflow-hidden transition-[max-height] duration-500 ease-in-out"
       >
         <div
           className="mt-2 text-sm text-maroon"
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
-    </div>
+    </>
   );
 }
 
