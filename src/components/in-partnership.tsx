@@ -28,7 +28,6 @@ export default function InPartnership() {
                 width={140}
                 height={94}
                 className="h-full w-auto"
-                priority={true}
               />
             </div>
           );
@@ -47,7 +46,6 @@ export default function InPartnership() {
                 width={140}
                 height={94}
                 className="h-full w-auto"
-                priority={true}
               />
             </div>
           ))}
@@ -65,7 +63,6 @@ export default function InPartnership() {
               width={140}
               height={94}
               className="h-full w-auto"
-              priority={true}
             />
           </div>
         ))}
