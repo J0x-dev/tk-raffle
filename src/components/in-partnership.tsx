@@ -13,7 +13,7 @@ export default function InPartnership() {
         In partnership with
       </h2>
 
-      <div className="grid grid-cols-3 grid-rows-2 items-center justify-items-center gap-8 px-5 sm:px-20 md:grid-cols-5 md:grid-rows-1 md:px-12">
+      <div className="grid min-h-[130px] grid-cols-3 grid-rows-2 items-center justify-items-center gap-8 px-5 sm:px-20 md:grid-cols-5 md:grid-rows-1 md:px-12">
         {sponsorLogos.map((logo: SponsorLogo, index: number) => {
           if (index === 3 || index === 4) return null;
 
