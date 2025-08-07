@@ -25,13 +25,15 @@ function AccordionItem({ title, content }: AccordionItemProps) {
 
   return (
     <div className="py-3">
-      <button
-        onClick={toggleAccordion}
-        className="flex w-full cursor-pointer items-center justify-between text-left font-semibold text-warm-red focus:outline-none"
-        aria-expanded={isOpen}
-        aria-controls={`accordion-content-${title}`}
-      >
-        <span className="flex-1 pr-4">{title}</span>
+      <div className="flex w-full items-center justify-between">
+        <button
+          onClick={toggleAccordion}
+          className="flex-1 cursor-pointer pr-4 text-left font-semibold text-warm-red focus:outline-none"
+          aria-expanded={isOpen}
+          aria-controls={`accordion-content-${title}`}
+        >
+          {title}
+        </button>
         <svg
           className={`h-5 w-5 flex-shrink-0 transform transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
@@ -47,7 +49,7 @@ function AccordionItem({ title, content }: AccordionItemProps) {
             d="M19 9l-7 7-7-7"
           />
         </svg>
-      </button>
+      </div>
       <div
         id={`accordion-content-${title}`}
         ref={contentRef}
